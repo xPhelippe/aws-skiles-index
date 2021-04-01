@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import skiles_secrets
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'c6ykvc&x9b6*6_jr@o$r3_gsig!iu^w$v^k7stn5^#@^w@d-ll'
+SECRET_KEY = skiles_secrets.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -77,8 +78,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'skilesindex',
-        'USER': 'skiles_user',
-        'PASSWORD': 'theskilesindex',
+        'USER': skiles_secrets.DB_USER,
+        'PASSWORD': skiles_secrets.DB_PASSWORD,
         'HOST': 'db.joanneskiles.com',
         'PORT': '5432',
     }
