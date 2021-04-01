@@ -17,7 +17,7 @@ class StockData(models.Model):
     stock = models.ForeignKey(Stock, on_delete=models.CASCADE)
     timestamp = models.TimeField(auto_now=False,auto_now_add=False)
     interval = models.CharField(max_length=10)
-    _open = models.DecimalField(max_digits=7,decimal_places=2)
+    open = models.DecimalField(max_digits=7,decimal_places=2)
     close = models.DecimalField(max_digits=7,decimal_places=2)
     SMA = models.DecimalField(max_digits=7,decimal_places=2)
     VMA = models.DecimalField(max_digits=7,decimal_places=2)
