@@ -49,7 +49,7 @@ def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 
 
-class favStock(models.Model):
+class FavStock(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     stock = models.ForeignKey(Stock, on_delete=models.CASCADE)
     
