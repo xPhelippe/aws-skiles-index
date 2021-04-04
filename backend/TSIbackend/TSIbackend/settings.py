@@ -19,9 +19,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SELECTED_STOCK_TICKERS = [
     "TSLA",
     "AAPL",
-    "GLD",
     "WKHS",
-    "ABR"
+    "ABR",
 ]
 
 # Quick-start development settings - unsuitable for production
