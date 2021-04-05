@@ -34,7 +34,7 @@ class Profile(models.Model):
         (1,"HIGHRISK"),
     )
 
-    investmentType = models.IntegerField(choices=investmentType)
+    investmentType = models.IntegerField(choices=investmentType, default=0)
 
 
 
