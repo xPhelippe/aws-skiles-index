@@ -9,19 +9,35 @@ from django.dispatch import receiver
 # holds generic infomration about stock
 class Stock(models.Model):
     ticker = models.CharField(max_length=10,unique=True)
-    description = models.CharField(max_length=300)
-    fullName = models.CharField(max_length=20)
+    description = models.CharField(max_length=3000)
+    fullName = models.CharField(max_length=50)
 
 # holds time based data about stock
-class StockData(models.Model):
+class StockDailyData(models.Model):
     stock = models.ForeignKey(Stock, on_delete=models.CASCADE)
-    timestamp = models.TimeField(auto_now=False,auto_now_add=False)
+    timestamp = models.DateTimeField(auto_now=False,auto_now_add=False)
     interval = models.CharField(max_length=10)
     open = models.DecimalField(max_digits=7,decimal_places=2)
+    high = models.DecimalField(max_digits=7,decimal_places=2)
+    low = models.DecimalField(max_digits=7,decimal_places=2)
     close = models.DecimalField(max_digits=7,decimal_places=2)
+
+class StockSMAData(models.Model):
+    stock = models.ForeignKey(Stock, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now=False,auto_now_add=False)
+    interval = models.CharField(max_length=10)
     SMA = models.DecimalField(max_digits=7,decimal_places=2)
-    VMA = models.DecimalField(max_digits=7,decimal_places=2)
+
+class StockVWAPData(models.Model):
+    stock = models.ForeignKey(Stock, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now=False,auto_now_add=False)
+    interval = models.CharField(max_length=10)
     VWAP = models.DecimalField(max_digits=7,decimal_places=2)
+
+class StockRSIData(models.Model):
+    stock = models.ForeignKey(Stock, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now=False,auto_now_add=False)
+    interval = models.CharField(max_length=10)
     RSI = models.DecimalField(max_digits=7,decimal_places=2)
 
 # profile to hold user phone number and their investment type

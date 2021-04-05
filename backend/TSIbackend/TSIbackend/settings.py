@@ -16,12 +16,20 @@ from . import skiles_secrets
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+SELECTED_STOCK_TICKERS = [
+    "TSLA",
+    "AAPL",
+    "WKHS",
+    "ABR",
+]
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = skiles_secrets.SECRET_KEY
+
+ALPHA_VANTAGE_API_KEY = skiles_secrets.ALPHA_VANTAGE_API_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
