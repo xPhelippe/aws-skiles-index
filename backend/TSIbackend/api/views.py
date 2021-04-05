@@ -1,10 +1,9 @@
 from time import sleep
 
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.models import User
-from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
 
@@ -13,6 +12,11 @@ from TSIbackend.settings import ALPHA_VANTAGE_API_KEY, SELECTED_STOCK_TICKERS
 from alpha_vantage.timeseries import TimeSeries
 from alpha_vantage.techindicators import TechIndicators
 from alpha_vantage.fundamentaldata import FundamentalData
+
+from .serializers import UserSerializer, ProfileSerializer
+
+from .models import Profile
+import json
 
 
 # Create your views here.
@@ -34,9 +38,18 @@ def login_user(request):
 
     # see if the password is correct
     if user.check_password(password):
-        
+
+        # serialize user profile
+        userSerial = UserSerializer(user)
+
+        profile = Profile.objects.get(user=user)
+
+        retData = dict()
+        retData.update(userSerial.data)
+        retData.update({"investmentType":profile.investmentType})
+
         # grab user information and send over
-        return HttpResponse("<p> successful Login"
+        return JsonResponse(retData)
     else:
         return HttpResponse("<p>bad password<p>")
 
