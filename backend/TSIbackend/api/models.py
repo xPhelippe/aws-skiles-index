@@ -12,6 +12,9 @@ class Stock(models.Model):
     description = models.CharField(max_length=3000)
     fullName = models.CharField(max_length=50)
 
+    def __str__(self):
+        return self.ticker
+
 # holds time based data about stock
 class StockDailyData(models.Model):
     stock = models.ForeignKey(Stock, on_delete=models.CASCADE)
@@ -43,7 +46,7 @@ class StockRSIData(models.Model):
 # profile to hold user phone number and their investment type
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    phoneNumber = models.CharField(max_length=12)
+    phoneNumber = models.CharField(max_length=12,blank=True)
 
     investmentType = (
         (0,"LOWRISK"),
@@ -52,7 +55,8 @@ class Profile(models.Model):
 
     investmentType = models.IntegerField(choices=investmentType, default=0)
 
-
+    def __str__(self):
+        return str(self.user)
 
 # code to update the user profile whenerver the user is editted
 @receiver(post_save, sender=User)
@@ -66,6 +70,9 @@ def save_user_profile(sender, instance, **kwargs):
 
 
 class FavStock(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,related_name='watchlist')
     stock = models.ForeignKey(Stock, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.user) + ', ' + str(self.stock)
     
