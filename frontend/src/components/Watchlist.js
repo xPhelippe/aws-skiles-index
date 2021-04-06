@@ -42,9 +42,9 @@ class Watchlist extends Component {
                             <tr key={e.id}>
                                 <td>{e.Symbol}</td>
                                 <td>{e.PriceToBookRatio}</td>
+                                <td>{e.PERatio}</td>
                                 <td>{e.PEGRatio}</td>
-                                <td>{e.ShortRatio}</td>
-                                <td>{e.ShortRatio}</td>
+                                <td>{e.PriceToSalesRatioTTM}</td>
                                 <td>{e.ShortRatio}</td>
                             </tr>
                         ))}
@@ -72,10 +72,10 @@ class Watchlist extends Component {
         //this.fetchStockData('TSLA');
         
     }
-    
+/*     
     fetchStockData = async (symbol) => {
-        const result = await getOverviewForSymbol(symbol);
-        console.log(result.data.FullTimeEmployees);
+        //const result = await getOverviewForSymbol(symbol);
+        //console.log(result.data.FullTimeEmployees);
         //console.log(result.data.ShortRatio);
         this.setState({
             priceToBook: 2,
@@ -84,7 +84,7 @@ class Watchlist extends Component {
             shortRatio: result.data.ShortRatio,
         });
         
-    };
+    }; */
 
 
 };
