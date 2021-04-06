@@ -23,12 +23,14 @@ import json
 
 
 @csrf_exempt
-@require_http_methods(['POST']) 
+@require_http_methods(['POST','OPTIONS']) 
 def login_user(request):
 
     # get the username of the user
     username = request.POST.get("username")
     password = request.POST.get("password")
+
+    print(request.POST)
 
     # try to get the user
     try:
@@ -36,9 +38,11 @@ def login_user(request):
     except: 
         return HttpResponse("<p> user DNE <p>")
 
+    print("got the correct user")
     # see if the password is correct
     if user.check_password(password):
 
+        print("password checks out")
         # serialize user profile
         userSerial = UserSerializer(user)
 
@@ -50,7 +54,7 @@ def login_user(request):
 
         # grab user information and send over
         return JsonResponse(retData)
-    else:
+    else: 
         return HttpResponse("<p>bad password<p>")
 
 
