@@ -10,6 +10,17 @@ import Login from "./Login";
 class Home extends Component {
   constructor(props) {
     super(props);
+    
+    let UserData = localStorage.getItem("UserData")
+
+    UserData = JSON.parse(UserData)
+
+    console.log(UserData)
+
+    this.state = {
+      first_name: UserData.first_name,
+      last_name: UserData.last_name
+    }
 
     this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this);
     this.handleLogoutClick = this.handleLogoutClick.bind(this);
@@ -41,7 +52,8 @@ handleLogoutClick() {
             <h1>Welcome to the Skiles Index!</h1>
 
             <h1>Home</h1>
-            <h1>Status: {this.props.loggedInStatus}</h1>
+            <h1>First Name: {this.state.first_name}</h1>
+            <h1>Last Name: {this.state.last_name}</h1>
             <button onClick={() => this.handleLogoutClick()} type="button" class="btn btn-warning" style={{'margin':'20px'}}><a href="/" class="text-white">Log Out</a></button>        
         </div>
 

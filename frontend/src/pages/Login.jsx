@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import logo from '../images/greyLogoCropped.png';
 import axios from "axios";
+import {withRouter} from 'react-router-dom';
 
 export default class Login extends Component {
   constructor(props) {
@@ -22,30 +23,50 @@ export default class Login extends Component {
     });
   }
 
-  handleSubmit(event) {
+  handleSubmit = () => {
+    
+    
     const { username, password } = this.state;
-// TODO: put in correct api connection
-/*     axios
+    const params = {
+      "username": username,
+      "password": password
+    }
+
+    let Json = JSON.stringify(params)
+    //Json = JSON.parse(Json)
+    console.log(Json);
+
+    const querystring = require('querystring');
+   
+    
+      axios
       .post(
-        "<api location it's posting to>",
+        "http://127.0.0.1:8000/login/", querystring.stringify(
         {
-          user: {
-            username: username,
-            password: password
-          }
-        },
-        { withCredentials: true }
+          "username":username,
+          "password":password,
+        })
+                
       )
       .then(response => {
-        if (response.data.logged_in) {
-          this.props.handleSuccessfulAuth(response.data);
-        }
+
+      //this.props.handleSuccessfulAuth(response.data);
+        
+        
+        console.log(response.data)
+        localStorage.setItem("UserData", JSON.stringify(response.data))
+
+
+        
       })
       .catch(error => {
         console.log("login error", error);
-      }); */
-    event.preventDefault();
+      });
+
+      //event.preventDefault();
+      
   }
+
 
   render() {
     return (
@@ -53,7 +74,7 @@ export default class Login extends Component {
 			<img className="App-logo" style={{'margin-bottom': '50px'}} src={logo} alt="Avatar"/>
             <h2 class="text-center margin-40">Member Login</h2>
                 <div>
-                    <form onSubmit={this.handleSubmit}>
+                   {/* <form onSubmit={this.handleSubmit} method="POST"> */}
                     <div className="form-group" style={{'margin-top': '25px'}}>
                         <input
                             className="form-control"
@@ -79,9 +100,12 @@ export default class Login extends Component {
                     </div>
         
                     <div class="form-group">
-                        <button type="submit" class="btn btn-warning btn-lg btn-block">Sign in</button>
+                        <button /* type="submit" */ onClick={this.handleSubmit} class="btn btn-warning btn-lg btn-block"> Sign In </button>
                     </div>
-                </form>
+                    <div>
+                      <button class="btn btn-warning btn-lg btn-block"><a href='/home' style={{'color':'black'}}> Proceed</a> </button>
+                    </div>
+                  {/* </form> */}
             </div>
         </div>
     );
