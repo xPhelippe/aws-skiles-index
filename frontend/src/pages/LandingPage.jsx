@@ -14,9 +14,9 @@ function LandingPage() {
                 Customized for your investment goals <br/>
             </p>
 
-            <div class="text-end"style={{'justify-content': 'flex-end'}} className={"button"}>
-                <button type="button" class="btn btn-outline-light me-2"><a href="/login" class="text-white">Login</a></button>
-                <button type="button" class="btn btn-warning" style={{'margin':'20px'}}><a href="/sign-up" class="text-white">Sign Up</a></button>
+            <div className="text-end"style={{'justify-content': 'flex-end'}} className={"button"}>
+                <button type="button" className="btn btn-outline-light me-2"><a href="/login" className="text-white">Login</a></button>
+                <button type="button" className="btn btn-warning" style={{'margin':'20px'}}><a href="/sign-up" className="text-white">Sign Up</a></button>
             </div>
         
         </div>

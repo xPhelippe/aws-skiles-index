@@ -17,7 +17,7 @@ import Login from './pages/Login';
 import Graphs from './pages/Graphs';
 import Watchlist from './components/Watchlist';
 import Education from './pages/Education';
-import OverviewData from './data/overviewData';
+//import OverviewData from './data/overviewData';
 
 class App extends Component {
   render() {
@@ -37,7 +37,7 @@ class App extends Component {
           <Route exact path="/graphs" component={Graphs} />
           <Route exact path="/watchlist" component={Watchlist} />
           <Route exact path="/education" component={Education} />
-          <Route exact path="/overview" component={OverviewData} />
+          {/* <Route exact path="/overview" component={OverviewData} /> */}
 
           </div>
         </div>

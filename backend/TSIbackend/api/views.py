@@ -1,7 +1,11 @@
 from time import sleep
 
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
+from django.views.decorators.http import require_http_methods
+from django.contrib.auth.models import User
+from django.views.decorators.csrf import csrf_exempt
+
 
 from api.models import Stock, StockDailyData, StockSMAData, StockVWAPData, StockRSIData
 from TSIbackend.settings import ALPHA_VANTAGE_API_KEY, SELECTED_STOCK_TICKERS
@@ -9,8 +13,50 @@ from alpha_vantage.timeseries import TimeSeries
 from alpha_vantage.techindicators import TechIndicators
 from alpha_vantage.fundamentaldata import FundamentalData
 
+from .serializers import UserSerializer, ProfileSerializer
+
+from .models import Profile
+import json
+
 
 # Create your views here.
+
+
+@csrf_exempt
+@require_http_methods(['POST','OPTIONS']) 
+def login_user(request):
+
+    # get the username of the user
+    username = request.POST.get("username")
+    password = request.POST.get("password")
+
+    print(request.POST)
+
+    # try to get the user
+    try:
+        user = User.objects.get(username=username)
+    except: 
+        return HttpResponse("<p> user DNE <p>")
+
+    print("got the correct user")
+    # see if the password is correct
+    if user.check_password(password):
+
+        print("password checks out")
+        # serialize user profile
+        userSerial = UserSerializer(user)
+
+        profile = Profile.objects.get(user=user)
+
+        retData = dict()
+        retData.update(userSerial.data)
+        retData.update({"investmentType":profile.investmentType})
+
+        # grab user information and send over
+        return JsonResponse(retData)
+    else: 
+        return HttpResponse("<p>bad password<p>")
+
 
 def update_stock_data(request):
     DEFAULT_SERIES_TYPE = 'close'
@@ -97,3 +143,4 @@ def update_stock_data(request):
             db_rsi_data.save()
 
     return HttpResponse("TEST")
+

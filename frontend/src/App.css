@@ -18,12 +18,12 @@
 .Landing-page {
   height: 50vmin;
   /* pointer-events: none; */
-  font-family: "Lucida Console", "Courier New", monospace;
+  font-family: "Lucida Console", "Courier New" /* , monospace */;
   text-align: center;
 }
 
 .Lucida {
-  font-family: "Lucida Console", "Courier New", monospace;
+  font-family: "Lucida Console", "Courier New" /* , monospace */;
   text-align: center;
 }
 
@@ -50,7 +50,7 @@
   /* justify-content: flex-start; */
   /* font-size: calc(10px + 1vmin); */
   color: white;
-  font-family: "Lucida Console", "Courier New", monospace;
+  font-family: "Lucida Console", "Courier New" /* , monospace */;
   font-weight: bold;
 }
 
@@ -67,7 +67,7 @@
 }
 
 .h2 {
-  font-family: "Lucida Console", "Courier New", monospace;
+  font-family: "Lucida Console", "Courier New" /* , monospace */;
   font-weight: bold;
   animation: example2 2s ease-out;
   margin-top: 20px;
@@ -75,7 +75,7 @@
 }
 
 .button {
-  font-family: "Lucida Console", "Courier New", monospace;
+  font-family: "Lucida Console", "Courier New" /* , monospace */;
   font-weight: bold;
 }
 
@@ -132,7 +132,7 @@
 }
 
 .card-body {
-  font-family: "Lucida Console", "Courier New", monospace;
+  font-family: "Lucida Console", "Courier New" /* , monospace */;
   font-weight: bold;
   color: black;
 }

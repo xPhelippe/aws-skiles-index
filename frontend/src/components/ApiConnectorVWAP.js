@@ -4,12 +4,14 @@ const axiosInstance = axios.create({
     baseURL:'https://www.alphavantage.co/query'
 });
 
-export const getDailyChartForSymbol = (symbol) => {
+export const getVWAPForSymbol = (symbol) => {
     return axiosInstance.get('', {
         params: {
-            function: 'TIME_SERIES_DAILY', 
+            function: 'VWAP', 
             symbol,
-            apikey: 'XDA8VT0V9BKZ6C1A'
+            apikey: 'XDA8VT0V9BKZ6C1A',
+            interval: '30min',
         }
     })
+
 }
