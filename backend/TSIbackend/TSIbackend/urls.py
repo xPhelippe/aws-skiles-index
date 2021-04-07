@@ -21,5 +21,6 @@ from api import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/',views.login_user),
-    path('update_stock_data', views.update_stock_data, name='update_stock_data')
+    path('update_stock_data/', views.update_stock_data, name='update_stock_data'),
+    path('add_to_watchlist/', views.add_to_watchlist, name='add_to_watchlist')
 ]
