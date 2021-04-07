@@ -22,5 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/',views.login_user),
     path('update_stock_data/', views.update_stock_data, name='update_stock_data'),
-    path('add_to_watchlist/', views.add_to_watchlist, name='add_to_watchlist')
+    path('add_to_watchlist/', views.add_to_watchlist, name='add_to_watchlist'),
+    path('change_user_info/',views.change_user_info,name='change_user_info')
 ]
