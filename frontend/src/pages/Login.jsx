@@ -103,9 +103,9 @@ export default class Login extends Component {
                     <div className="form-group">
                         <button /* type="submit" */ onClick={this.handleSubmit} class="btn btn-warning btn-lg btn-block"> Sign In </button>
                     </div>
-                    <div>
+                    {/* <div>
                       <button className="btn btn-warning btn-lg btn-block"><a href='/home' style={{'color':'black'}}> Proceed</a> </button>
-                    </div>
+                    </div> */}
                   {/* </form> */}
             </div>
         </div>
