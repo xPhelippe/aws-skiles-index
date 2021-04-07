@@ -24,6 +24,6 @@ urlpatterns = [
     path('update_stock_data/', views.update_stock_data, name='update_stock_data'),
     path('add_to_watchlist/', views.add_to_watchlist, name='add_to_watchlist'),
     path('change_user_info/',views.change_user_info,name='change_user_info'),
-    path('remove_from_watchlist/',views.remove_from_watchlist, name='chage_user_info'),
-    path('create_user/',views.create_user, name='create_user')
+    path('remove_from_watchlist/', views.remove_from_watchlist, name='chage_user_info'),
+    path('create_user/', views.create_user, name='create_user')
 ]
