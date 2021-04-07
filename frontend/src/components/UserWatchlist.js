@@ -6,7 +6,7 @@ import logo from '../images/greyLogoCropped.png';
 
 import contacts from '../data/data.json';
 
-class Watchlist extends Component {
+class UserWatchlist extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -19,13 +19,27 @@ class Watchlist extends Component {
         }
     }
 
-
+    stockTicker = {
+        "TSLA": 0,
+        1: "AAPL",
+        2: "WKHS",
+        3: "ABR" 
+    }
+    
+    look() {
+        console.log(this.props.stockName)
+        console.log(contacts[this.stockTicker.TSLA].ShortRatio)
+    }
+   
 
     render() {
         return (
             // uncomment to use the state set by data from the api call
             //<span>PB: {this.getPB()}</span> 
             <div className="Content">
+                <div>{this.look()}</div>
+                {/* <h1>{this.props.stockName[1].stock.ticker}</h1> */}
+                <div>{this.props.stockName.map((item, index) => (<h1>{item.stock.ticker}</h1>))}</div>
                 <table className="table table-striped table-dark" style={{'margin-top': '25px'}} >
                     <thead>
                         <tr>
@@ -38,6 +52,7 @@ class Watchlist extends Component {
                         </tr>
                     </thead>
                     <tbody>
+
                         {contacts.map(e=> (
                             <tr key={e.id}>
                                 <td>{e.Symbol}</td>
@@ -90,4 +105,4 @@ class Watchlist extends Component {
 };
 
 
-export default Watchlist;
+export default UserWatchlist;

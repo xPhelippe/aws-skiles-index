@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import logo from '../images/greyLogoCropped.png';
 import axios from "axios";
 import {withRouter} from 'react-router-dom';
+import { useHistory } from "react-router"
 
 export default class Login extends Component {
   constructor(props) {
@@ -56,7 +57,7 @@ export default class Login extends Component {
         console.log(response.data)
         localStorage.setItem("UserData", JSON.stringify(response.data))
 
-
+        this.props.history.push('/home');
         
       })
       .catch(error => {
@@ -99,11 +100,11 @@ export default class Login extends Component {
                         />
                     </div>
         
-                    <div class="form-group">
+                    <div className="form-group">
                         <button /* type="submit" */ onClick={this.handleSubmit} class="btn btn-warning btn-lg btn-block"> Sign In </button>
                     </div>
                     <div>
-                      <button class="btn btn-warning btn-lg btn-block"><a href='/home' style={{'color':'black'}}> Proceed</a> </button>
+                      <button className="btn btn-warning btn-lg btn-block"><a href='/home' style={{'color':'black'}}> Proceed</a> </button>
                     </div>
                   {/* </form> */}
             </div>

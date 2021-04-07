@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { CanvasJSChart } from 'canvasjs-react-charts';
-import { getWMAForSymbol } from './ApiConnectorWMA';
+import { getVWAPForSymbol } from './ApiConnectorVWAP';
 
-const WMA = () => {
+const VWAP = () => {
     const [stockData, setStockData] = useState([]);
 
     // Fetch daily stock chart for TSLA when the component mounts
     useEffect(() => {
         const fetchStockData = async () => {
-            const result = await getWMAForSymbol('TSLA');
+            const result = await getVWAPForSymbol('TSLA');
             console.log(result.data);
-            setStockData(formatStockData(result.data['Technical Analysis: WMA']));
+            setStockData(formatStockData(result.data['Technical Analysis: VWAP']));
             console.log(stockData)
         };
 
@@ -33,15 +33,9 @@ const WMA = () => {
                     {
                         type: "line",
                         markerSize: 12,
-                  /*       dataPoints: [
-                            { x: new Date(2016, 2), y: 5.382 },
-                            { x: new Date(2016, 5), y: 6.436 },
-                            { x: new Date(2016, 8), y: 7.011 },
-                            { x: new Date(2016, 11), y: 8.809 }
-                        ] */
                         dataPoints: stockData.map(stockData => ({
                             x: new Date(stockData.date),
-                            y: stockData.sma
+                            y: stockData.vwap
                             
                         }))
                     }
@@ -59,9 +53,9 @@ function formatStockData(stockData) {
 
         return {
             date,
-            sma: Number(priceData['WMA'])
+            vwap: Number(priceData['VWAP'])
         }
     });
 }
 
-export default WMA;
+export default VWAP;

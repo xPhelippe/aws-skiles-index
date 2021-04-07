@@ -6,6 +6,8 @@ import axios from "axios";
 
 import Signup from "./SignUp";
 import Login from "./Login";
+import UserWatchlist from "../components/UserWatchlist";
+
 
 class Home extends Component {
   constructor(props) {
@@ -19,7 +21,9 @@ class Home extends Component {
 
     this.state = {
       first_name: UserData.first_name,
-      last_name: UserData.last_name
+      last_name: UserData.last_name,
+      investmentType: UserData.investmentType,
+      watchlist: UserData.watchlist
     }
 
     this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this);
@@ -54,7 +58,20 @@ handleLogoutClick() {
             <h1>Home</h1>
             <h1>First Name: {this.state.first_name}</h1>
             <h1>Last Name: {this.state.last_name}</h1>
-            <button onClick={() => this.handleLogoutClick()} type="button" class="btn btn-warning" style={{'margin':'20px'}}><a href="/" class="text-white">Log Out</a></button>        
+            <h1>Investment Type: {this.state.investmentType}</h1>
+            {/* <h1>Watchlist: {this.state.watchlist[0].stock.ticker}</h1> */}
+            <h1>
+              Watchlist:
+              {this.state.watchlist.map((item,index) => (
+                <h1>{item.stock.ticker},</h1>
+              ))}
+            </h1>
+            from UserWathlist with props:
+            <UserWatchlist stockName={this.state.watchlist} />
+
+
+
+            <button onClick={() => this.handleLogoutClick()} type="button" className="btn btn-warning" style={{'margin':'20px'}}><a href="/" className="text-white">Log Out</a></button>        
         </div>
 
       </div>
