@@ -5,22 +5,96 @@ from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
-
-
 from api.models import Stock, StockDailyData, StockSMAData, StockVWAPData, StockRSIData
 from TSIbackend.settings import ALPHA_VANTAGE_API_KEY, SELECTED_STOCK_TICKERS
 from alpha_vantage.timeseries import TimeSeries
 from alpha_vantage.techindicators import TechIndicators
 from alpha_vantage.fundamentaldata import FundamentalData
+from .serializers import UserSerializer, ProfileSerializer, WatchListSerializer
 
-from .serializers import UserSerializer, ProfileSerializer
-
-from .models import Profile
+from .models import Profile, Stock, FavStock
 import json
 
 
-# Create your views here.
+# adding a stock to the user's watchlist
+# inputs:
+# - username 
+# - ticker
+# outputs:
+# - success message
+@csrf_exempt
+@require_http_methods(['POST','OPTIONS']) 
+def add_to_watchlist(request):
 
+    # grab info from request
+    username = request.POST.get("username")
+    ticker = request.POST.get("ticker")
+
+    # grab the relevant information from the database
+    try:
+        user = User.objects.get(username=username)
+    except:
+        res = {
+        "status":"User does not exist"
+        }
+
+        return JsonResponse(res)
+    
+    try:
+        stock = Stock.objects.get(ticker=ticker)
+    except:
+        res = {
+        "status":"Invalid ticker"
+        }
+
+        return JsonResponse(res)
+        
+    favStock = FavStock.objects.filter(user=user,stock=stock)
+
+    if len(favStock) == 0:
+
+        # add stock to watchlist
+        FavStock.objects.create(
+        user = user,
+        stock = stock
+        )
+
+        # construct array of current watch list
+        retStocks = []
+        favstock_set = FavStock.objects.filter(user=user)
+        for item in favstock_set:
+            retStocks.append(str(item.stock))
+
+        # create return object
+        res = {
+        "status":"success",
+        "watchlist": retStocks
+
+        }
+        return JsonResponse(res)
+    else:
+
+        print(favStock)
+        res = {
+        "status":"User already has this on their watchlist"
+        }
+
+        return JsonResponse(res)
+
+        
+
+
+
+# Logging in the user
+# POST request inputs:
+# - username
+# - password
+# return:
+# - username
+# - first_name
+# - last_name
+# - watchlist
+# - risk type
 
 @csrf_exempt
 @require_http_methods(['POST','OPTIONS']) 
