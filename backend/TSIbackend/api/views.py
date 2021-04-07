@@ -15,6 +15,123 @@ from .serializers import UserSerializer, ProfileSerializer, WatchListSerializer
 from .models import Profile, Stock, FavStock
 import json
 
+# modifying a user's data
+# inputs:
+# - username [required]
+# - first_name [optional]
+# - last_name  [optional]
+# - risk_type [optional]
+# - email [optional]
+# - Phone number [optional]
+# outputs:
+# - success message 
+# - new user information
+@csrf_exempt
+@require_http_methods(['POST','OPTIONS']) 
+def change_user_info(request):
+
+    # get username from post request
+    username = request.POST.get('username')
+
+    # response dictionary
+    resp = dict()
+
+    resp.update({"status":""})
+
+    # grab the relevant information from the database
+    try:
+        user = User.objects.get(username=username)
+        resp['status'] = "user updated successfully"
+    except:
+        resp["status"] = "User does not exist"
+        return JsonResponse(resp)
+
+    
+
+    userchanges = dict()
+    
+
+    # modify first_name
+    first_name = request.POST.get('first_name')
+    if first_name:
+        
+        user.first_name = first_name
+
+        userchanges.update({
+            "first_name":first_name
+        })
+
+    else:
+        pass
+    
+    # modify last_name
+    last_name = request.POST.get('last_name')
+    if last_name:
+        
+        user.last_name = last_name 
+
+        userchanges.update({
+            "last_name":last_name
+        })
+        
+
+    else:
+        pass
+
+    # modify phonenumber
+    phonenumber = request.POST.get('phonenumber')
+    if phonenumber:
+        
+        user.profile.phoneNumber = phonenumber 
+
+        userchanges.update({
+            "phonenumber":phonenumber
+        })
+    else:
+        pass
+
+    # modify email
+    email = request.POST.get('email')
+    if email:
+        
+        user.email = email 
+
+        userchanges.update({
+            "email":email
+        })
+    else:
+        pass
+
+     # modify risk type
+    risk_type = request.POST.get('risk_type')
+    if risk_type:
+        
+        user.profile.investmentType = risk_type
+
+        userchanges.update({
+            "risk_type":risk_type
+        })
+    else:
+        pass
+    
+
+    resp.update({
+        "changes":userchanges
+    })
+    
+    print(user.first_name)
+    print(user.last_name)
+    print(user.email)
+    print(user.profile.phoneNumber)
+    print(str(user.profile.investmentType))
+
+    user.save()
+
+    return JsonResponse(resp)
+    
+
+
+
 
 # adding a stock to the user's watchlist
 # inputs:
