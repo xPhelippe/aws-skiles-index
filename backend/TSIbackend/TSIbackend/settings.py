@@ -40,6 +40,13 @@ ALLOWED_HOSTS = [
     'localhost'
 ]
 
+# cors whitelist
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000'
+]
+
+# for dev only
+CORS_ALLOW_ALL_ORIGINS = True
 
 # Application definition
 
@@ -141,7 +148,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# cors whitelist
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000'
-]
+
