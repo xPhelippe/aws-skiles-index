@@ -130,6 +130,59 @@ def change_user_info(request):
     return JsonResponse(resp)
     
 
+# removing a stock from the user's watchlist
+# inputs:
+# - username
+# - ticker
+# output:
+# - status message
+@csrf_exempt
+@require_http_methods(['POST','OPTIONS']) 
+def remove_from_watchlist(request):
+    # grab info from request
+    username = request.POST.get("username")
+    ticker = request.POST.get("ticker")
+
+    # grab the relevant information from the database
+    try:
+        user = User.objects.get(username=username)
+    except:
+        res = {
+        "status":"User does not exist"
+        }
+
+        return JsonResponse(res)
+    
+    try:
+        stock = Stock.objects.get(ticker=ticker)
+    except:
+        res = {
+        "status":"Invalid ticker"
+        }
+
+        return JsonResponse(res)
+
+
+    favStock = FavStock.objects.filter(user=user,stock=stock)
+
+    if favStock:
+        favStock.delete()
+
+        res = {
+            "status": ticker + " was removed from " + username +"'s watchlist"
+        }
+
+        return JsonResponse(res)
+    else:
+        res = {
+            "status": ticker + " is not on " + username +"'s watchlist"
+        }
+
+        return JsonResponse(res)
+    
+    
+
+    
 
 
 
