@@ -15,6 +15,82 @@ from .serializers import UserSerializer, ProfileSerializer, WatchListSerializer
 from .models import Profile, Stock, FavStock
 import json
 
+
+# Create a user
+# inputs:
+# - username [required]
+# - password [required]
+# - first_name  [required]
+# - last_name [required]
+# - email [optional]
+# - phonenumber [optional]
+# - risk_type [optional]
+# outputs:
+# - status message
+# - user object of information
+@csrf_exempt
+@require_http_methods(['POST','OPTIONS']) 
+def create_user(request):
+    
+    # grabbing relevant infromation from post
+    username = request.POST.get('username')
+    password = request.POST.get('password')
+    first_name = request.POST.get('first_name')
+    last_name = request.POST.get('last_name')
+    email = request.POST.get('email')
+    phonenumber = request.POST.get('phonenumber')
+    risk_type = request.POST.get('risk_type')
+
+    print(username)
+    print(password)
+    print(first_name)
+    print(last_name)
+    print(email)
+    print(phonenumber)
+    print(risk_type)
+
+    # set empty values if fields are empty
+    if not email:
+        email = " "
+
+    if not first_name: 
+        first_name = " "
+    
+    if not last_name:
+        last_name = " "
+
+    # see if user already exists 
+    try:
+        user = User.objects.get(username=username)
+
+        resp = {
+            "status":"User already exists"
+        }
+
+        return JsonResponse(resp)
+    except:
+        pass
+
+    # create user
+    user = User(
+        username=username,
+        first_name=first_name,
+        last_name=last_name,
+        email=email,
+    )
+    user.set_password(password)
+    user.save()
+
+    user.profile.phoneNumber = phonenumber
+    user.profile.risk_type = risk_type
+
+    resp = {
+        "status":"user " + user.username + " successfully created"
+    }
+    return JsonResponse(resp)
+
+
+
 # modifying a user's data
 # inputs:
 # - username [required]
