@@ -19,29 +19,34 @@ class UserWatchlist extends Component {
         }
     }
 
-    stockTicker = {
-        "TSLA": 0,
-        1: "AAPL",
-        2: "WKHS",
-        3: "ABR" 
+    getDataIndex(ticker) {
+        const stockTicker = {
+            "TSLA": 0,
+            "AAPL": 1,
+            "WKHS": 2,
+            "ABR": 3,
+            "GOOGL": 4
+        }
+
+        const index = Number(stockTicker[ticker]);
+        console.log(index);
+        return index;
     }
-    
-    look() {
-        console.log(this.props.stockName)
-        console.log(contacts[this.stockTicker.TSLA].ShortRatio)
-    }
-   
+
 
     render() {
         return (
             // uncomment to use the state set by data from the api call
             //<span>PB: {this.getPB()}</span> 
             <div className="Content">
-                <div>{this.look()}</div>
-                {/* <h1>{this.props.stockName[1].stock.ticker}</h1> */}
-                <div>{this.props.stockName.map((item, index) => (<h1>{item.stock.ticker}</h1>))}</div>
-                <table className="table table-striped table-dark" style={{'margin-top': '25px'}} >
-                    <thead>
+{/*                 <div>{this.props.stockName.map((item, index) => (<h1>{item.stock.ticker}</h1>))}</div>
+ */}
+
+                <table className="table table-striped text-white" >
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Watchlist</th>
+                        </tr>
                         <tr>
                             <th>Symbol</th>
                             <th>P/B Ratio</th>
@@ -52,20 +57,20 @@ class UserWatchlist extends Component {
                         </tr>
                     </thead>
                     <tbody>
-
-                        {contacts.map(e=> (
-                            <tr key={e.id}>
-                                <td>{e.Symbol}</td>
-                                <td>{e.PriceToBookRatio}</td>
-                                <td>{e.PERatio}</td>
-                                <td>{e.PEGRatio}</td>
-                                <td>{e.PriceToSalesRatioTTM}</td>
-                                <td>{e.ShortRatio}</td>
+                        {this.props.stockName.map(item=> (
+                            <tr key={item.id}>
+                                <td>{contacts[this.getDataIndex(item.stock.ticker)].Symbol}</td>
+                                <td>{contacts[this.getDataIndex(item.stock.ticker)].PriceToBookRatio}</td>
+                                <td>{contacts[this.getDataIndex(item.stock.ticker)].PERatio}</td>
+                                <td>{contacts[this.getDataIndex(item.stock.ticker)].PEGRatio}</td>
+                                <td>{contacts[this.getDataIndex(item.stock.ticker)].PriceToSalesRatioTTM}</td>
+                                <td>{contacts[this.getDataIndex(item.stock.ticker)].ShortRatio}</td>
                             </tr>
                         ))}
                     </tbody>
 
-                </table> 
+                </table>
+
             </div>
         );
     }
