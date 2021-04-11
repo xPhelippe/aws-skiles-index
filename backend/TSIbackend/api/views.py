@@ -15,6 +15,8 @@ from .serializers import UserSerializer, ProfileSerializer, WatchListSerializer
 from .models import Profile, Stock, FavStock
 import json
 
+from django.core.exceptions import ObjectDoesNotExist
+
 
 # Create a user
 # inputs:
@@ -53,11 +55,30 @@ def create_user(request):
     if not email:
         email = " "
 
-    if not first_name: 
-        first_name = " "
+
+    # checking for required fields
+    missing = []
+
+    if not first_name:
+        missing.append("first_name")
     
     if not last_name:
-        last_name = " "
+        missing.append("last_name")
+
+    if not username:
+        missing.append("username")
+    
+    if not password:
+        missing.append("password")
+
+    if len(missing) > 0:
+        resp = {
+            "status":"missing required information",
+            "missing":missing
+        }
+
+        return JsonResponse(resp,status=200)
+        
 
     # see if user already exists 
     try:
@@ -67,27 +88,36 @@ def create_user(request):
             "status":"User already exists"
         }
 
-        return JsonResponse(resp)
-    except:
-        pass
+        return JsonResponse(resp,status=200)
+    except ObjectDoesNotExist:
+        # create user
+        user = User(
+            username=username,
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+        )
+        user.set_password(password)
+        user.save()
 
-    # create user
-    user = User(
-        username=username,
-        first_name=first_name,
-        last_name=last_name,
-        email=email,
-    )
-    user.set_password(password)
-    user.save()
+        user.profile.phoneNumber = phonenumber
+        user.profile.risk_type = risk_type
 
-    user.profile.phoneNumber = phonenumber
-    user.profile.risk_type = risk_type
+        resp = {
+            "status":"user " + user.username + " successfully created"
+        } 
+        
+        return JsonResponse(resp, status_code=200)
+    except Exception:
 
-    resp = {
-        "status":"user " + user.username + " successfully created"
-    }
-    return JsonResponse(resp)
+        resp = {
+            "status": "Error Occured"
+        }
+        print(str(Exception))
+
+        return JsonResponse(resp,status_code=500)
+
+    
 
 
 
@@ -118,15 +148,20 @@ def change_user_info(request):
     try:
         user = User.objects.get(username=username)
         resp['status'] = "user updated successfully"
-    except:
+    except ObjectDoesNotExist:
         resp["status"] = "User does not exist"
-        return JsonResponse(resp)
+        return JsonResponse(resp,status=200)
+    except Exception:
 
+        resp = {
+            "status": "Error Occured"
+        }
+        print(str(Exception))
+
+        return JsonResponse(resp,status_code=500)
     
-
     userchanges = dict()
     
-
     # modify first_name
     first_name = request.POST.get('first_name')
     if first_name:
@@ -136,9 +171,6 @@ def change_user_info(request):
         userchanges.update({
             "first_name":first_name
         })
-
-    else:
-        pass
     
     # modify last_name
     last_name = request.POST.get('last_name')
@@ -149,10 +181,6 @@ def change_user_info(request):
         userchanges.update({
             "last_name":last_name
         })
-        
-
-    else:
-        pass
 
     # modify phonenumber
     phonenumber = request.POST.get('phonenumber')
@@ -163,8 +191,6 @@ def change_user_info(request):
         userchanges.update({
             "phonenumber":phonenumber
         })
-    else:
-        pass
 
     # modify email
     email = request.POST.get('email')
@@ -175,8 +201,6 @@ def change_user_info(request):
         userchanges.update({
             "email":email
         })
-    else:
-        pass
 
      # modify risk type
     risk_type = request.POST.get('risk_type')
@@ -187,8 +211,6 @@ def change_user_info(request):
         userchanges.update({
             "risk_type":risk_type
         })
-    else:
-        pass
     
 
     resp.update({
@@ -203,7 +225,7 @@ def change_user_info(request):
 
     user.save()
 
-    return JsonResponse(resp)
+    return JsonResponse(resp,status=200)
     
 
 # removing a stock from the user's watchlist
@@ -279,21 +301,39 @@ def add_to_watchlist(request):
     # grab the relevant information from the database
     try:
         user = User.objects.get(username=username)
-    except:
+    except ObjectDoesNotExist:
         res = {
         "status":"User does not exist"
         }
 
-        return JsonResponse(res)
+        return JsonResponse(res,status=200)
+    except Exception:
+
+        resp = {
+            "status": "Error Occured"
+        }
+        print(str(Exception))
+
+        return JsonResponse(resp,status_code=500)
+
     
     try:
         stock = Stock.objects.get(ticker=ticker)
-    except:
+    except ObjectDoesNotExist:
         res = {
         "status":"Invalid ticker"
         }
 
-        return JsonResponse(res)
+        return JsonResponse(res,status=200)
+    except Exception:
+
+        resp = {
+            "status": "Error Occured"
+        }
+        print(str(Exception))
+
+        return JsonResponse(resp,status_code=500)
+
         
     favStock = FavStock.objects.filter(user=user,stock=stock)
 
@@ -317,7 +357,7 @@ def add_to_watchlist(request):
         "watchlist": retStocks
 
         }
-        return JsonResponse(res)
+        return JsonResponse(res,status=200)
     else:
 
         print(favStock)
@@ -325,7 +365,7 @@ def add_to_watchlist(request):
         "status":"User already has this on their watchlist"
         }
 
-        return JsonResponse(res)
+        return JsonResponse(res,status=200)
 
         
 
@@ -356,7 +396,11 @@ def login_user(request):
     try:
         user = User.objects.get(username=username)
     except: 
-        return HttpResponse("<p> user DNE <p>")
+
+        resp = {
+            "status":"User does not exist"
+        }
+        return JsonResponse(resp,status=200)
 
     print("got the correct user")
     # see if the password is correct
@@ -375,7 +419,11 @@ def login_user(request):
         # grab user information and send over
         return JsonResponse(retData)
     else: 
-        return HttpResponse("<p>bad password<p>")
+
+        resp ={
+            "status":"password is not valid"
+        }
+        return JsonResponse(resp,status=200)
 
 
 def update_stock_data(request):
