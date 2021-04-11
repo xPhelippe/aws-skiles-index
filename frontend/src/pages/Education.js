@@ -9,6 +9,11 @@ import stocksIntroduction from '../components/educationalMaterial/images/stocksI
 import taxes from '../components/educationalMaterial/images/taxesImg.jpeg'
 import technicalAnalysis from '../components/educationalMaterial/images/technicalAnalysisImg.png'
 import tradingStocks from '../components/educationalMaterial/images/tradingStocksImg.png'
+import cryptoCurrency from '../components/educationalMaterial/images/cryptoCurrencyImg.jpg'
+import optionsContracts from '../components/educationalMaterial/images/optionsContractsImg.jpg'
+import futuresTrading from '../components/educationalMaterial/images/futuresTradingImg.jpg'
+import treasurySecurities from '../components/educationalMaterial/images/treasurySecuritiesImg.jpg'
+import municipalBond from '../components/educationalMaterial/images/municipalBond.jpg'
 
 //I cannot comment the code inside of the education function. Strange?
 //List of Blocks in the Education Page with photos, desciptions and hyperlinks about stocks and investing
@@ -116,6 +121,63 @@ function Education() {
                             <h4 className="card-title">Taxes</h4>
                             <p className="card-text"></p>
                             <a href="https://www.investopedia.com/articles/personal-finance/101515/comparing-longterm-vs-shortterm-capital-gain-tax-rates.asp" target="_blank" className="mt-auto btn btn-warning stretched-link">See Example</a>
+                        </div>
+                    </div>
+                </div>
+                
+                {/* High Risk */}
+                <div className="col mx-0">
+                    <div className="card" >
+                    <img className="card-img-top" style={{'width':'100%'}} src={cryptoCurrency} alt="Card" />
+                        <div className="card-body d-flex flex-column" >
+                            <h4 className="card-title">Crypto Currency</h4>
+                            <p className="card-text"></p>
+                            <a href="https://www.investopedia.com/terms/c/cryptocurrency.asp" target="_blank" className="mt-auto btn btn-warning stretched-link">See Example</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="col mx-0">
+                    <div className="card" >
+                    <img className="card-img-top" style={{'width':'100%'}} src={optionsContracts} alt="Card" />
+                        <div className="card-body d-flex flex-column" >
+                            <h4 className="card-title">Options</h4>
+                            <p className="card-text"></p>
+                            <a href="https://www.investopedia.com/terms/o/optionscontract.asp" target="_blank" className="mt-auto btn btn-warning stretched-link">See Example</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="col mx-0">
+                    <div className="card" >
+                    <img className="card-img-top" style={{'width':'100%'}} src={futuresTrading} alt="Card" />
+                        <div className="card-body d-flex flex-column" >
+                            <h4 className="card-title">Futures</h4>
+                            <p className="card-text"></p>
+                            <a href="https://www.schwab.com/futures/what-are-futures" target="_blank" className="mt-auto btn btn-warning stretched-link">See Example</a>
+                        </div>
+                    </div>
+                </div>
+
+                 {/* Low Risk */}
+                 <div className="col mx-0">
+                    <div className="card" >
+                    <img className="card-img-top" style={{'width':'100%'}} src={treasurySecurities} alt="Card" />
+                        <div className="card-body d-flex flex-column" >
+                            <h4 className="card-title">Treasury Securities</h4>
+                            <p className="card-text"></p>
+                            <a href="https://www.investopedia.com/articles/investing/073113/introduction-treasury-securities.asp" target="_blank" className="mt-auto btn btn-warning stretched-link">See Example</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="col mx-0">
+                    <div className="card" >
+                    <img className="card-img-top" style={{'width':'100%'}} src={municipalBond} alt="Card" />
+                        <div className="card-body d-flex flex-column" >
+                            <h4 className="card-title">Municipal Bond</h4>
+                            <p className="card-text"></p>
+                            <a href="https://www.investopedia.com/terms/m/municipalbond.asp" target="_blank" className="mt-auto btn btn-warning stretched-link">See Example</a>
                         </div>
                     </div>
                 </div>
