@@ -10,6 +10,7 @@ import taxes from '../components/educationalMaterial/images/taxesImg.jpeg'
 import technicalAnalysis from '../components/educationalMaterial/images/technicalAnalysisImg.png'
 import tradingStocks from '../components/educationalMaterial/images/tradingStocksImg.png'
 
+
 //I cannot comment the code inside of the education function. Strange?
 //List of Blocks in the Education Page with photos, desciptions and hyperlinks about stocks and investing
 function Education() {
@@ -19,7 +20,7 @@ function Education() {
             <h1>Education</h1>
             <div className="row mb-1 mt-4 justify-content-center">
 
-                <div className="col mx-0">
+                <div className="col mx-0 mb-4">
                     <div className="card" >
                     <img className="card-img-top" style={{'width':'100%'}} src={stocksIntroduction} alt="Card" />
                         <div className="card-body d-flex flex-column" >
@@ -30,7 +31,7 @@ function Education() {
                     </div>
                 </div>
 
-                <div className="col mx-0">
+                <div className="col mx-0 mb-4">
                     <div className="card" >
                     <img className="card-img-top" style={{'width':'100%'}} src={tradingStocks} alt="Card" />
                         <div className="card-body d-flex flex-column" >
@@ -41,7 +42,7 @@ function Education() {
                     </div>
                 </div>
 
-                <div className="col mx-0">
+                <div className="col mx-0 mb-4">
                     <div className="card" >
                     <img className="card-img-top" style={{'width':'100%'}} src={stockMarketSectors} alt="Card" />
                         <div className="card-body d-flex flex-column" >
@@ -52,20 +53,20 @@ function Education() {
                     </div>
                 </div>
 
-                <div className="col mx-0">
+                <div className="col mx-0 mb-4">
                     <div className="card" >
                     <img className="card-img-top" style={{'width':'100%'}} src={mutualFundsVsETFs} alt="Card" />
                         <div className="card-body d-flex flex-column" >
                             <h4 className="card-title">Mutual Funds</h4>
                             <p className="card-text"></p>
-                            <a href="https://www.investopedia.com/articles/exchangetradedfunds/08/etf-mutual-fund-difference.asp" target="_blank" className="mt-auto btn btn-warning stretched-link">Mutual Funds Vs ETFs</a>
-                            <a href="https://www.daveramsey.com/blog/types-of-mutual-funds" className="mt-auto btn btn-warning stretched-link"> Mutual Funds</a>
-                            <a href="https://www.investopedia.com/terms/e/etf.asp" className="mt-auto btn btn-warning stretched-link"> ETFs</a>
+                            <a href="https://www.investopedia.com/articles/exchangetradedfunds/08/etf-mutual-fund-difference.asp" target="_blank" className="mt-auto btn btn-warning">Mutual Funds Vs ETFs</a>
+                            <a href="https://www.daveramsey.com/blog/types-of-mutual-funds" target="_blank" className="mt-auto btn btn-warning"> Mutual Funds</a>
+                            <a href="https://www.investopedia.com/terms/e/etf.asp" target="_blank" className="mt-auto btn btn-warning"> ETFs</a>
                         </div>
                     </div>
                 </div>
 
-                <div className="col mx-0">
+                <div className="col mx-0 mb-4">
                     <div className="card" >
                     <img className="card-img-top" style={{'width':'100%'}} src={investorVsTrader} alt="Card" />
                         <div className="card-body d-flex flex-column" >
@@ -76,7 +77,7 @@ function Education() {
                     </div>
                 </div>
 
-                <div className="col mx-0">
+                <div className="col mx-0 mb-4">
                     <div className="card" >
                     <img className="card-img-top" style={{'width':'100%'}} src={fundamentalAnalysis} alt="Card" />
                         <div className="card-body d-flex flex-column" >
@@ -87,7 +88,7 @@ function Education() {
                     </div>
                 </div>
 
-                <div className="col mx-0">
+                <div className="col mx-0 mb-4">
                     <div className="card" >
                     <img className="card-img-top" style={{'width':'100%'}} src={technicalAnalysis} alt="Card" />
                         <div className="card-body d-flex flex-column" >
@@ -98,7 +99,7 @@ function Education() {
                     </div>
                 </div>
 
-                <div className="col mx-0">
+                <div className="col mx-0 mb-4">
                     <div className="card" >
                     <img className="card-img-top" style={{'width':'100%'}} src={riskTolerance} alt="Card" />
                         <div className="card-body d-flex flex-column" >
@@ -109,7 +110,7 @@ function Education() {
                     </div>
                 </div>
 
-                <div className="col mx-0">
+                <div className="col mx-0 mb-4">
                     <div className="card" >
                     <img className="card-img-top" style={{'width':'100%'}} src={taxes} alt="Card" />
                         <div className="card-body d-flex flex-column" >
@@ -119,7 +120,6 @@ function Education() {
                         </div>
                     </div>
                 </div>
-
             </div>
           </div>
     );
