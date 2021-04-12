@@ -145,5 +145,5 @@ def update_stock_data(request):
             db_rsi_data.RSI = rsi_data[time]['RSI']
             db_rsi_data.save()
 
-    return HttpResponse("Done updating stock data")
+    return JsonResponse({"result":"Done updating stock data"})
 
