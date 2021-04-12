@@ -43,13 +43,7 @@ def create_user(request):
     phonenumber = request.POST.get('phonenumber')
     risk_type = request.POST.get('risk_type')
 
-    print(username)
-    print(password)
-    print(first_name)
-    print(last_name)
-    print(email)
-    print(phonenumber)
-    print(risk_type)
+    print("user information received")
 
     # set empty values if fields are empty
     if not email:
@@ -217,11 +211,6 @@ def change_user_info(request):
         "changes":userchanges
     })
     
-    print(user.first_name)
-    print(user.last_name)
-    print(user.email)
-    print(user.profile.phoneNumber)
-    print(str(user.profile.investmentType))
 
     user.save()
 
@@ -360,7 +349,6 @@ def add_to_watchlist(request):
         return JsonResponse(res,status=200)
     else:
 
-        print(favStock)
         res = {
         "status":"User already has this on their watchlist"
         }
