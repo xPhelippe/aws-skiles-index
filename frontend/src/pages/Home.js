@@ -8,6 +8,11 @@ import Signup from "./SignUp";
 import Login from "./Login";
 import UserWatchlist from "../components/UserWatchlist";
 
+import book from '../images/book.png'
+import watch from '../images/watch.png'
+import stockGraph from '../images/stockGraph.png'
+import UserInfoCard from "../components/UserInfoCard";
+
 
 class Home extends Component {
   constructor(props) {
@@ -20,8 +25,8 @@ class Home extends Component {
     console.log(UserData)
 
     this.state = {
-      first_name: UserData.first_name,
-      last_name: UserData.last_name,
+      firstName: UserData.first_name,
+      lastName: UserData.last_name,
       investmentType: UserData.investmentType,
       watchlist: UserData.watchlist
     }
@@ -48,32 +53,32 @@ handleLogoutClick() {
       }); */
   } 
 
+  getInvesmentType(userType) {
+    const types = {
+      0: "Risk Averse",
+      1: "Risk Tolerant"
+    };
+
+    return types[userType];
+  }
+
   render() {
     return (
       <div>
         <div className="Content">
             <img src={logo} className="App-logo" alt="logo" />
-            <h1>Welcome to the Skiles Index!</h1>
 
-            <h1>Home</h1>
-            <h1>First Name: {this.state.first_name}</h1>
-            <h1>Last Name: {this.state.last_name}</h1>
-            <h1>Investment Type: {this.state.investmentType}</h1>
-            {/* <h1>Watchlist: {this.state.watchlist[0].stock.ticker}</h1> */}
-            <h1>
-              Watchlist:
-              {this.state.watchlist.map((item,index) => (
-                <h1>{item.stock.ticker},</h1>
-              ))}
-            </h1>
-            from UserWathlist with props:
-            <UserWatchlist stockName={this.state.watchlist} />
+            <div className="row mb-0 mt-5 justify-content-center no-gutters">
+              <div className="col mx-0">
+                  <UserInfoCard firstName={this.state.firstName} lastName={this.state.lastName}
+                  investmentType={this.getInvesmentType(this.state.investmentType)}/>
+              </div>
 
-
-
-            <button onClick={() => this.handleLogoutClick()} type="button" className="btn btn-warning" style={{'margin':'20px'}}><a href="/" className="text-white">Log Out</a></button>        
+              <div className="col mx-0">
+                <UserWatchlist stockName={this.state.watchlist} />
+              </div>
+            </div>
         </div>
-
       </div>
     );
   }

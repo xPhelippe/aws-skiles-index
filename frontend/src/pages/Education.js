@@ -16,6 +16,7 @@ import treasurySecurities from '../components/educationalMaterial/images/treasur
 import municipalBond from '../components/educationalMaterial/images/municipalBond.jpg'
 
 
+
 //I cannot comment the code inside of the education function. Strange?
 //List of Blocks in the Education Page with photos, desciptions and hyperlinks about stocks and investing
 function Education() {
@@ -125,6 +126,7 @@ function Education() {
                         </div>
                     </div>
                 </div>
+<<<<<<< HEAD
                 
                 {/* High Risk */}
                 <div className="col mx-0  mb-4">
@@ -183,6 +185,8 @@ function Education() {
                     </div>
                 </div>
 
+=======
+>>>>>>> fe6fd0786ed0b549c8ad90312c677b957b121441
             </div>
           </div>
     );

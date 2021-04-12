@@ -1,6 +1,6 @@
 [
     {
-        "id":1,
+        "id":0,
         "Symbol":"TSLA",
         "AssetType":"Common Stock",
         "Name":"Tesla Inc",
@@ -62,7 +62,7 @@
     },
 
     {
-        "id":2,
+        "id":1,
         "Symbol":"AAPL",
         "AssetType":"Common Stock",
         "Name":"Apple Inc",
@@ -124,7 +124,7 @@
     },
 
     {
-        "id":3,
+        "id":2,
         "Symbol":"WKHS",
         "AssetType":"Common Stock",
         "Name":"Workhorse Group Inc",
@@ -186,6 +186,7 @@
     },
 
     {
+        "id":3,
         "Symbol":"ABR",
         "AssetType":"Common Stock",
         "Name":"Arbor Realty Trust Inc",
@@ -244,5 +245,70 @@
         "ExDividendDate":"2021-03-02",
         "LastSplitFactor":"10:1",
         "LastSplitDate":"2012-08-30"
+    },
+
+    {
+        "id":4,
+        "50DayMovingAverage": "2069.7952",
+        "52WeekHigh": "2271.7898",
+        "52WeekLow": "1182.3318",
+        "200DayMovingAverage": "1813.3738",
+        "AnalystTargetPrice": "2342.11",
+        "AssetType": "Common Stock",
+        "Beta": "0.9956",
+        "BookValue": "329.586",
+        "CIK": "0001652044",
+        "Country": "USA",
+        "Currency": "USD",
+        "DilutedEPSTTM": "58.613",
+        "DividendDate": "None",
+        "DividendPerShare": "None",
+        "DividendYield": "0",
+        "EBITDA": "54903001088",
+        "EPS": "58.613",
+        "EVToEBITDA": "22.3616",
+        "EVToRevenue": "7.5852",
+        "ExDividendDate": "None",
+        "Exchange": "NASDAQ",
+        "FiscalYearEnd": "December",
+        "ForwardAnnualDividendRate": "0",
+        "ForwardAnnualDividendYield": "0",
+        "ForwardPE": "32.5733",
+        "FullTimeEmployees": "135301",
+        "GrossProfitTTM": "97795000000",
+        "Industry": "Internet Content & Information",
+        "LastSplitDate": "2014-04-03",
+        "LastSplitFactor": "1998",
+        "LatestQuarter": "2020-12-31",
+        "MarketCapitalization": "1520641507328",
+        "Name": "Alphabet Inc",
+        "OperatingMarginTTM": "0.2258",
+        "PEGRatio": "1.5742",
+        "PERatio": "38.3957",
+        "PayoutRatio": "0",
+        "PercentInsiders": "0.134",
+        "PercentInstitutions": "81.164",
+        "PriceToBookRatio": "6.6924",
+        "PriceToSalesRatioTTM": "8.8746",
+        "ProfitMargin": "0.2206",
+        "QuarterlyEarningsGrowthYOY": "0.452",
+        "QuarterlyRevenueGrowthYOY": "0.235",
+        "ReturnOnAssetsTTM": "0.0865",
+        "ReturnOnEquityTTM": "0.19",
+        "RevenuePerShareTTM": "268.1",
+        "RevenueTTM": "182527000576",
+        "Sector": "Communication Services",
+        "SharesFloat": "607289273",
+        "SharesOutstanding": "300644000",
+        "SharesShort": "3111317",
+        "SharesShortPriorMonth": "3075148",
+        "ShortPercentFloat": "0.0104",
+        "ShortPercentOutstanding": "0",
+        "ShortRatio": "1.9",
+        "Symbol": "GOOGL",
+        "TrailingPE": "38.3957"
+
+
+
     }
 ]
