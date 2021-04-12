@@ -45,7 +45,7 @@ class StockRSIData(models.Model):
 
 # profile to hold user phone number and their investment type
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     phoneNumber = models.CharField(max_length=12,blank=True)
 
     investmentType = (
