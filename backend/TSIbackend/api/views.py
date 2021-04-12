@@ -59,10 +59,12 @@ def login_user(request):
 
 
 def update_stock_data(request):
+    # Default options to use
     DEFAULT_SERIES_TYPE = 'close'
     DEFAULT_INTERVAL = 'daily'
     DEFAULT_OUTPUT_SIZE = 'compact'
 
+    # Initialize alpha vantage API objects
     ts = TimeSeries(key=ALPHA_VANTAGE_API_KEY,
                     output_format='json', indexing_type='date')
     fd = FundamentalData(key=ALPHA_VANTAGE_API_KEY,
@@ -70,6 +72,7 @@ def update_stock_data(request):
     ti = TechIndicators(key=ALPHA_VANTAGE_API_KEY,
                         output_format='json', indexing_type='date')
 
+    # Iterate through every stock in settings.py
     for ticker in SELECTED_STOCK_TICKERS:
         # Avoid API limit (5/min)
         print("Waiting 60 seconds to avoid reaching API limit")
@@ -142,5 +145,5 @@ def update_stock_data(request):
             db_rsi_data.RSI = rsi_data[time]['RSI']
             db_rsi_data.save()
 
-    return HttpResponse("TEST")
+    return JsonResponse({"result":"Done updating stock data"})
 
