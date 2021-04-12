@@ -42,7 +42,7 @@ def create_user(request):
     email = request.POST.get('email')
     phonenumber = request.POST.get('phonenumber')
     risk_type = request.POST.get('risk_type')
-
+    
     print("user information received")
 
     # set empty values if fields are empty
@@ -210,7 +210,6 @@ def change_user_info(request):
     resp.update({
         "changes":userchanges
     })
-    
 
     user.save()
 
