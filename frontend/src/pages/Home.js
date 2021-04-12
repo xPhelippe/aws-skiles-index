@@ -4,13 +4,7 @@ import logo from '../images/greyLogoCropped.png';
 // eslint-disable-next-line
 import axios from "axios";
 
-import Signup from "./SignUp";
-import Login from "./Login";
 import UserWatchlist from "../components/UserWatchlist";
-
-import book from '../images/book.png'
-import watch from '../images/watch.png'
-import stockGraph from '../images/stockGraph.png'
 import UserInfoCard from "../components/UserInfoCard";
 
 
@@ -74,7 +68,7 @@ handleLogoutClick() {
                   investmentType={this.getInvesmentType(this.state.investmentType)}/>
               </div>
 
-              <div className="col mx-0">
+              <div className="col">
                 <UserWatchlist stockName={this.state.watchlist} />
               </div>
             </div>

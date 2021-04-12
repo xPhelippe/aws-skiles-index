@@ -22,7 +22,7 @@ function Education() {
 
                 <div className="col mx-0 mb-4">
                     <div className="card" >
-                    <img className="card-img-top" style={{'width':'100%'}} src={stocksIntroduction} alt="Card" />
+                    <img className="card-img-top" style={{'width':'100%', 'textAlign':'center'}} src={stocksIntroduction} alt="Card" />
                         <div className="card-body d-flex flex-column" >
                             <h4 className="card-title">Stocks Introduction</h4>
                             <p className="card-text font-size: 14 px"></p>
@@ -36,7 +36,7 @@ function Education() {
                     <img className="card-img-top" style={{'width':'100%'}} src={tradingStocks} alt="Card" />
                         <div className="card-body d-flex flex-column" >
                             <h4 className="card-title">Trading Stocks</h4>
-                            <p className="card-text"></p>
+                            <p className="card-text font-size: 14 px"></p>
                             <a href="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fclaytrader.com%2Fwp-content%2Fuploads%2F2016%2F06%2FTrading101_HowToBuyStocks.jpg&f=1&nofb=1" target="_blank" className="mt-auto btn btn-warning stretched-link">See Example</a>
                         </div>
                     </div>
@@ -47,7 +47,7 @@ function Education() {
                     <img className="card-img-top" style={{'width':'100%'}} src={stockMarketSectors} alt="Card" />
                         <div className="card-body d-flex flex-column" >
                             <h4 className="card-title">Stock Market Sectors</h4>
-                            <p className="card-text"></p>
+                            <p className="card-text font-size: 14 px"></p>
                             <a href="https://www.fool.com/investing/stock-market/market-sectors/" target="_blank" className="mt-auto btn btn-warning stretched-link">See Example</a>
                         </div>
                     </div>
@@ -104,7 +104,7 @@ function Education() {
                     <img className="card-img-top" style={{'width':'100%'}} src={riskTolerance} alt="Card" />
                         <div className="card-body d-flex flex-column" >
                             <h4 className="card-title">Risk Tolerance</h4>
-                            <p className="card-text"></p>
+                            <p className="card-text font-size: 14 px"></p>
                             <a href="https://www.investopedia.com/terms/r/risktolerance.asp" target="_blank" className="mt-auto btn btn-warning stretched-link">See Example</a>
                         </div>
                     </div>
@@ -115,7 +115,7 @@ function Education() {
                     <img className="card-img-top" style={{'width':'100%'}} src={taxes} alt="Card" />
                         <div className="card-body d-flex flex-column" >
                             <h4 className="card-title">Taxes</h4>
-                            <p className="card-text"></p>
+                            <p className="card-text font-size: 14 px"></p>
                             <a href="https://www.investopedia.com/articles/personal-finance/101515/comparing-longterm-vs-shortterm-capital-gain-tax-rates.asp" target="_blank" className="mt-auto btn btn-warning stretched-link">See Example</a>
                         </div>
                     </div>

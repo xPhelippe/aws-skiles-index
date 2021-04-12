@@ -3,6 +3,10 @@ import React, { Component } from 'react';
 //import { CanvasJSChart } from 'canvasjs-react-charts';
 import { getOverviewForSymbol } from './ApiConnectorOverview';
 import logo from '../images/greyLogoCropped.png';
+import Dropdown from 'react-bootstrap/Dropdown';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import Button from 'react-bootstrap/Button';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 
 import contacts from '../data/data.json';
 
@@ -33,12 +37,16 @@ class UserWatchlist extends Component {
         return index;
     }
 
+    printHI() {
+        console.log('hi');
+    }
+
 
     render() {
         return (
             // uncomment to use the state set by data from the api call
             //<span>PB: {this.getPB()}</span> 
-            <div className="Content">
+            <div className="">
 {/*                 <div>{this.props.stockName.map((item, index) => (<h1>{item.stock.ticker}</h1>))}</div>
  */}
 
@@ -70,6 +78,14 @@ class UserWatchlist extends Component {
                     </tbody>
 
                 </table>
+
+              
+                <DropdownButton id="dropdown-basic-button" variant="secondary" title="Add Stock">
+                    <Dropdown.Item onClick={this.printHi}>Action</Dropdown.Item>
+                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                </DropdownButton>
+              
 
             </div>
         );

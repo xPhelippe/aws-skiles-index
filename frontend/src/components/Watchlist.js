@@ -19,8 +19,6 @@ class Watchlist extends Component {
         }
     }
 
-
-
     render() {
         return (
             // uncomment to use the state set by data from the api call
@@ -69,7 +67,7 @@ class Watchlist extends Component {
 
     componentDidMount() {
         // uncomment to get api data instead, i'm using the json data i saved 
-        this.fetchStockData('GOOGL');
+        //this.fetchStockData('GOOGL');
         
     }
     
