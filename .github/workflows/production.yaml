@@ -1,0 +1,106 @@
+name: Google Cloud Production Deployment CI/CD
+
+on:
+  push:
+    branches: ['master']
+  pull_request:
+    branches: ['master']
+  workflow_dispatch:
+
+jobs:
+  build-frontend:
+    name: Build React project
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref }}
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12'
+      - name: Clean install project
+        working-directory: ${{ github.workspace }}/frontend
+        run: npm ci
+      - name: Build React project
+        run: CI=false REACT_APP_API_HOST="https://api.joanneskiles.com" npm run build --if-present
+        working-directory: ${{ github.workspace }}/frontend
+#      - name: Test React project
+#        run: npm test
+#        working-directory: ${{ github.workspace }}/frontend
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: frontend-dist
+          path: ${{ github.workspace }}/frontend/build
+
+  deploy-frontend:
+    name: Deploy front-end to app engine
+    runs-on: ubuntu-latest
+    needs: build-frontend
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+        ref: ${{ github.ref }}
+    - name: Download frontend-dist artifacts
+      uses: actions/download-artifact@v2
+      with:
+        name: frontend-dist
+        path: ${{ github.workspace }}/frontend/frontend-dist
+    - name: Setup gcloud CLI
+      uses: google-github-actions/setup-gcloud@master
+      with:
+        version: '290.0.1'
+        service_account_key: ${{ secrets.SA_KEY }}
+        project_id: ${{ secrets.PROJECT_ID }}
+    - name: Deploy app.yaml
+      run: gcloud app deploy app.yaml
+      working-directory: ${{ github.workspace }}/frontend
+
+  deploy-backend:
+    name: Deploy back-end to app engine
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+        ref: ${{ github.ref }}
+    - name: Create secrets file
+      run: |
+        cat > ${{ github.workspace }}/backend/TSIbackend/TSIbackend/skiles_secrets.py <<EOT
+        ${{ secrets.SKILES_SECRETS_PY }}
+        EOT
+    - name: Setup gcloud CLI
+      uses: google-github-actions/setup-gcloud@master
+      with:
+        version: '290.0.1'
+        service_account_key: ${{ secrets.SA_KEY }}
+        project_id: ${{ secrets.PROJECT_ID }}
+    - name: Deploy app.yaml
+      run: gcloud app deploy app.yaml
+      working-directory: ${{ github.workspace }}/backend/TSIbackend
+
+  deploy-dispatch:
+    name: Deploy app engine dispatch
+    runs-on: ubuntu-latest
+    needs:
+    - deploy-frontend
+    - deploy-backend
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+        ref: ${{ github.ref }}
+    - name: Setup gcloud CLI
+      uses: google-github-actions/setup-gcloud@master
+      with:
+        version: '290.0.1'
+        service_account_key: ${{ secrets.SA_KEY }}
+        project_id: ${{ secrets.PROJECT_ID }}
+    - name: Deploy dispatch.yaml
+      run: gcloud app deploy dispatch.yaml
