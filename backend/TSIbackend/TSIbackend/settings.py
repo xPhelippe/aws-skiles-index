@@ -37,7 +37,8 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'http://127.0.0.1:3000',
     '127.0.0.1',
-    'localhost'
+    'localhost',
+    'api.joanneskiles.com'
 ]
 
 # cors whitelist
@@ -148,4 +149,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-
+# cors whitelist
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000',
+    'https://api.joanneskiles.com',
+    'https://joanneskiles.com',
+    'https://www.joanneskiles.com'
+]
