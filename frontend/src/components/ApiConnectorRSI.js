@@ -11,7 +11,7 @@ export const getRSIForSymbol = (symbol) => {
             symbol,
             apikey: 'XDA8VT0V9BKZ6C1A',
             interval: 'weekly',
-            time_period: 60,
+            time_period: 20,
             series_type: 'open'
         }
     })

@@ -25,8 +25,6 @@ export default class Login extends Component {
   }
 
   handleSubmit = () => {
-    
-    
     const { username, password } = this.state;
     const params = {
       "username": username,

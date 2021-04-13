@@ -6,6 +6,10 @@ import axios from "axios";
 
 import UserWatchlist from "../components/UserWatchlist";
 import UserInfoCard from "../components/UserInfoCard";
+import educationIcon from "../images/educationIcon.png";
+import graphIcon from "../images/graphIcon.png";
+import helpIcon from "../images/helpIcon.png";
+
 
 
 class Home extends Component {
@@ -62,16 +66,43 @@ handleLogoutClick() {
         <div className="Content">
             <img src={logo} className="App-logo" alt="logo" />
 
-            <div className="row mb-0 mt-5 justify-content-center no-gutters">
+            
+
+        <div className="row mb-0 mt-5 justify-content-center">
               <div className="col mx-0">
                   <UserInfoCard firstName={this.state.firstName} lastName={this.state.lastName}
                   investmentType={this.getInvesmentType(this.state.investmentType)}/>
               </div>
 
-              <div className="col">
+
+
+              <div className="col mx-0">
                 <UserWatchlist stockName={this.state.watchlist} />
               </div>
-            </div>
+
+              <div className="col mx-0">
+                <ul class="nav flex-column">
+                  <li class="nav-item row">
+                    <img src={graphIcon} className="Mini-aang" alt="mini-aang" />
+                    <a class="nav-link text-light active" href="/graphs">Graphs</a>
+                  </li>
+
+                  <li class="nav-item row">
+                    <img src={educationIcon} className="Mini-aang" alt="mini-aang" />
+                    <a class="nav-link text-light active" href="/graphs">Educational Material</a>
+                  </li>
+
+                  <li class="nav-item row">
+                    <img src={helpIcon} className="Mini-aang" alt="mini-aang" />
+                    <a class="nav-link text-light active" href="/help">Help</a>
+                  </li>
+
+                </ul>
+              </div>
+
+
+
+          </div>
         </div>
       </div>
     );

@@ -20,7 +20,7 @@ class UserWatchlist extends Component {
             priceToSales: '',
             shortRatio: '',
             count: 0,
-        }
+        };
     }
 
     getDataIndex(ticker) {
@@ -37,8 +37,8 @@ class UserWatchlist extends Component {
         return index;
     }
 
-    printHI() {
-        console.log('hi');
+    printHi() {
+        alert('hi');
     }
 
 
@@ -81,9 +81,11 @@ class UserWatchlist extends Component {
 
               
                 <DropdownButton id="dropdown-basic-button" variant="secondary" title="Add Stock">
-                    <Dropdown.Item onClick={this.printHi}>Action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                    <Dropdown.Item onClick={this.printHi}>TSLA</Dropdown.Item>
+                    <Dropdown.Item onClick={this.printHi}>AAPL</Dropdown.Item>
+                    <Dropdown.Item onClick={this.printHi}>WKHS</Dropdown.Item>
+                    <Dropdown.Item onClick={this.printHi}>ABR</Dropdown.Item>
+                    <Dropdown.Item onClick={this.printHi}>GOOGL</Dropdown.Item>
                 </DropdownButton>
               
 

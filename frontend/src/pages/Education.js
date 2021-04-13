@@ -126,7 +126,6 @@ function Education() {
                         </div>
                     </div>
                 </div>
-<<<<<<< HEAD
                 
                 {/* High Risk */}
                 <div className="col mx-0  mb-4">
@@ -185,8 +184,6 @@ function Education() {
                     </div>
                 </div>
 
-=======
->>>>>>> fe6fd0786ed0b549c8ad90312c677b957b121441
             </div>
           </div>
     );
