@@ -5,22 +5,369 @@ from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
-
-
 from api.models import Stock, StockDailyData, StockSMAData, StockVWAPData, StockRSIData
 from TSIbackend.settings import ALPHA_VANTAGE_API_KEY, SELECTED_STOCK_TICKERS
 from alpha_vantage.timeseries import TimeSeries
 from alpha_vantage.techindicators import TechIndicators
 from alpha_vantage.fundamentaldata import FundamentalData
+from .serializers import UserSerializer, ProfileSerializer, WatchListSerializer
 
-from .serializers import UserSerializer, ProfileSerializer
-
-from .models import Profile
+from .models import Profile, Stock, FavStock
 import json
 
+from django.core.exceptions import ObjectDoesNotExist
 
-# Create your views here.
 
+# Create a user
+# inputs:
+# - username [required]
+# - password [required]
+# - first_name  [required]
+# - last_name [required]
+# - email [optional]
+# - phonenumber [optional]
+# - risk_type [optional]
+# outputs:
+# - status message
+# - user object of information
+@csrf_exempt
+@require_http_methods(['POST','OPTIONS']) 
+def create_user(request):
+    
+    # grabbing relevant infromation from post
+    username = request.POST.get('username')
+    password = request.POST.get('password')
+    first_name = request.POST.get('first_name')
+    last_name = request.POST.get('last_name')
+    email = request.POST.get('email')
+    phonenumber = request.POST.get('phonenumber')
+    risk_type = request.POST.get('risk_type')
+    
+    print("user information received")
+
+    # set empty values if fields are empty
+    if not email:
+        email = " "
+
+
+    # checking for required fields
+    missing = []
+
+    if not first_name:
+        missing.append("first_name")
+    
+    if not last_name:
+        missing.append("last_name")
+
+    if not username:
+        missing.append("username")
+    
+    if not password:
+        missing.append("password")
+
+    if len(missing) > 0:
+        resp = {
+            "status":"missing required information",
+            "missing":missing
+        }
+
+        return JsonResponse(resp,status=200)
+        
+
+    # see if user already exists 
+    try:
+        user = User.objects.get(username=username)
+
+        resp = {
+            "status":"User already exists"
+        }
+
+        return JsonResponse(resp,status=200)
+    except ObjectDoesNotExist:
+        # create user
+        user = User(
+            username=username,
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+        )
+        user.set_password(password)
+        user.save()
+
+        user.profile.phoneNumber = phonenumber
+        user.profile.risk_type = risk_type
+
+        resp = {
+            "status":"user " + user.username + " successfully created"
+        } 
+        
+        return JsonResponse(resp, status_code=200)
+    except Exception:
+
+        resp = {
+            "status": "Error Occured"
+        }
+        print(str(Exception))
+
+        return JsonResponse(resp,status_code=500)
+
+    
+
+
+
+# modifying a user's data
+# inputs:
+# - username [required]
+# - first_name [optional]
+# - last_name  [optional]
+# - risk_type [optional]
+# - email [optional]
+# - Phone number [optional]
+# outputs:
+# - success message 
+# - new user information
+@csrf_exempt
+@require_http_methods(['POST','OPTIONS']) 
+def change_user_info(request):
+
+    # get username from post request
+    username = request.POST.get('username')
+
+    # response dictionary
+    resp = dict()
+
+    resp.update({"status":""})
+
+    # grab the relevant information from the database
+    try:
+        user = User.objects.get(username=username)
+        resp['status'] = "user updated successfully"
+    except ObjectDoesNotExist:
+        resp["status"] = "User does not exist"
+        return JsonResponse(resp,status=200)
+    except Exception:
+
+        resp = {
+            "status": "Error Occured"
+        }
+        print(str(Exception))
+
+        return JsonResponse(resp,status_code=500)
+    
+    userchanges = dict()
+    
+    # modify first_name
+    first_name = request.POST.get('first_name')
+    if first_name:
+        
+        user.first_name = first_name
+
+        userchanges.update({
+            "first_name":first_name
+        })
+    
+    # modify last_name
+    last_name = request.POST.get('last_name')
+    if last_name:
+        
+        user.last_name = last_name 
+
+        userchanges.update({
+            "last_name":last_name
+        })
+
+    # modify phonenumber
+    phonenumber = request.POST.get('phonenumber')
+    if phonenumber:
+        
+        user.profile.phoneNumber = phonenumber 
+
+        userchanges.update({
+            "phonenumber":phonenumber
+        })
+
+    # modify email
+    email = request.POST.get('email')
+    if email:
+        
+        user.email = email 
+
+        userchanges.update({
+            "email":email
+        })
+
+     # modify risk type
+    risk_type = request.POST.get('risk_type')
+    if risk_type:
+        
+        user.profile.investmentType = risk_type
+
+        userchanges.update({
+            "risk_type":risk_type
+        })
+    
+
+    resp.update({
+        "changes":userchanges
+    })
+
+    user.save()
+
+    return JsonResponse(resp,status=200)
+    
+
+# removing a stock from the user's watchlist
+# inputs:
+# - username
+# - ticker
+# output:
+# - status message
+@csrf_exempt
+@require_http_methods(['POST','OPTIONS']) 
+def remove_from_watchlist(request):
+    # grab info from request
+    username = request.POST.get("username")
+    ticker = request.POST.get("ticker")
+
+    # grab the relevant information from the database
+    try:
+        user = User.objects.get(username=username)
+    except:
+        res = {
+        "status":"User does not exist"
+        }
+
+        return JsonResponse(res)
+    
+    try:
+        stock = Stock.objects.get(ticker=ticker)
+    except:
+        res = {
+        "status":"Invalid ticker"
+        }
+
+        return JsonResponse(res)
+
+
+    favStock = FavStock.objects.filter(user=user,stock=stock)
+
+    if favStock:
+        favStock.delete()
+
+        res = {
+            "status": ticker + " was removed from " + username +"'s watchlist"
+        }
+
+        return JsonResponse(res)
+    else:
+        res = {
+            "status": ticker + " is not on " + username +"'s watchlist"
+        }
+
+        return JsonResponse(res)
+    
+    
+
+    
+
+
+
+# adding a stock to the user's watchlist
+# inputs:
+# - username 
+# - ticker
+# outputs:
+# - success message
+@csrf_exempt
+@require_http_methods(['POST','OPTIONS']) 
+def add_to_watchlist(request):
+
+    # grab info from request
+    username = request.POST.get("username")
+    ticker = request.POST.get("ticker")
+
+    # grab the relevant information from the database
+    try:
+        user = User.objects.get(username=username)
+    except ObjectDoesNotExist:
+        res = {
+        "status":"User does not exist"
+        }
+
+        return JsonResponse(res,status=200)
+    except Exception:
+
+        resp = {
+            "status": "Error Occured"
+        }
+        print(str(Exception))
+
+        return JsonResponse(resp,status_code=500)
+
+    
+    try:
+        stock = Stock.objects.get(ticker=ticker)
+    except ObjectDoesNotExist:
+        res = {
+        "status":"Invalid ticker"
+        }
+
+        return JsonResponse(res,status=200)
+    except Exception:
+
+        resp = {
+            "status": "Error Occured"
+        }
+        print(str(Exception))
+
+        return JsonResponse(resp,status_code=500)
+
+        
+    favStock = FavStock.objects.filter(user=user,stock=stock)
+
+    if len(favStock) == 0:
+
+        # add stock to watchlist
+        FavStock.objects.create(
+        user = user,
+        stock = stock
+        )
+
+        # construct array of current watch list
+        retStocks = []
+        favstock_set = FavStock.objects.filter(user=user)
+        for item in favstock_set:
+            retStocks.append(str(item.stock))
+
+        # create return object
+        res = {
+        "status":"success",
+        "watchlist": retStocks
+
+        }
+        return JsonResponse(res,status=200)
+    else:
+
+        res = {
+        "status":"User already has this on their watchlist"
+        }
+
+        return JsonResponse(res,status=200)
+
+        
+
+
+
+# Logging in the user
+# POST request inputs:
+# - username
+# - password
+# return:
+# - username
+# - first_name
+# - last_name
+# - watchlist
+# - risk type
 
 @csrf_exempt
 @require_http_methods(['POST','OPTIONS']) 
@@ -36,7 +383,11 @@ def login_user(request):
     try:
         user = User.objects.get(username=username)
     except: 
-        return HttpResponse("<p> user DNE <p>")
+
+        resp = {
+            "status":"User does not exist"
+        }
+        return JsonResponse(resp,status=200)
 
     print("got the correct user")
     # see if the password is correct
@@ -55,14 +406,20 @@ def login_user(request):
         # grab user information and send over
         return JsonResponse(retData)
     else: 
-        return HttpResponse("<p>bad password<p>")
+
+        resp ={
+            "status":"password is not valid"
+        }
+        return JsonResponse(resp,status=200)
 
 
 def update_stock_data(request):
+    # Default options to use
     DEFAULT_SERIES_TYPE = 'close'
     DEFAULT_INTERVAL = 'daily'
     DEFAULT_OUTPUT_SIZE = 'compact'
 
+    # Initialize alpha vantage API objects
     ts = TimeSeries(key=ALPHA_VANTAGE_API_KEY,
                     output_format='json', indexing_type='date')
     fd = FundamentalData(key=ALPHA_VANTAGE_API_KEY,
@@ -70,6 +427,7 @@ def update_stock_data(request):
     ti = TechIndicators(key=ALPHA_VANTAGE_API_KEY,
                         output_format='json', indexing_type='date')
 
+    # Iterate through every stock in settings.py
     for ticker in SELECTED_STOCK_TICKERS:
         # Avoid API limit (5/min)
         print("Waiting 60 seconds to avoid reaching API limit")
@@ -142,5 +500,5 @@ def update_stock_data(request):
             db_rsi_data.RSI = rsi_data[time]['RSI']
             db_rsi_data.save()
 
-    return HttpResponse("TEST")
+    return JsonResponse({"result":"Done updating stock data"})
 
