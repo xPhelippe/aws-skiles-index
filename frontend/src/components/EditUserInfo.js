@@ -1,23 +1,30 @@
 import React, { Component } from "react";
 import logo from '../images/greyLogoCropped.png';
 
+
 import axios from "axios";
 
 export default class EditUserInfo extends Component {
   constructor(props) {
     super(props);
 
+    let UserData = localStorage.getItem("UserData");
+    UserData = JSON.parse(UserData);
+
     this.state = {
-      first_name: "",
-      last_name: "",
-      username: "",
-      password: "",
-      investment_type: "",
+      username: UserData.username,
+      first_name: UserData.first_name,
+      last_name: UserData.last_name,
+      investment_type: UserData.investmentType,
       registrationErrors: "",
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+  }
+
+  updateUsername() {
+    this.setState = this.props.username;
   }
 
   handleChange(event) {
@@ -26,31 +33,43 @@ export default class EditUserInfo extends Component {
     });
   }
 
-  handleSubmit(event) {
-    const { username, password, password_confirmation } = this.state;
+  handleSubmit = () => {
+    const {username, first_name, last_name, investment_type} = this.state;
+    const querystring = require('querystring');
+    console.log(username);
+    console.log(first_name);
+    console.log(last_name);
+    console.log(investment_type);
 
-//TODO
-/*     axios
-      .post(
-        "<put in correct api connection>",
+    axios
+      .post("http://127.0.0.1:8000/change_user_info/", querystring.stringify(
         {
-          user: {
-            username: username,
-            password: password,
-            password_confirmation: password_confirmation
-          }
-        },
-        { withCredentials: true }
+          "username": this.state.username,
+          "first_name": first_name,
+          "last_name": last_name,
+          "risk_type": investment_type
+        }),
       )
       .then(response => {
-        if (response.data.status === "created") {
-          this.props.handleSuccessfulAuth(response.data);
-        }
+        let UserData = localStorage.getItem("UserData");
+        UserData = JSON.parse(UserData);
+/*         UserData["username"] = username;
+ */     UserData["first_name"] = first_name;
+        UserData["last_name"] = last_name;
+        UserData["investmentType"] = investment_type;
+
+        UserData = JSON.stringify(UserData);
+        localStorage.setItem("UserData",UserData)
+
+        console.log(localStorage);
+        console.log(UserData);
+        this.props.history.push('/home');
+
       })
       .catch(error => {
         console.log("registration error", error);
-      }); */
-    event.preventDefault();
+      });
+
   }
 
   render() {
@@ -58,24 +77,24 @@ export default class EditUserInfo extends Component {
       <div>
         <br/>
         <h3 class="text-center">Edit Info<br/></h3>
-        <form onSubmit={this.handleSubmit}>
-        <div className="form-group" style={{'margin-top': '25px'}}>
+        {/* <form onSubmit={this.handleSubmit}> */}
+{/*         <div className="form-group" style={{'margin-top': '25px'}}>
             <input
                 className="form-control"
                 type="username"
                 name="username"
                 placeholder={this.props.username}
-                value={this.state.username}
+                value={this.props.username}
                 onChange={this.handleChange}
             />
-        </div>
+        </div> */}
 
         <div className="form-group" style={{'margin-top': '25px'}}>
             <input
                 className="form-control"
                 type="first_name"
                 name="first_name"
-                placeholder={this.props.firstName}
+                placeholder={this.state.first_name}
                 value={this.state.first_name}
                 onChange={this.handleChange}
 
@@ -85,9 +104,9 @@ export default class EditUserInfo extends Component {
         <div className="form-group" style={{'margin-top': '25px'}}>
             <input
                 className="form-control"
-                type="username"
-                name="first_name"
-                placeholder={this.props.lastName}
+                type="last_name"
+                name="last_name"
+                placeholder={this.state.last_name}
                 value={this.state.last_name}
                 onChange={this.handleChange}
                 
@@ -99,7 +118,7 @@ export default class EditUserInfo extends Component {
                 className="form-control"
                 type="investment-type"
                 name="investment-type"
-                placeholder={this.props.investmentType}
+                placeholder={this.state.investment_type}
                 value={this.state.investment_type}
                 onChange={this.handleChange}
                 
@@ -107,9 +126,9 @@ export default class EditUserInfo extends Component {
         </div>
 
           <div className="form-group">
-            <button type="submit" class="btn btn-warning btn-lg btn-block">Update</button>
+            <button onClick={this.handleSubmit} class="btn btn-warning btn-lg btn-block">Update</button>
           </div>
-        </form>
+        {/* </form> */}
       </div>
     );
   }

@@ -17,10 +17,12 @@ class Home extends Component {
   constructor(props) {
     super(props);
     
+    console.log('before user data in home')
     let UserData = localStorage.getItem("UserData")
 
     UserData = JSON.parse(UserData)
 
+    console.log("constructor home")
     console.log(UserData)
 
     this.state = {
@@ -38,23 +40,24 @@ class Home extends Component {
 
   }
 
+
   handleSuccessfulAuth(data) {
     this.props.handleLogin(data);
   }
 
-//TODO: Change this to the proper api call
-handleLogoutClick() {
-    //TODO: Change this to the proper api call
-    /*
-    axios
-       .delete("back-end connection", { withCredentials: true })
-      .then(response => {
-        this.props.handleLogout();
-      })
-      .catch(error => {
-        console.log("logout error", error);
-      }); */
-  } 
+  //TODO: Change this to the proper api call
+  handleLogoutClick() {
+      //TODO: Change this to the proper api call
+      /*
+      axios
+        .delete("back-end connection", { withCredentials: true })
+        .then(response => {
+          this.props.handleLogout();
+        })
+        .catch(error => {
+          console.log("logout error", error);
+        }); */
+    } 
 
   getInvesmentType(userType) {
     const types = {
@@ -66,7 +69,8 @@ handleLogoutClick() {
   }
 
   editUserInfo() {
-    this.setState({ viewEditUser: true });
+    /* this.setState({ viewEditUser: true }); */
+    this.props.history.push('/edit-user');
   }
 
   render() {
@@ -75,17 +79,15 @@ handleLogoutClick() {
         <div className="Content">
             <img src={logo} className="App-logo" alt="logo" />
 
-            
-
         <div className="row mb-0 mt-5 justify-content-center">
               <div className="col mx-0">
                   <UserInfoCard firstName={this.state.firstName} lastName={this.state.lastName}
                   investmentType={this.getInvesmentType(this.state.investmentType)}/>
                   <button onClick={this.editUserInfo} class="ml-3 btn btn-outline-light me-2"> Edit Info </button>
 
-                  {(this.state.viewEditUser) ? <EditUserInfo 
-                    username={this.state.username} firstName={this.state.firstName} lastName={this.state.lastName} investmentType={this.state.investmentType}
-                    /> : ''}
+                  {/* {(this.state.viewEditUser) ? <EditUserInfo 
+                    history={this.props.history} username={this.state.username} firstName={this.state.firstName} lastName={this.state.lastName} investmentType={this.state.investmentType}
+                    /> : ''} */}
               </div>
 
 
@@ -103,7 +105,7 @@ handleLogoutClick() {
 
                   <li class="nav-item row">
                     <img src={educationIcon} className="Mini-aang" alt="mini-aang" />
-                    <a class="nav-link text-light active" href="/graphs">Educational Material</a>
+                    <a class="nav-link text-light active" href="/education">Educational Material</a>
                   </li>
 
                   <li class="nav-item row">
