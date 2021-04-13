@@ -578,7 +578,7 @@ def stock_data_get(stock_data_model, data_type_name, values):
             # Get values from QuerySet
             data = data_filter.values('timestamp', *values)
             # Create JSON response of values
-            resp = {type_data_name: list(data)}
+            resp = {data_type_name: list(data)}
 
             return JsonResponse(resp)
         return inner
