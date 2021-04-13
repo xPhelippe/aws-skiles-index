@@ -8,9 +8,10 @@ export default class SignUp extends Component {
     super(props);
 
     this.state = {
+      first_name: "",
+      last_name: "",
       username: "",
       password: "",
-      password_confirmation: "",
       registrationErrors: ""
     };
 
@@ -69,6 +70,31 @@ export default class SignUp extends Component {
             />
         </div>
 
+        <div className="form-group" style={{'margin-top': '25px'}}>
+            <input
+                className="form-control"
+                type="username"
+                name="first_name"
+                placeholder="First Name"
+                value={this.state.first_name}
+                onChange={this.handleChange}
+                required
+            />
+        </div>
+
+        <div className="form-group" style={{'margin-top': '25px'}}>
+            <input
+                className="form-control"
+                type="username"
+                name="first_name"
+                placeholder="Last Name"
+                value={this.state.last_name}
+                onChange={this.handleChange}
+                required
+            />
+        </div>
+        
+
         <div className="form-group">
             <input
                 className="form-control"
@@ -76,18 +102,6 @@ export default class SignUp extends Component {
                 name="password"
                 placeholder="Password"
                 value={this.state.password}
-                onChange={this.handleChange}
-                required
-            />
-        </div>
-
-        <div className="form-group"> 
-            <input
-                className="form-control"
-                type="password"
-                name="password_confirmation"
-                placeholder="Confirm Password"
-                value={this.state.password_confirmation}
                 onChange={this.handleChange}
                 required
             />
