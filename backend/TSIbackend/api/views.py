@@ -2,10 +2,11 @@ from time import sleep
 
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
-from django.views.decorators.http import require_http_methods
+from django.views.decorators.http import require_http_methods, require_GET
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
-from api.models import Stock, StockDailyData, StockSMAData, StockVWAPData, StockRSIData
+from api.models import Stock, StockDailyData, StockSMAData, StockVWAPData, \
+    StockRSIData
 from TSIbackend.settings import ALPHA_VANTAGE_API_KEY, SELECTED_STOCK_TICKERS
 from alpha_vantage.timeseries import TimeSeries
 from alpha_vantage.techindicators import TechIndicators
@@ -500,5 +501,156 @@ def update_stock_data(request):
             db_rsi_data.RSI = rsi_data[time]['RSI']
             db_rsi_data.save()
 
-    return JsonResponse({"result":"Done updating stock data"})
+    return JsonResponse({"status":"Done updating stock data"})
+
+
+
+"""
+    Decorator for getting stock data. All currently-supported stock data follows
+    similar format.
+    Endpoint URI must end with /<ticker>.
+    Parameters:
+      * stock_data_model: Stock data model
+      * data_type_name: Name of stock data type
+      * values: List of values to retrieve from model and return in response
+    Query Params:
+      * start_time: oldest timestamp of data to retrieve
+      * end_time: newest timestamp of data to retrieve
+    Response (JSON):
+    {
+      "<data_type_name>": [
+        {
+          "timestamp": timestamp of data point,
+          *values: *value data
+        }
+      ]
+    }
+"""
+def stock_data_get(stock_data_model, data_type_name, values):
+    def decorator(func):
+        @require_GET
+        def inner(request, ticker):
+            # Get start_time and end_time query paramaters
+            start_time = request.GET.get('start_time')
+            end_time = request.GET.get('end_time')
+
+            # Ensure start_time and end_time were specified
+            if start_time == None:
+                resp = {'status': 'Please specify start_time'}
+                return JsonResponse(resp, status=400)
+            elif end_time == None:
+                resp = {'status': 'Please specify end_time'}
+                return JsonResponse(resp, status=400)
+
+            # Find stock with given ticker
+            try:
+                stock = Stock.objects.get(ticker=ticker)
+            except ObjectDoesNotExist:
+                resp = {'status': f"Stock with ticker {ticker} does not exist"}
+                return JsonResponse(resp, status=400)
+            except Exception:
+                resp = {"status": "Error Occured"}
+                print(str(exception))
+
+                return JsonResponse(resp, status_code=500)
+
+            # Get QuerySet of data between start_time and end_time
+            data_filter = stock_data_model.objects.filter(stock=stock,
+                    timestamp__gte=start_time, timestamp__lte=end_time)
+            # Get values from QuerySet
+            data = data_filter.values('timestamp', *values)
+            # Create JSON response of values
+            resp = {type_data_name: list(data)}
+
+            return JsonResponse(resp)
+        return inner
+    return decorator
+
+
+"""
+    Get daily adjusted data for a particular stock
+    Endpoint: /stocks/daily_adjusted/<str:ticker>
+    Query Params:
+      * start_time: oldest timestamp of data to retrieve
+      * end_time: newest timestamp of data to retrieve
+    Response (JSON):
+    {
+      "daily_adjusted": [
+        {
+          "timestamp": timestamp of data point,
+          "interval": interval of data points,
+          "open": value of stock at open,
+          "high": highest value of stock,
+          "low": lowest value of stock,
+          "close": value of stock at close
+        }
+      ]
+    }
+"""
+@stock_data_get(StockDailyData, 'daily_adjusted', ['interval', 'open', 'high',
+    'low', 'close'])
+def get_daily_adjusted(request, ticker):
+    pass
+
+"""
+    Get SMA data for a particular stock
+    Endpoint: /stocks/SMA/<str:ticker>
+    Query Params:
+      * start_time: oldest timestamp of data to retrieve
+      * end_time: newest timestamp of data to retrieve
+    Response (JSON):
+    {
+      "SMA": [
+        {
+          "timestamp": timestamp of data point,
+          "SMA": SMA at timestamp
+        }
+      ]
+    }
+"""
+@stock_data_get(StockSMAData, 'SMA', ['SMA'])
+def get_sma(request, ticker):
+    pass
+
+
+"""
+    Get VWAP data for a particular stock
+    Endpoint: /stocks/VWAP/<str:ticker>
+    Query Params:
+      * start_time: oldest timestamp of data to retrieve
+      * end_time: newest timestamp of data to retrieve
+    Response (JSON):
+    {
+      "VWAP": [
+        {
+          "timestamp": timestamp of data point,
+          "VWAP": VWAP at timestamp
+        }
+      ]
+    }
+"""
+@stock_data_get(StockVWAPData, 'VWAP', ['VWAP'])
+def get_vwap(request, ticker):
+    pass
+
+
+"""
+    Get RSI data for a particular stock
+    Endpoint: /stocks/RSI/<str:ticker>
+    Query Params:
+      * start_time: oldest timestamp of data to retrieve
+      * end_time: newest timestamp of data to retrieve
+    Response (JSON):
+    {
+      "RSI": [
+        {
+          "timestamp": timestamp of data point,
+          "RSI": RSI at timestamp
+        }
+      ]
+    }
+"""
+@stock_data_get(StockRSIData, 'RSI', ['RSI'])
+def get_rsi(request, ticker):
+    pass
 
