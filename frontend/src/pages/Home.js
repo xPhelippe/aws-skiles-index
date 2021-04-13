@@ -9,6 +9,7 @@ import UserInfoCard from "../components/UserInfoCard";
 import educationIcon from "../images/educationIcon.png";
 import graphIcon from "../images/graphIcon.png";
 import helpIcon from "../images/helpIcon.png";
+import EditUserInfo from "../components/EditUserInfo";
 
 
 
@@ -25,12 +26,16 @@ class Home extends Component {
     this.state = {
       firstName: UserData.first_name,
       lastName: UserData.last_name,
+      username: UserData.username,
       investmentType: UserData.investmentType,
-      watchlist: UserData.watchlist
+      watchlist: UserData.watchlist,
+      viewEditUser : false
     }
 
     this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this);
     this.handleLogoutClick = this.handleLogoutClick.bind(this);
+    this.editUserInfo = this.editUserInfo.bind(this);
+
   }
 
   handleSuccessfulAuth(data) {
@@ -60,6 +65,10 @@ handleLogoutClick() {
     return types[userType];
   }
 
+  editUserInfo() {
+    this.setState({ viewEditUser: true });
+  }
+
   render() {
     return (
       <div>
@@ -72,6 +81,11 @@ handleLogoutClick() {
               <div className="col mx-0">
                   <UserInfoCard firstName={this.state.firstName} lastName={this.state.lastName}
                   investmentType={this.getInvesmentType(this.state.investmentType)}/>
+                  <button onClick={this.editUserInfo} class="ml-3 btn btn-outline-light me-2"> Edit Info </button>
+
+                  {(this.state.viewEditUser) ? <EditUserInfo 
+                    username={this.state.username} firstName={this.state.firstName} lastName={this.state.lastName} investmentType={this.state.investmentType}
+                    /> : ''}
               </div>
 
 

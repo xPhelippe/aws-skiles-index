@@ -3,7 +3,7 @@ import logo from '../images/greyLogoCropped.png';
 
 import axios from "axios";
 
-export default class SignUp extends Component {
+export default class EditUserInfo extends Component {
   constructor(props) {
     super(props);
 
@@ -12,8 +12,8 @@ export default class SignUp extends Component {
       last_name: "",
       username: "",
       password: "",
-      registrationErrors: "",
       investment_type: "",
+      registrationErrors: "",
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -55,31 +55,30 @@ export default class SignUp extends Component {
 
   render() {
     return (
-      <div className="Content">
-        <img className="App-logo" style={{'margin-bottom': '40px'}} src={logo} alt="Avatar"/>
-        <h2 class="text-center">Create an Account<br/></h2>
+      <div>
+        <br/>
+        <h3 class="text-center">Edit Info<br/></h3>
         <form onSubmit={this.handleSubmit}>
         <div className="form-group" style={{'margin-top': '25px'}}>
             <input
                 className="form-control"
                 type="username"
                 name="username"
-                placeholder="Username"
-                value={this.state.email}
+                placeholder={this.props.username}
+                value={this.state.username}
                 onChange={this.handleChange}
-                required
             />
         </div>
 
         <div className="form-group" style={{'margin-top': '25px'}}>
             <input
                 className="form-control"
-                type="username"
+                type="first_name"
                 name="first_name"
-                placeholder="First Name"
+                placeholder={this.props.firstName}
                 value={this.state.first_name}
                 onChange={this.handleChange}
-                required
+
             />
         </div>
 
@@ -88,28 +87,27 @@ export default class SignUp extends Component {
                 className="form-control"
                 type="username"
                 name="first_name"
-                placeholder="Last Name"
+                placeholder={this.props.lastName}
                 value={this.state.last_name}
                 onChange={this.handleChange}
-                required
+                
             />
         </div>
-        
 
         <div className="form-group">
             <input
                 className="form-control"
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={this.state.password}
+                type="investment-type"
+                name="investment-type"
+                placeholder={this.props.investmentType}
+                value={this.state.investment_type}
                 onChange={this.handleChange}
-                required
+                
             />
         </div>
 
           <div className="form-group">
-            <button type="submit" class="btn btn-warning btn-lg btn-block">Sign Up</button>
+            <button type="submit" class="btn btn-warning btn-lg btn-block">Update</button>
           </div>
         </form>
       </div>
