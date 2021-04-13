@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import getAPIHost from '../components/Environment';
 import logo from '../images/greyLogoCropped.png';
 
 import axios from "axios";
@@ -33,7 +34,7 @@ export default class SignUp extends Component {
 
      axios
       .post(
-        "http://127.0.0.1:8000/create_user/",querystring.stringify(
+        getAPIHost() + "/create_user/",querystring.stringify(
           {
             "username":username,
             "password":password,
