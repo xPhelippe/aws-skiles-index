@@ -1,0 +1,7 @@
+dispatch:
+  - url: "joanneskiles.com/*"
+    service: frontend
+  - url: "www.joanneskiles.com/*"
+    service: frontend
+  - url: "api.joanneskiles.com/*"
+    service: backend
