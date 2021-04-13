@@ -26,31 +26,31 @@ export default class SignUp extends Component {
     });
   }
 
-  handleSubmit(event) {
-    const { username, password, password_confirmation } = this.state;
+  handleSubmit = () => {
+    const { username, password, first_name, last_name } = this.state;
 
-//TODO
-/*     axios
+    const querystring = require('querystring');
+
+     axios
       .post(
-        "<put in correct api connection>",
-        {
-          user: {
-            username: username,
-            password: password,
-            password_confirmation: password_confirmation
-          }
-        },
-        { withCredentials: true }
+        "http://127.0.0.1:8000/create_user/",querystring.stringify(
+          {
+            "username":username,
+            "password":password,
+            "first_name":first_name,
+            "last_name":last_name
+          })
       )
       .then(response => {
-        if (response.data.status === "created") {
-          this.props.handleSuccessfulAuth(response.data);
-        }
+
+        localStorage.setItem("UserData", JSON.stringify(response.data["userData"]))
+        this.props.history.push('/home');
+
+        
       })
       .catch(error => {
         console.log("registration error", error);
-      }); */
-    event.preventDefault();
+      }); 
   }
 
   render() {
@@ -58,14 +58,13 @@ export default class SignUp extends Component {
       <div className="Content">
         <img className="App-logo" style={{'margin-bottom': '40px'}} src={logo} alt="Avatar"/>
         <h2 class="text-center">Create an Account<br/></h2>
-        <form onSubmit={this.handleSubmit}>
         <div className="form-group" style={{'margin-top': '25px'}}>
             <input
                 className="form-control"
                 type="username"
                 name="username"
                 placeholder="Username"
-                value={this.state.email}
+                value={this.state.username}
                 onChange={this.handleChange}
                 required
             />
@@ -87,7 +86,7 @@ export default class SignUp extends Component {
             <input
                 className="form-control"
                 type="username"
-                name="first_name"
+                name="last_name"
                 placeholder="Last Name"
                 value={this.state.last_name}
                 onChange={this.handleChange}
@@ -109,9 +108,8 @@ export default class SignUp extends Component {
         </div>
 
           <div className="form-group">
-            <button type="submit" class="btn btn-warning btn-lg btn-block">Sign Up</button>
+            <button onClick={this.handleSubmit} class="btn btn-warning btn-lg btn-block">Sign Up</button>
           </div>
-        </form>
       </div>
     );
   }

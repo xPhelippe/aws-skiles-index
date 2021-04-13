@@ -101,8 +101,6 @@ export default class Login extends Component {
                     <div className="form-group">
                         <button onClick={this.handleSubmit} class="btn btn-warning btn-lg btn-block"> Sign In </button>
                     </div>
-                    
-                  {/* </form> */}
             </div>
         </div>
     );
