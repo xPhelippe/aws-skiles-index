@@ -20,7 +20,7 @@ class Features extends Component {
                   <div className="card-body d-flex flex-column" >
                     <h4 className="card-title">Technical Indicators</h4>
                     <p className="card-text">Graphical stock visualization</p>
-                    <a href="/graphs" className="mt-auto btn btn-warning stretched-link">See Example</a>
+                    <a href="/graphs" className="mt-auto btn btn-warning stretched-link">View Graphs</a>
                   </div>
                 </div>
               </div>
@@ -42,10 +42,11 @@ class Features extends Component {
                   <div className="card-body d-flex flex-column" >
                     <h4 className="card-title">Education</h4>
                     <p className="card-text">Learn more about the stock market</p>
-                    <a href="/education" className="mt-auto btn btn-warning stretched-link">See Example</a>
+                    <a href="/education" className="mt-auto btn btn-warning stretched-link">Learn More</a>
                   </div>
                 </div>
               </div>
+
             </div>
           </div>
 

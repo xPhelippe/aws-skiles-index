@@ -12,7 +12,7 @@
 .Mini-aang {
   height: 4vmin;
   pointer-events: none;
-  margin: 10px;
+  margin: 5px;
 }
 
 .Landing-page {
@@ -52,6 +52,32 @@
   color: white;
   font-family: "Lucida Console", "Courier New" /* , monospace */;
   font-weight: bold;
+}
+
+.Header {
+  background-color: #1c1c1c;
+  display: flex;
+  flex-direction: column;
+  /* align-items: flex-start;
+  justify-content: flex-start;  */
+  justify-content: flex-start;
+  align-items: center;
+  /* justify-content: flex-start; */
+  /* font-size: calc(10px + 1vmin); */
+  color: white;
+  font-family: "Lucida Console", "Courier New" /* , monospace */;
+  font-weight: bold;
+}
+
+.User-logout {
+  display: flex;
+
+  flex-direction: column;
+  /* align-items: flex-start;
+  justify-content: flex-start;  */
+  align-content: center;
+  padding: 10px;
+  background-color: #3e444a;
 }
 
 .Sign-up {
@@ -137,11 +163,42 @@
   color: black;
 }
 
+.card-body-user {
+  font-family: "Lucida Console", "Courier New" /* , monospace */;
+  font-weight: bold;
+  color: black;
+}
+
 .card {
   width: 300px;
   height: 400px;
   display: flex;
+  align-items: flex-start;
+}
+
+.card-user-info {
+  width: 300px;
+  height: 700px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.card-user {
+  /* height: 400px; */
+  display: flex;
   align-items: flex-end;
+  font-family: "Lucida Console", "Courier New" /* , monospace */;
+  font-weight: bold;
+  color: white;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  /* min-width: 400px; */
+  background-color: #3e444a;
+  background-clip: border-box;
+  border: 0 solid rgba(0, 0, 0, 0.125);
+  /* border-radius: 0.25rem; */
 }
 
 /*888888888888888888888888888888888888888888888888888888888888888888888888*/
@@ -226,4 +283,11 @@
 }
 .login-form .bottom-action {
   font-size: 14px;
+}
+
+.no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+  padding-right: 0;
+  padding-left: 0;
 }

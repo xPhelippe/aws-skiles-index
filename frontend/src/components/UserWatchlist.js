@@ -3,6 +3,10 @@ import React, { Component } from 'react';
 //import { CanvasJSChart } from 'canvasjs-react-charts';
 import { getOverviewForSymbol } from './ApiConnectorOverview';
 import logo from '../images/greyLogoCropped.png';
+import Dropdown from 'react-bootstrap/Dropdown';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import Button from 'react-bootstrap/Button';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 
 import contacts from '../data/data.json';
 
@@ -16,32 +20,41 @@ class UserWatchlist extends Component {
             priceToSales: '',
             shortRatio: '',
             count: 0,
-        }
+        };
     }
 
-    stockTicker = {
-        "TSLA": 0,
-        1: "AAPL",
-        2: "WKHS",
-        3: "ABR" 
+    getDataIndex(ticker) {
+        const stockTicker = {
+            "TSLA": 0,
+            "AAPL": 1,
+            "WKHS": 2,
+            "ABR": 3,
+            "GOOGL": 4
+        }
+
+        const index = Number(stockTicker[ticker]);
+        console.log(index);
+        return index;
     }
-    
-    look() {
-        console.log(this.props.stockName)
-        console.log(contacts[this.stockTicker.TSLA].ShortRatio)
+
+    printHi() {
+        alert('hi');
     }
-   
+
 
     render() {
         return (
             // uncomment to use the state set by data from the api call
             //<span>PB: {this.getPB()}</span> 
-            <div className="Content">
-                <div>{this.look()}</div>
-                {/* <h1>{this.props.stockName[1].stock.ticker}</h1> */}
-                <div>{this.props.stockName.map((item, index) => (<h1>{item.stock.ticker}</h1>))}</div>
-                <table className="table table-striped table-dark" style={{'margin-top': '25px'}} >
-                    <thead>
+            <div className="">
+{/*                 <div>{this.props.stockName.map((item, index) => (<h1>{item.stock.ticker}</h1>))}</div>
+ */}
+
+                <table className="table table-striped text-white" >
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Watchlist</th>
+                        </tr>
                         <tr>
                             <th>Symbol</th>
                             <th>P/B Ratio</th>
@@ -52,20 +65,30 @@ class UserWatchlist extends Component {
                         </tr>
                     </thead>
                     <tbody>
-
-                        {contacts.map(e=> (
-                            <tr key={e.id}>
-                                <td>{e.Symbol}</td>
-                                <td>{e.PriceToBookRatio}</td>
-                                <td>{e.PERatio}</td>
-                                <td>{e.PEGRatio}</td>
-                                <td>{e.PriceToSalesRatioTTM}</td>
-                                <td>{e.ShortRatio}</td>
+                        {this.props.stockName.map(item=> (
+                            <tr key={item.id}>
+                                <td>{contacts[this.getDataIndex(item.stock.ticker)].Symbol}</td>
+                                <td>{contacts[this.getDataIndex(item.stock.ticker)].PriceToBookRatio}</td>
+                                <td>{contacts[this.getDataIndex(item.stock.ticker)].PERatio}</td>
+                                <td>{contacts[this.getDataIndex(item.stock.ticker)].PEGRatio}</td>
+                                <td>{contacts[this.getDataIndex(item.stock.ticker)].PriceToSalesRatioTTM}</td>
+                                <td>{contacts[this.getDataIndex(item.stock.ticker)].ShortRatio}</td>
                             </tr>
                         ))}
                     </tbody>
 
-                </table> 
+                </table>
+
+              
+                <DropdownButton id="dropdown-basic-button" variant="secondary" title="Add Stock">
+                    <Dropdown.Item onClick={this.printHi}>TSLA</Dropdown.Item>
+                    <Dropdown.Item onClick={this.printHi}>AAPL</Dropdown.Item>
+                    <Dropdown.Item onClick={this.printHi}>WKHS</Dropdown.Item>
+                    <Dropdown.Item onClick={this.printHi}>ABR</Dropdown.Item>
+                    <Dropdown.Item onClick={this.printHi}>GOOGL</Dropdown.Item>
+                </DropdownButton>
+              
+
             </div>
         );
     }

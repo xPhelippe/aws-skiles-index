@@ -4,76 +4,122 @@ import logo from '../images/greyLogoCropped.png';
 // eslint-disable-next-line
 import axios from "axios";
 
-import Signup from "./SignUp";
-import Login from "./Login";
 import UserWatchlist from "../components/UserWatchlist";
+import UserInfoCard from "../components/UserInfoCard";
+import educationIcon from "../images/educationIcon.png";
+import graphIcon from "../images/graphIcon.png";
+import helpIcon from "../images/helpIcon.png";
+import EditUserInfo from "../components/EditUserInfo";
+
 
 
 class Home extends Component {
   constructor(props) {
     super(props);
     
+    console.log('before user data in home')
     let UserData = localStorage.getItem("UserData")
 
     UserData = JSON.parse(UserData)
 
+    console.log("constructor home")
     console.log(UserData)
 
     this.state = {
-      first_name: UserData.first_name,
-      last_name: UserData.last_name,
+      firstName: UserData.first_name,
+      lastName: UserData.last_name,
+      username: UserData.username,
       investmentType: UserData.investmentType,
-      watchlist: UserData.watchlist
+      watchlist: UserData.watchlist,
+      viewEditUser : false
     }
 
     this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this);
     this.handleLogoutClick = this.handleLogoutClick.bind(this);
+    this.editUserInfo = this.editUserInfo.bind(this);
+
   }
+
 
   handleSuccessfulAuth(data) {
     this.props.handleLogin(data);
   }
 
-//TODO: Change this to the proper api call
-handleLogoutClick() {
-    //TODO: Change this to the proper api call
-    /*
-    axios
-       .delete("back-end connection", { withCredentials: true })
-      .then(response => {
-        this.props.handleLogout();
-      })
-      .catch(error => {
-        console.log("logout error", error);
-      }); */
-  } 
+  //TODO: Change this to the proper api call
+  handleLogoutClick() {
+      //TODO: Change this to the proper api call
+      /*
+      axios
+        .delete("back-end connection", { withCredentials: true })
+        .then(response => {
+          this.props.handleLogout();
+        })
+        .catch(error => {
+          console.log("logout error", error);
+        }); */
+    } 
+
+  getInvesmentType(userType) {
+    const types = {
+      0: "Risk Averse",
+      1: "Risk Tolerant"
+    };
+
+    return types[userType];
+  }
+
+  editUserInfo() {
+    /* this.setState({ viewEditUser: true }); */
+    this.props.history.push('/edit-user');
+  }
 
   render() {
     return (
       <div>
         <div className="Content">
             <img src={logo} className="App-logo" alt="logo" />
-            <h1>Welcome to the Skiles Index!</h1>
 
-            <h1>Home</h1>
-            <h1>First Name: {this.state.first_name}</h1>
-            <h1>Last Name: {this.state.last_name}</h1>
-            <h1>Investment Type: {this.state.investmentType}</h1>
-            {/* <h1>Watchlist: {this.state.watchlist[0].stock.ticker}</h1> */}
-            <h1>
-              Watchlist:
-              {this.state.watchlist.map((item,index) => (
-                <h1>{item.stock.ticker},</h1>
-              ))}
-            </h1>
-            from UserWathlist with props:
-            <UserWatchlist stockName={this.state.watchlist} />
+        <div className="row mb-0 mt-5 justify-content-center">
+              <div className="col mx-0">
+                  <UserInfoCard firstName={this.state.firstName} lastName={this.state.lastName}
+                  investmentType={this.getInvesmentType(this.state.investmentType)}/>
+                  <button onClick={this.editUserInfo} class="ml-3 btn btn-outline-light me-2"> Edit Info </button>
+
+                  {/* {(this.state.viewEditUser) ? <EditUserInfo 
+                    history={this.props.history} username={this.state.username} firstName={this.state.firstName} lastName={this.state.lastName} investmentType={this.state.investmentType}
+                    /> : ''} */}
+              </div>
 
 
 
-            <button onClick={() => this.handleLogoutClick()} type="button" className="btn btn-warning" style={{'margin':'20px'}}><a href="/" className="text-white">Log Out</a></button>        
+              <div className="col mx-0">
+                <UserWatchlist stockName={this.state.watchlist} />
+              </div>
+
+              <div className="col mx-0">
+                <ul class="nav flex-column">
+                  <li class="nav-item row">
+                    <img src={graphIcon} className="Mini-aang" alt="mini-aang" />
+                    <a class="nav-link text-light active" href="/graphs">Graphs</a>
+                  </li>
+
+                  <li class="nav-item row">
+                    <img src={educationIcon} className="Mini-aang" alt="mini-aang" />
+                    <a class="nav-link text-light active" href="/education">Educational Material</a>
+                  </li>
+
+                  <li class="nav-item row">
+                    <img src={helpIcon} className="Mini-aang" alt="mini-aang" />
+                    <a class="nav-link text-light active" href="/help">Help</a>
+                  </li>
+
+                </ul>
+              </div>
+
+
+
+          </div>
         </div>
-
       </div>
     );
   }

@@ -98,11 +98,29 @@ def create_user(request):
         user.profile.phoneNumber = phonenumber
         user.profile.risk_type = risk_type
 
+        # add TSLA to their watchlist by default
+        stock = Stock.objects.get(ticker="TSLA")
+        FavStock.objects.create(
+        user = user,
+        stock = stock
+        )
+
+        # create serialzed user information
+        userSerial = UserSerializer(user)
+
+        profile = Profile.objects.get(user=user)
+
+        retData = dict()
+        retData.update(userSerial.data)
+        retData.update({"investmentType":profile.investmentType})
+
+
         resp = {
-            "status":"user " + user.username + " successfully created"
+            "status":"user " + user.username + " successfully created",
+            "userData": retData
         } 
         
-        return JsonResponse(resp, status_code=200)
+        return JsonResponse(resp, status=200)
     except Exception:
 
         resp = {
@@ -110,7 +128,7 @@ def create_user(request):
         }
         print(str(Exception))
 
-        return JsonResponse(resp,status_code=500)
+        return JsonResponse(resp,status=500)
 
     
 
@@ -321,7 +339,7 @@ def add_to_watchlist(request):
         }
         print(str(Exception))
 
-        return JsonResponse(resp,status_code=500)
+        return JsonResponse(resp,status=500)
 
         
     favStock = FavStock.objects.filter(user=user,stock=stock)
