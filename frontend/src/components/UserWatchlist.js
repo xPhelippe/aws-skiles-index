@@ -79,14 +79,27 @@ class UserWatchlist extends Component {
 
                 </table>
 
-              
-                <DropdownButton id="dropdown-basic-button" variant="secondary" title="Add Stock">
-                    <Dropdown.Item onClick={this.printHi}>TSLA</Dropdown.Item>
-                    <Dropdown.Item onClick={this.printHi}>AAPL</Dropdown.Item>
-                    <Dropdown.Item onClick={this.printHi}>WKHS</Dropdown.Item>
-                    <Dropdown.Item onClick={this.printHi}>ABR</Dropdown.Item>
-                    <Dropdown.Item onClick={this.printHi}>GOOGL</Dropdown.Item>
-                </DropdownButton>
+                <div className="container overflow-hidden">
+                   <div className="row gx-3">
+                        <DropdownButton id="dropdown-basic-button" variant="secondary" title="Add Stock">
+                            <Dropdown.Item onClick={this.printHi}>TSLA</Dropdown.Item>
+                            <Dropdown.Item onClick={this.printHi}>AAPL</Dropdown.Item>
+                            <Dropdown.Item onClick={this.printHi}>WKHS</Dropdown.Item>
+                            <Dropdown.Item onClick={this.printHi}>ABR</Dropdown.Item>
+                            <Dropdown.Item onClick={this.printHi}>GOOGL</Dropdown.Item>
+                        </DropdownButton>
+                    
+
+                    
+                        <DropdownButton id="dropdown-basic-button" variant="secondary" title="Remove Stock">
+                            <Dropdown.Item onClick={this.printHi}>TSLA</Dropdown.Item>
+                            <Dropdown.Item onClick={this.printHi}>AAPL</Dropdown.Item>
+                            <Dropdown.Item onClick={this.printHi}>WKHS</Dropdown.Item>
+                            <Dropdown.Item onClick={this.printHi}>ABR</Dropdown.Item>
+                            <Dropdown.Item onClick={this.printHi}>GOOGL</Dropdown.Item>
+                        </DropdownButton>
+                    </div> 
+                </div>
               
 
             </div>

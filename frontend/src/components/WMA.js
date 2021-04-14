@@ -34,7 +34,7 @@ const WMA = () => {
                 data: [
                     {
                         type: "line",
-                        markerSize: 12,
+                        markerSize: 8,
                   /*       dataPoints: [
                             { x: new Date(2016, 2), y: 5.382 },
                             { x: new Date(2016, 5), y: 6.436 },

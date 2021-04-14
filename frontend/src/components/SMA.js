@@ -32,7 +32,7 @@ const SMA = () => {
                 data: [
                     {
                         type: "line",
-                        markerSize: 12,
+                        markerSize: 8,
                         dataPoints: stockData.map(stockData => ({
                             x: new Date(stockData.date),
                             y: stockData.sma

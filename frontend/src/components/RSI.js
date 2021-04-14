@@ -32,10 +32,10 @@ const RSI = () => {
                 data: [
                     {
                         type: "line",
-                        markerSize: 12,
+                        markerSize: 8,
                         dataPoints: stockData.map(stockData => ({
                             x: new Date(stockData.date),
-                            y: stockData.sma
+                            y: stockData.rsi
                             
                         }))
                     }
@@ -53,7 +53,7 @@ function formatStockData(stockData) {
 
         return {
             date,
-            sma: Number(priceData['RSI'])
+            rsi: Number(priceData['RSI'])
         }
     });
 }

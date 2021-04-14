@@ -1,4 +1,4 @@
-export const getAPIHost = () => {
+const getAPIHost = () => {
   if (process.env.REACT_APP_API_HOST !== null)
     return process.env.REACT_APP_API_HOST;
   else
