@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 from . import skiles_secrets
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -32,12 +33,13 @@ SECRET_KEY = skiles_secrets.SECRET_KEY
 ALPHA_VANTAGE_API_KEY = skiles_secrets.ALPHA_VANTAGE_API_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(os.environ.get('DEBUG', True))
 
 ALLOWED_HOSTS = [
     'http://127.0.0.1:3000',
     '127.0.0.1',
-    'localhost'
+    'localhost',
+    'api.joanneskiles.com'
 ]
 
 # cors whitelist
@@ -148,4 +150,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-
+# cors whitelist
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000',
+    'https://api.joanneskiles.com',
+    'https://joanneskiles.com',
+    'https://www.joanneskiles.com'
+]

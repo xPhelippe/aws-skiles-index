@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import logo from '../images/greyLogoCropped.png';
 import axios from "axios";
+import getAPIHost from '../components/Environment'
 import {withRouter} from 'react-router-dom';
 import { useHistory } from "react-router"
 
@@ -40,7 +41,7 @@ export default class Login extends Component {
     
       axios
       .post(
-        "http://127.0.0.1:8000/login/", querystring.stringify(
+        getAPIHost() + "/login/", querystring.stringify(
         {
           "username":username,
           "password":password,

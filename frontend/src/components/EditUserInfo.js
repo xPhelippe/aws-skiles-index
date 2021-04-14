@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import getAPIHost from 'Environment';
 import logo from '../images/greyLogoCropped.png';
 
 
@@ -42,7 +43,7 @@ export default class EditUserInfo extends Component {
     console.log(investment_type);
 
     axios
-      .post("http://127.0.0.1:8000/change_user_info/", querystring.stringify(
+      .post(getAPIHost() + "/change_user_info/", querystring.stringify(
         {
           "username": this.state.username,
           "first_name": first_name,
