@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import getAPIHost from 'Environment';
+import getAPIHost from './Environment';
 import logo from '../images/greyLogoCropped.png';
 
 
