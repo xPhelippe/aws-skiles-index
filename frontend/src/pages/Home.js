@@ -93,7 +93,7 @@ class Home extends Component {
 
 
               <div className="col mx-0">
-                <UserWatchlist stockName={this.state.watchlist} />
+                <UserWatchlist stockName={this.state.watchlist} user={this.state.username} history={this.props.history} />
               </div>
 
               <div className="col mx-0">
