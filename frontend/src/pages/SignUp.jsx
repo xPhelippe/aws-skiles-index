@@ -30,24 +30,19 @@ export default class SignUp extends Component {
   handleSubmit = () => {
     const { username, password, first_name, last_name } = this.state;
 
-    const querystring = require('querystring');
+    let data = new FormData();
+    
+    data.append('username',username)
+    data.append('password',password)
+    data.append('first_name',first_name)
+    data.append('last_name',last_name)
 
      axios
-      .post(
-        getAPIHost() + "/create_user/",querystring.stringify(
-          {
-            "username":username,
-            "password":password,
-            "first_name":first_name,
-            "last_name":last_name
-          })
-      )
+      .post(getAPIHost() + "/create_user/",data)
       .then(response => {
 
         localStorage.setItem("UserData", JSON.stringify(response.data["userData"]))
         this.props.history.push('/home');
-
-        
       })
       .catch(error => {
         console.log("registration error", error);
