@@ -7,8 +7,10 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
 import DropdownButton from 'react-bootstrap/DropdownButton';
+import getAPIHost from "./Environment"
 
 import contacts from '../data/data.json';
+import axios from 'axios';
 
 class UserWatchlist extends Component {
     constructor(props) {
@@ -36,9 +38,60 @@ class UserWatchlist extends Component {
         console.log(index);
         return index;
     }
+    
 
-    printHi() {
-        alert('hi');
+    addtoWatchlist = (e) => {
+        let ticker = e.currentTarget.textContent;
+        let user = this.props.user
+
+        console.log("ticker: " + ticker + " user: " + user)
+
+        const querystring = require('querystring');
+
+        axios.post(
+            getAPIHost() + "/add_to_watchlist/", querystring.stringify(
+                {
+                    "username":user,
+                    "ticker":ticker
+                })
+        ).then(response => {
+
+            console.log("made successful request")
+
+            console.log(response.data)
+            localStorage.setItem("UserData", JSON.stringify(response.data["userData"]))
+            // add to the current 
+
+            window.location.reload()
+
+        }).catch(error => {
+                console.log("login error", error);
+        });
+    }
+
+    removeFromWatchlist = (e) => {
+        let ticker = e.currentTarget.textContent;
+        let user = this.props.user;
+
+        const querystring = require('querystring');
+
+        axios.post(
+            getAPIHost() + "/remove_from_watchlist/", querystring.stringify(
+                {
+                    "username":user,
+                    "ticker":ticker
+                })
+        ).then(response => {
+
+            // add to the current watchlist
+            console.log(response.data)
+            localStorage.setItem("UserData", JSON.stringify(response.data["userData"]))
+
+            window.location.reload()
+
+        }).catch(error => {
+                console.log("login error", error);
+        });
     }
 
 
@@ -79,15 +132,25 @@ class UserWatchlist extends Component {
 
                 </table>
 
-              
-                <DropdownButton id="dropdown-basic-button" variant="secondary" title="Add Stock">
-                    <Dropdown.Item onClick={this.printHi}>TSLA</Dropdown.Item>
-                    <Dropdown.Item onClick={this.printHi}>AAPL</Dropdown.Item>
-                    <Dropdown.Item onClick={this.printHi}>WKHS</Dropdown.Item>
-                    <Dropdown.Item onClick={this.printHi}>ABR</Dropdown.Item>
-                    <Dropdown.Item onClick={this.printHi}>GOOGL</Dropdown.Item>
-                </DropdownButton>
-              
+                <div class="container">
+                    <div class="row">
+                        <DropdownButton id="dropdown-basic-button" variant="secondary" title="Add Stock">
+                            <Dropdown.Item onClick={this.addtoWatchlist}>TSLA</Dropdown.Item>
+                            <Dropdown.Item onClick={this.addtoWatchlist}>AAPL</Dropdown.Item>
+                            <Dropdown.Item onClick={this.addtoWatchlist}>WKHS</Dropdown.Item>
+                            <Dropdown.Item onClick={this.addtoWatchlist}>ABR</Dropdown.Item>
+                            <Dropdown.Item onClick={this.addtoWatchlist}>GOOGL</Dropdown.Item>
+                        </DropdownButton>
+
+                        <DropdownButton id="dropdown-basic-button" variant="secondary" title="Remove Stock">
+                            <Dropdown.Item onClick={this.removeFromWatchlist}>TSLA</Dropdown.Item>
+                            <Dropdown.Item onClick={this.removeFromWatchlist}>AAPL</Dropdown.Item>
+                            <Dropdown.Item onClick={this.removeFromWatchlist}>WKHS</Dropdown.Item>
+                            <Dropdown.Item onClick={this.removeFromWatchlist}>ABR</Dropdown.Item>
+                            <Dropdown.Item onClick={this.removeFromWatchlist}>GOOGL</Dropdown.Item>
+                        </DropdownButton>
+                    </div>
+                </div>
 
             </div>
         );

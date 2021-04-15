@@ -19,6 +19,18 @@ import json
 from django.core.exceptions import ObjectDoesNotExist
 
 
+def getUserDataJson(user):
+    userSerial = UserSerializer(user)
+
+    profile = Profile.objects.get(user=user)
+
+    retData = dict()
+    retData.update(userSerial.data)
+    retData.update({"investmentType":profile.investmentType})
+
+    return retData
+
+
 # Create a user
 # inputs:
 # - username [required]
@@ -273,11 +285,14 @@ def remove_from_watchlist(request):
     if favStock:
         favStock.delete()
 
+        userJson = getUserDataJson(user)
+
         res = {
-            "status": ticker + " was removed from " + username +"'s watchlist"
+            "status": ticker + " was removed from " + username +"'s watchlist",
+            "userData": userJson
         }
 
-        return JsonResponse(res)
+        return JsonResponse(res,status=200)
     else:
         res = {
             "status": ticker + " is not on " + username +"'s watchlist"
@@ -358,10 +373,13 @@ def add_to_watchlist(request):
         for item in favstock_set:
             retStocks.append(str(item.stock))
 
+        # grab the user's data
+        userJson = getUserDataJson(user)
+
         # create return object
         res = {
         "status":"success",
-        "watchlist": retStocks
+        "userData": userJson
 
         }
         return JsonResponse(res,status=200)
