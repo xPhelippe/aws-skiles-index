@@ -27,27 +27,15 @@ export default class Login extends Component {
 
   handleSubmit = () => {
     const { username, password } = this.state;
-    const params = {
-      "username": username,
-      "password": password
-    }
 
-    let Json = JSON.stringify(params)
-    //Json = JSON.parse(Json)
-    console.log(Json);
+    let data = new FormData();
 
-    const querystring = require('querystring');
+    data.append('username',username)
+    data.append('password',password)
    
     
-      axios
-      .post(
-        getAPIHost() + "/login/", querystring.stringify(
-        {
-          "username":username,
-          "password":password,
-        })
-                
-      )
+    axios
+      .post(getAPIHost() + "/login/", data)
       .then(response => {
 
       //this.props.handleSuccessfulAuth(response.data);
