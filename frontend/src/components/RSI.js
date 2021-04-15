@@ -4,7 +4,6 @@ import { getRSIForSymbol } from './ApiConnectorRSI';
 
 const RSI = () => {
     const [stockData, setStockData] = useState([]);
-
     // Fetch daily stock chart for TSLA when the component mounts
     useEffect(() => {
         const fetchStockData = async () => {
@@ -50,6 +49,8 @@ function formatStockData(stockData) {
     // Convert stockData from an object to an array
     return Object.entries(stockData).map(entries => {
         const [date, priceData] = entries;
+
+        console.log(date)
 
         return {
             date,

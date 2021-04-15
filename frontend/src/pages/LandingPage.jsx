@@ -15,8 +15,13 @@ function LandingPage() {
             </p>
 
             <div className="text-end"style={{'justify-content': 'flex-end'}} className={"button"}>
-                <button type="button" className="btn btn-outline-light me-2"><a href="/login" className="text-white">Login</a></button>
-                <button type="button" className="btn btn-warning" style={{'margin':'20px'}}><a href="/sign-up" className="text-white">Sign Up</a></button>
+{/*                 <button type="button" className="btn btn-outline-light me-2"><a href="/login" className="text-white">Login</a></button>
+ */}{/*                 <button type="button" className="btn btn-warning" style={{'margin':'20px'}}><a href="/sign-up" className="text-white">Sign Up</a></button>
+ */}                
+                <a href="/login" className="btn btn-outline-light me-2" style={{'margin':'20px'}}>Login</a>
+                <a href="/sign-up" className="btn btn-warning text-white" style={{'margin':'20px'}}>Sign Up</a>
+
+           
             </div>
         
         </div>

@@ -24,8 +24,13 @@ class Watchlist extends Component {
             // uncomment to use the state set by data from the api call
             //<span>PB: {this.getPB()}</span> 
             <div className="Content">
+                <img className="App-logo" src={logo} alt="logo" />
+
                 <table className="table table-striped table-dark" style={{'margin-top': '25px'}} >
                     <thead>
+                        <tr>
+                            <th>Watchlist</th>
+                        </tr>
                         <tr>
                             <th>Symbol</th>
                             <th>P/B Ratio</th>
@@ -49,6 +54,10 @@ class Watchlist extends Component {
                     </tbody>
 
                 </table> 
+                
+                <div className="form-group">
+                    <button type="button" className="btn btn-outline-light me-2"><a href="/features" class="text-white">Back</a></button>                
+                </div>
             </div>
         );
     }

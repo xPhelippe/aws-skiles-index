@@ -11,14 +11,14 @@ function NavBar() {
             <img src={miniAang} className="Mini-aang" alt="mini-aang" />
           </a>
           <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-            <li><a href="/features" className="nav-link px-2 text-white">Features</a></li>
-            <li><a href="/about" className="nav-link px-2 text-white">About Us</a></li>
-            <li><a href="/help" className="nav-link px-2 text-white">Help</a></li>
+            <li><a href="/features" className="nav-link px-2 text-light">Features</a></li>
+            <li><a href="/about" className="nav-link px-2 text-light">About Us</a></li>
+            <li><a href="/help" className="nav-link px-2 text-light">Help</a></li>
           </ul>
 
           <div className="text-end"style={{'justify-content': 'flex-end'}} className={"button"}>
-            <button type="button" className="btn btn-outline-light me-2"><a href="/login" className="text-white">Login</a></button>
-            <button type="button" className="btn btn-warning" style={{'margin':'20px'}}><a href="/sign-up" className="text-white">Sign Up</a></button>
+            <a href="/login" className="btn btn-outline-light me-2" style={{'margin':'12px'}}>Login</a>
+            <a href="/sign-up" className="btn btn-warning text-white" style={{'margin':'12px'}}>Sign Up</a>
           </div>
         </div>
       </div>

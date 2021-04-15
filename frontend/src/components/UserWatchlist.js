@@ -79,8 +79,8 @@ class UserWatchlist extends Component {
 
                 </table>
 
-                <div className="container overflow-hidden">
-                   <div className="row gx-3">
+                <div className="container">
+                   <div className="row">
                         <DropdownButton id="dropdown-basic-button" variant="secondary" title="Add Stock">
                             <Dropdown.Item onClick={this.printHi}>TSLA</Dropdown.Item>
                             <Dropdown.Item onClick={this.printHi}>AAPL</Dropdown.Item>
@@ -88,16 +88,14 @@ class UserWatchlist extends Component {
                             <Dropdown.Item onClick={this.printHi}>ABR</Dropdown.Item>
                             <Dropdown.Item onClick={this.printHi}>GOOGL</Dropdown.Item>
                         </DropdownButton>
-                    
-
-                    
-                        <DropdownButton id="dropdown-basic-button" variant="secondary" title="Remove Stock">
+                                 
+                         <DropdownButton id="dropdown-basic-button" variant="secondary" title="Remove Stock">
                             <Dropdown.Item onClick={this.printHi}>TSLA</Dropdown.Item>
                             <Dropdown.Item onClick={this.printHi}>AAPL</Dropdown.Item>
                             <Dropdown.Item onClick={this.printHi}>WKHS</Dropdown.Item>
                             <Dropdown.Item onClick={this.printHi}>ABR</Dropdown.Item>
                             <Dropdown.Item onClick={this.printHi}>GOOGL</Dropdown.Item>
-                        </DropdownButton>
+                        </DropdownButton> 
                     </div> 
                 </div>
               

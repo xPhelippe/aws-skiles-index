@@ -1,4 +1,4 @@
-import Chart from '../components/Chart';
+import Chart from '../components/TimeSeries';
 import SMA from '../components/SMA';
 import VWAP from '../components/VWAP';
 import RSI from '../components/RSI';
@@ -18,10 +18,7 @@ const Graphs = () => {
                 <div>_________________________________________________________________________________________________</div>
                 
                 <Chart />
-                <div > 100 Days of TSLA Time Series Data</div>
-                <div className="form-group">
-                    <button type="button" className="btn btn-outline-light me-2"><a href="/features" class="text-white">Back</a></button>                
-                </div>
+                100 Days of TSLA Time Series Data
                  <SMA />
                 Simple Moving Average (SMA) for TSLA
                 <VWAP />

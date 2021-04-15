@@ -11,7 +11,7 @@ class Features extends Component {
     render() { 
         return (
           <div className="container Content">
-            <img className="App-logo" src={logo} alt="Card" />
+            <img className="App-logo" src={logo} alt="logo" />
 
             <div className="row mb-1 mt-4 justify-content-center">
               <div className="col mx-0">
