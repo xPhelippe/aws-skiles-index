@@ -228,13 +228,13 @@ def change_user_info(request):
         })
 
      # modify risk type
-    risk_type = request.POST.get('risk_type')
-    if risk_type:
+    investment_type = request.POST.get('investment_type')
+    if investment_type:
         
-        user.profile.investmentType = risk_type
+        user.profile.investmentType = investment_type
 
         userchanges.update({
-            "risk_type":risk_type
+            "investment_type":investment_type
         })
     
 

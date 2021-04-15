@@ -36,34 +36,31 @@ export default class EditUserInfo extends Component {
 
   handleSubmit = () => {
     const {username, first_name, last_name, investment_type} = this.state;
-    const querystring = require('querystring');
-    console.log(username);
-    console.log(first_name);
-    console.log(last_name);
-    console.log(investment_type);
+    
+    let data = new FormData();
+
+    data.append('username',username)
+    data.append('first_name',first_name)
+    data.append('last_name',last_name)
+    data.append('investment_type',investment_type)
 
     axios
-      .post(getAPIHost() + "/change_user_info/", querystring.stringify(
-        {
-          "username": this.state.username,
-          "first_name": first_name,
-          "last_name": last_name,
-          "risk_type": investment_type
-        }),
-      )
+      .post(getAPIHost() + "/change_user_info/",data)
       .then(response => {
+
+        // grab previous user data
         let UserData = localStorage.getItem("UserData");
         UserData = JSON.parse(UserData);
-/*         UserData["username"] = username;
- */     UserData["first_name"] = first_name;
+
+        // update data with changes
+        UserData["first_name"] = first_name;
         UserData["last_name"] = last_name;
         UserData["investmentType"] = investment_type;
 
+        // push data back to loacl storage
         UserData = JSON.stringify(UserData);
         localStorage.setItem("UserData",UserData)
 
-        console.log(localStorage);
-        console.log(UserData);
         this.props.history.push('/home');
 
       })
@@ -117,8 +114,8 @@ export default class EditUserInfo extends Component {
         <div className="form-group">
             <input
                 className="form-control"
-                type="investment-type"
-                name="investment-type"
+                type="investment_type"
+                name="investment_type"
                 placeholder={this.state.investment_type}
                 value={this.state.investment_type}
                 onChange={this.handleChange}

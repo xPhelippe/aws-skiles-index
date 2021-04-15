@@ -43,17 +43,13 @@ class UserWatchlist extends Component {
         let ticker = e.currentTarget.textContent;
         let user = this.props.user
 
-        console.log("ticker: " + ticker + " user: " + user)
+        let data = new FormData();
+        data.append('username',user)
+        data.append('ticker',ticker)
 
-        const querystring = require('querystring');
-
-        axios.post(
-            getAPIHost() + "/add_to_watchlist/", querystring.stringify(
-                {
-                    "username":user,
-                    "ticker":ticker
-                })
-        ).then(response => {
+        axios
+            .post(getAPIHost() + "/add_to_watchlist/", data)
+            .then(response => {
 
             console.log("made successful request")
 
@@ -72,15 +68,13 @@ class UserWatchlist extends Component {
         let ticker = e.currentTarget.textContent;
         let user = this.props.user;
 
-        const querystring = require('querystring');
+        let data = new FormData();
+        data.append('username',user)
+        data.append('ticker',ticker)
 
-        axios.post(
-            getAPIHost() + "/remove_from_watchlist/", querystring.stringify(
-                {
-                    "username":user,
-                    "ticker":ticker
-                })
-        ).then(response => {
+        axios
+            .post(getAPIHost() + "/remove_from_watchlist/", data)
+            .then(response => {
 
             // add to the current watchlist
             console.log(response.data)
