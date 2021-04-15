@@ -77,7 +77,9 @@ class Home extends Component {
     return (
       <div>
         <div className="Content">
-            <img src={logo} className="App-logo" alt="logo" />
+            <a href="/" className="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+              <img className="App-logo" src={logo} alt="logo" />
+            </a>
 
         <div className="row mb-0 mt-5 justify-content-center">
               <div className="col mx-0">
@@ -100,7 +102,7 @@ class Home extends Component {
                 <ul class="nav flex-column">
                   <li class="nav-item row">
                     <img src={graphIcon} className="Mini-aang" alt="mini-aang" />
-                    <a class="nav-link text-light active" href="/graphs">Graphs</a>
+                    <a class="nav-link text-light active" href="/graphs">Technical Indicator Graphs</a>
                   </li>
 
                   <li class="nav-item row">
@@ -115,9 +117,6 @@ class Home extends Component {
 
                 </ul>
               </div>
-
-
-
           </div>
         </div>
       </div>

@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 //import { CanvasJSChart } from 'canvasjs-react-charts';
 import { getOverviewForSymbol } from './ApiConnectorOverview';
@@ -99,7 +98,7 @@ class UserWatchlist extends Component {
         return (
             // uncomment to use the state set by data from the api call
             //<span>PB: {this.getPB()}</span> 
-            <div className="">
+            <div>
 {/*                 <div>{this.props.stockName.map((item, index) => (<h1>{item.stock.ticker}</h1>))}</div>
  */}
 
@@ -132,26 +131,29 @@ class UserWatchlist extends Component {
 
                 </table>
 
-                <div className="container">
-                   <div className="row">
+                <div class="d-flex justify-content-between">
+                    <div class="row ">
+                        <div class="col">
                         <DropdownButton id="dropdown-basic-button" variant="secondary" title="Add Stock">
-                            <Dropdown.Item onClick={this.printHi}>TSLA</Dropdown.Item>
-                            <Dropdown.Item onClick={this.printHi}>AAPL</Dropdown.Item>
-                            <Dropdown.Item onClick={this.printHi}>WKHS</Dropdown.Item>
-                            <Dropdown.Item onClick={this.printHi}>ABR</Dropdown.Item>
-                            <Dropdown.Item onClick={this.printHi}>GOOGL</Dropdown.Item>
+                            <Dropdown.Item onClick={this.addtoWatchlist}>TSLA</Dropdown.Item>
+                            <Dropdown.Item onClick={this.addtoWatchlist}>AAPL</Dropdown.Item>
+                            <Dropdown.Item onClick={this.addtoWatchlist}>WKHS</Dropdown.Item>
+                            <Dropdown.Item onClick={this.addtoWatchlist}>ABR</Dropdown.Item>
+                            <Dropdown.Item onClick={this.addtoWatchlist}>GOOGL</Dropdown.Item>
                         </DropdownButton>
-                                 
-                         <DropdownButton id="dropdown-basic-button" variant="secondary" title="Remove Stock">
-                            <Dropdown.Item onClick={this.printHi}>TSLA</Dropdown.Item>
-                            <Dropdown.Item onClick={this.printHi}>AAPL</Dropdown.Item>
-                            <Dropdown.Item onClick={this.printHi}>WKHS</Dropdown.Item>
-                            <Dropdown.Item onClick={this.printHi}>ABR</Dropdown.Item>
-                            <Dropdown.Item onClick={this.printHi}>GOOGL</Dropdown.Item>
-                        </DropdownButton> 
-                    </div> 
+                        </div>
+                        
+                        <div class="col">
+                        <DropdownButton id="dropdown-basic-button" variant="secondary" title="Remove Stock">
+                            <Dropdown.Item onClick={this.removeFromWatchlist}>TSLA</Dropdown.Item>
+                            <Dropdown.Item onClick={this.removeFromWatchlist}>AAPL</Dropdown.Item>
+                            <Dropdown.Item onClick={this.removeFromWatchlist}>WKHS</Dropdown.Item>
+                            <Dropdown.Item onClick={this.removeFromWatchlist}>ABR</Dropdown.Item>
+                            <Dropdown.Item onClick={this.removeFromWatchlist}>GOOGL</Dropdown.Item>
+                        </DropdownButton>
+                        </div>
+                    </div>
                 </div>
-              
 
             </div>
         );

@@ -8,6 +8,8 @@ import React, { Component, useState, useEffect } from 'react';
 import { CanvasJSChart } from 'canvasjs-react-charts';
 import { getRSIForSymbol } from './ApiConnectorRSI';
 import { getGraphTest } from './GraphTestConnection';
+import LineChart from './LineChart';
+import CandleStickChart from './CandleStickChart';
 
 
 
@@ -21,7 +23,7 @@ const GenerateGraphs = (props) => {
             /* const result = getGraphTest(); */
             axios
             .get(
-              getAPIHost() + '/stocks/' + props.data_type_name + '/' + props.ticker + '?start_time=2021-01-30&end_time=2021-03-31'   
+              getAPIHost() + '/stocks/' + props.data_type_name + '/' + props.ticker + '?start_time=2021-03-30&end_time=2021-03-31'   
             )
             .then(response => {
             
@@ -48,19 +50,18 @@ const GenerateGraphs = (props) => {
 
         };
 
-        
-            
-        
-
         fetchStockData();
     }, []);
 
 
 
     return (
-        <div className="container" style={{'width':'850px'}}>
-            {props.ticker} 
-            <CanvasJSChart
+        <div className="container" style={{'width':'950px'}}>
+            {(props.data_type_name) === 'daily_adjusted' ? 'Time Series (Daily Adjusted)' : props.data_type_name} for {props.ticker} 
+            {(props.data_type_name) === 'daily_adjusted' ? <CandleStickChart stockData={stockData}/> : <LineChart stockData={stockData}/>} 
+
+            {/* <LineChart stockData={stockData}/> */}
+{/*             <CanvasJSChart
             
                 options={ {
                     
@@ -84,13 +85,26 @@ const GenerateGraphs = (props) => {
                     ]
                 } 
             }
-            />
+            /> */}
         </div>
     );
 };
 
 function formatStockData(stockData, dataType) {
     // Convert stockData from an object to an array
+    if (dataType === 'daily_adjusted') {
+        return Object.entries(stockData).map(entries => {
+            const [time, priceData] = entries;
+            console.log(dataType);
+            return {
+                date: priceData.timestamp,
+                open: Number(priceData['open']),
+                high: Number(priceData['high']),
+                low: Number(priceData['low']),
+                close: Number(priceData['close'])
+            }
+        });
+    }
     return Object.entries(stockData).map(entries => {
         const [time, priceData] = entries;
         console.log(dataType);

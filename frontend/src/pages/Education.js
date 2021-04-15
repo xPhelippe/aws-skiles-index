@@ -6,8 +6,6 @@ import HighRiskMaterial from '../components/educationalMaterial/HighRiskMaterial
 
 
 
-//I cannot comment the code inside of the education function. Strange?
-//List of Blocks in the Education Page with photos, desciptions and hyperlinks about stocks and investing
 class Education extends Component {
     constructor(props) {
         super(props);
@@ -22,16 +20,26 @@ class Education extends Component {
           investmentType: UserData.investmentType,
         }
 
-      }
+    }
+
+    getInvestmentType () {
+        if(this.state.investmentType === undefined || null) {
+            return 0
+        }
+        return this.state.investmentType;
+    }
+
     render() {
         return (
             <div>
                 <div className="Header">
-                    <img className="App-logo" src={logo} alt="Card" />
+                    <a href="/" className="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                        <img className="App-logo" src={logo} alt="logo" />
+                    </a>
                     {/* {this.state.investmentType} */}
                 </div>
 
-                 {(this.state.investmentType) === 0 ? <LowRiskMaterial/> : <HighRiskMaterial />} 
+                 {(this.getInvestmentType) === 0 ? <LowRiskMaterial/> : <HighRiskMaterial />} 
 
                 <GeneralEducation />
             </div>

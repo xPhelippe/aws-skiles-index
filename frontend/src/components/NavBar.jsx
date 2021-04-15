@@ -7,7 +7,7 @@ function NavBar() {
       <header className="p-3 style={{'background-color': '#1c1c1c', 'margin':'10}} text-white" className={"button"}>
         <div className="container">
           <div className="d-flex flex-wrap align-items-center justify-content-flex-start justify-content-lg-start">
-          <a href="/" className="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+          <a href="/home" className="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
             <img src={miniAang} className="Mini-aang" alt="mini-aang" />
           </a>
           <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">

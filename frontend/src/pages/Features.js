@@ -11,7 +11,9 @@ class Features extends Component {
     render() { 
         return (
           <div className="container Content">
-            <img className="App-logo" src={logo} alt="logo" />
+            <a href="/" className="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+              <img className="App-logo" src={logo} alt="logo" />
+            </a>
 
             <div className="row mb-1 mt-4 justify-content-center">
               <div className="col mx-0">

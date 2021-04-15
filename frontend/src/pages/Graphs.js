@@ -1,4 +1,114 @@
-import Chart from '../components/TimeSeries';
+import React, { Component } from 'react';
+import GenerateGraphs from '../components/GenerateGraphs';
+import logo from '../images/greyLogoCropped.png';
+import GraphTestConnection from '../components/GraphTestConnection';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+
+
+class Graphs extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            stock_ticker: "TSLA",
+            technical_indicator: "RSI",
+            is_updated: false
+        };
+    }
+
+
+    setStockTicker = (e) => {
+        this.setState({stock_ticker: e.currentTarget.textContent});
+        this.setState({is_updated: !this.state.is_updated})
+    }
+
+    setTechnicalIndicator = (e) => {
+        if(e.currentTarget.textContent === 'Time Series') {
+            this.setState({technical_indicator: 'daily_adjusted'});
+        }
+        else this.setState({technical_indicator: e.currentTarget.textContent});
+        this.setState({is_updated: !this.state.is_updated})
+    }
+
+
+    render() { 
+        return (
+            <div className="Content">
+                <a href="/" className="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                    <img className="App-logo" src={logo} alt="logo" />
+                </a>
+            
+                <div className="p-2">
+                    <GenerateGraphs key={this.state.is_updated} ticker={this.state.stock_ticker} data_type_name={this.state.technical_indicator}/>
+                </div>
+                    <div class="d-flex justify-content-between p-3">
+                        <div class="row ">
+                            <div class="col">
+                            <DropdownButton id="dropdown-basic-button" variant="secondary" title="Stock Ticker">
+                                <Dropdown.Item onClick={this.setStockTicker}>TSLA</Dropdown.Item>
+                                <Dropdown.Item onClick={this.setStockTicker}>AAPL</Dropdown.Item>
+                                <Dropdown.Item onClick={this.setStockTicker}>WKHS</Dropdown.Item>
+                                <Dropdown.Item onClick={this.setStockTicker}>ABR</Dropdown.Item>
+                                <Dropdown.Item onClick={this.setStockTicker}>GOOGL</Dropdown.Item>
+                            </DropdownButton>
+                            </div>
+                                
+                            <div class="col">
+                            <DropdownButton id="dropdown-basic-button" variant="secondary" title="Technical Indicator">
+                                <Dropdown.Item onClick={this.setTechnicalIndicator}>RSI</Dropdown.Item>
+                                <Dropdown.Item onClick={this.setTechnicalIndicator}>SMA</Dropdown.Item>
+                                <Dropdown.Item onClick={this.setTechnicalIndicator}>VWAP</Dropdown.Item>
+                                <Dropdown.Item onClick={this.setTechnicalIndicator}>Time Series</Dropdown.Item>
+                            </DropdownButton>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        );
+    }
+}
+ 
+export default Graphs;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* import Chart from '../components/TimeSeries';
 import SMA from '../components/SMA';
 import VWAP from '../components/VWAP';
 import RSI from '../components/RSI';
@@ -30,4 +140,4 @@ const Graphs = () => {
     );
 }
  
-export default Graphs;
+export default Graphs; */
