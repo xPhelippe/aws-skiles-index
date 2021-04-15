@@ -22,6 +22,12 @@
   margin: 5px;
 }
 
+.Midi-aang {
+  height: 8vmin;
+  pointer-events: none;
+  margin: 10px;
+}
+
 .Landing-page {
   height: 50vmin;
   /* pointer-events: none; */

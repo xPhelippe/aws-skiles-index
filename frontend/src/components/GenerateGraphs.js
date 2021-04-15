@@ -1,8 +1,6 @@
 import logo from '../images/greyLogoCropped.png';
 import axios from "axios";
 import getAPIHost from './Environment'
-import {withRouter} from 'react-router-dom';
-import { useHistory } from "react-router"
 
 import React, { Component, useState, useEffect } from 'react';
 import { CanvasJSChart } from 'canvasjs-react-charts';
@@ -23,7 +21,7 @@ const GenerateGraphs = (props) => {
             /* const result = getGraphTest(); */
             axios
             .get(
-              getAPIHost() + '/stocks/' + props.data_type_name + '/' + props.ticker + '?start_time=2021-03-30&end_time=2021-03-31'   
+              getAPIHost() + '/stocks/' + props.data_type_name + '/' + props.ticker + '?start_time=2021-01-1&end_time=2021-04-12'   
             )
             .then(response => {
             
