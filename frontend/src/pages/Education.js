@@ -17,17 +17,15 @@ class Education extends Component {
         console.log(UserData)
     
         this.state = {
-          investmentType: UserData.investmentType,
-        }
+            investmentType: UserData.investmentType
+/*           investmentType: UserData.investmentType,
+ */    }
 
     }
 
-    getInvestmentType () {
-        if(this.state.investmentType === undefined || null) {
-            return 0
-        }
-        return this.state.investmentType;
-    }
+
+
+
 
     render() {
         return (
@@ -39,7 +37,12 @@ class Education extends Component {
                     {/* {this.state.investmentType} */}
                 </div>
 
-                 {(this.getInvestmentType) === 0 ? <LowRiskMaterial/> : <HighRiskMaterial />} 
+                 {(this.state.investmentType) === 0 ? <LowRiskMaterial/> : <HighRiskMaterial />} 
+
+
+
+
+
 
                 <GeneralEducation />
             </div>

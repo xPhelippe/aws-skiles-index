@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import GenerateGraphs from '../../components/GenerateGraphs';
 import logo from '../../images/greyLogoCropped.png';
-import GraphTestConnection from '../../components/GraphTestConnection';
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
+
 import miniAang from '../../images/miniAang.png';
 import navBar from '../../images/navBar.png';
 import LandingPageHelp from './LandingPageHelp';
@@ -14,7 +11,6 @@ import FeaturesPageHelp from './FeaturesPageHelp';
 import HomePageHelp from './HomePageHelp';
 import EditUserPageHelp from './EditUserPageHelp';
 import GraphsPageHelp from './GraphsPageHelp';
-import EducationalPageHelp from './EducationalPageHelp';
 
 class Help extends Component {
     render() { 
@@ -71,7 +67,6 @@ class Help extends Component {
                 <HomePageHelp />
                 <EditUserPageHelp />
                 <GraphsPageHelp />
-                <EducationalPageHelp />
                 
             </div>
         );

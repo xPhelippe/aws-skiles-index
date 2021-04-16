@@ -1,9 +1,6 @@
 import React from 'react';
 import aboutPage from '../../images/aboutPageHelp.png';
-import loginIcon from '../../images/loginHelp.png';
-import signupIcon from '../../images/signupHelp.png';
-import featuresIcon from '../../images/featuresHelp.png';
-import aboutusIcon from '../../images/aboutusHelp.png';
+
 import text from '../../images/aboutUsText.png';
 
 

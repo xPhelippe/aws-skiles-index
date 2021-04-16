@@ -25,7 +25,13 @@
 .Midi-aang {
   height: 8vmin;
   pointer-events: none;
-  margin: 10px;
+  margin: 5px;
+}
+
+.Maxi-aang {
+  height: 20vmin;
+  pointer-events: none;
+  margin: 5px;
 }
 
 .Landing-page {

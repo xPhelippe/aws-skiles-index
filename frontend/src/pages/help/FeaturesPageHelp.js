@@ -1,7 +1,5 @@
 import React from 'react';
 import featuresPage from '../../images/featuresPageHelp.png';
-import loginIcon from '../../images/loginHelp.png';
-import signupIcon from '../../images/signupHelp.png';
 import tiCard from '../../images/tiCard.png';
 import watchlistCard from '../../images/watchlistCard.png';
 import educationCard from '../../images/educationCard.png';
