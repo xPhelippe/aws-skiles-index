@@ -1,4 +1,4 @@
-import api.stock_update_util
+from api import stock_update_util
 
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
@@ -446,7 +446,7 @@ def login_user(request):
         return JsonResponse(resp,status=200)
 
 def update_stock_data(request):
-    update_stock_util.update_stock_data()
+    stock_update_util.update_stock_data()
 
     return JsonResponse({"status":"Done updating stock data"})
 
