@@ -1,5 +1,0 @@
-cron:
-  - description: "Daily stock data update job"
-    url: /update_stock_data
-    schedule: every 24 hours
-    target: backend
