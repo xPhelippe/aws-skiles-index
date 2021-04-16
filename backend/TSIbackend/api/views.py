@@ -2,14 +2,14 @@ from api import stock_update_util
 
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
-from django.views.decorators.http import require_http_methods, require_GET
+from django.views.decorators.http import require_http_methods, require_GET, require_POST
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 from api.models import Stock, StockDailyData, StockSMAData, StockVWAPData, \
     StockRSIData
 from .serializers import UserSerializer, ProfileSerializer, WatchListSerializer
 
-from .models import Profile, Stock, FavStock
+from .models import Profile, Stock, FavStock, StockOverview
 import json
 
 from django.core.exceptions import ObjectDoesNotExist
@@ -80,7 +80,7 @@ def create_user(request):
             "missing":missing
         }
 
-        return JsonResponse(resp,status=200)
+        return JsonResponse(resp,status=404)
         
 
     # see if user already exists 
@@ -91,7 +91,7 @@ def create_user(request):
             "status":"User already exists"
         }
 
-        return JsonResponse(resp,status=200)
+        return JsonResponse(resp,status=404)
     except ObjectDoesNotExist:
         # create user
         user = User(
@@ -171,7 +171,7 @@ def change_user_info(request):
         resp['status'] = "user updated successfully"
     except ObjectDoesNotExist:
         resp["status"] = "User does not exist"
-        return JsonResponse(resp,status=200)
+        return JsonResponse(resp,status=404)
     except Exception:
 
         resp = {
@@ -294,7 +294,7 @@ def remove_from_watchlist(request):
             "status": ticker + " is not on " + username +"'s watchlist"
         }
 
-        return JsonResponse(res)
+        return JsonResponse(res,status=404)
     
     
 
@@ -324,7 +324,7 @@ def add_to_watchlist(request):
         "status":"User does not exist"
         }
 
-        return JsonResponse(res,status=200)
+        return JsonResponse(res,status=404)
     except Exception:
 
         resp = {
@@ -332,7 +332,7 @@ def add_to_watchlist(request):
         }
         print(str(Exception))
 
-        return JsonResponse(resp,status_code=500)
+        return JsonResponse(resp,status_code=404)
 
     
     try:
@@ -342,7 +342,7 @@ def add_to_watchlist(request):
         "status":"Invalid ticker"
         }
 
-        return JsonResponse(res,status=200)
+        return JsonResponse(res,status=404)
     except Exception:
 
         resp = {
@@ -385,7 +385,7 @@ def add_to_watchlist(request):
         "status":"User already has this on their watchlist"
         }
 
-        return JsonResponse(res,status=200)
+        return JsonResponse(res,status=404)
 
         
 
@@ -420,7 +420,7 @@ def login_user(request):
         resp = {
             "status":"User does not exist"
         }
-        return JsonResponse(resp,status=200)
+        return JsonResponse(resp,status=404)
 
     print("got the correct user")
     # see if the password is correct
@@ -443,7 +443,7 @@ def login_user(request):
         resp ={
             "status":"password is not valid"
         }
-        return JsonResponse(resp,status=200)
+        return JsonResponse(resp,status=404)
 
 def update_stock_data(request):
     stock_update_util.update_stock_data()
@@ -600,3 +600,85 @@ def get_vwap(request, ticker):
 def get_rsi(request, ticker):
     pass
 
+""" 
+    Get all tickers stored in the database
+    Endpoint: /get_all_tickers
+    Params: None
+
+    Response (JSON):
+    {
+        "tickers": [ array of tickers ]
+    }
+
+"""
+@require_GET
+def get_all_tickers(request):
+    # grab all stock tickers
+    tickers = Stock.objects.all().values('ticker').distinct()
+
+    ret = []
+
+    for tickerObject in tickers:
+        ret.append(tickerObject['ticker'])
+
+    retData = {
+        "tickers": ret
+    }
+
+    return JsonResponse(retData, status=200)
+
+
+
+"""
+    Get the overview indicators for a specific stock
+    Endpoint: /get_stock_overview
+
+    Post Body Params:
+    * ticker: ticker of the desired stock
+
+    Response (JSON):
+    {
+        "ticker": stock ticker
+        "PriceToBookRatio": PriceToBookRatio of the stock,
+        "PERatio": PERatio of the stock,
+        "PEGRatio": PEGRatio of the stock,
+        "PriceToSalesRatioTTM": PriceToSalesRatioTTM of the stock,
+        "ShortRatio":ShortRatio of the stock
+    }
+"""
+@csrf_exempt
+@require_POST
+def get_stock_overview(request):
+    # get ticker
+    try:
+        ticker = request.POST["ticker"]
+    except ObjectDoesNotExist:
+        resp = {
+            "status": ticker + " Does not exist"
+        }
+
+        return JsonResponse(resp,status=404)
+    
+    try:
+        stock = Stock.objects.get(ticker=ticker)
+    except ObjectDoesNotExist:
+        resp = {
+            "status": ticker + " is not a valid stock"
+        }
+
+        return JsonResponse(resp,status=404)
+
+    stock_overview = StockOverview.objects.get(stock=stock)
+
+    resp = {
+        "ticker": str(stock_overview.stock),
+        "PriceToBookRatio":stock_overview.PriceToBookRatio,
+        "PERatio":stock_overview.PERatio,
+        "PEGRatio":stock_overview.PEGRatio,
+        "PriceToSalesRatioTTM":stock_overview.PriceToSalesRatioTTM,
+        "ShortRatio":stock_overview.ShortRatio,
+
+    }
+
+
+    return JsonResponse(resp, status=200)

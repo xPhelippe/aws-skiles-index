@@ -4,7 +4,7 @@ from datetime import datetime
 from TSIbackend.settings import SELECTED_STOCK_TICKERS, ALPHA_VANTAGE_API_KEY
 
 from api.models import Stock, StockDailyData, StockSMAData, StockVWAPData, \
-    StockRSIData
+    StockRSIData, StockOverview
 
 from alpha_vantage.timeseries import TimeSeries
 from alpha_vantage.techindicators import TechIndicators
@@ -53,6 +53,21 @@ def update_stock_overview(ticker):
     stock.description = company_data['Description'][:3000]
     stock.fullName = company_data['Name'][:50]
     stock.save()
+
+    try:
+        stockOverview = StockOverview.objects.get(stock=stock)
+        print("Overview already in database. Not adding")
+    except:
+        print("Adding overview to database")
+        stockOverview = StockOverview()
+        stockOverview.stock = stock
+    
+    stockOverview.PEGRatio = company_data['PEGRatio']
+    stockOverview.PriceToBookRatio = company_data['PriceToBookRatio']
+    stockOverview.PERatio = company_data['PERatio']
+    stockOverview.PriceToSalesRatioTTM = company_data['PriceToSalesRatioTTM']
+    stockOverview.ShortRatio = company_data['ShortRatio']
+    stockOverview.save()
 
     return stock
 
