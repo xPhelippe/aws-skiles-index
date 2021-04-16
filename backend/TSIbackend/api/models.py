@@ -76,3 +76,19 @@ class FavStock(models.Model):
     def __str__(self):
         return str(self.user) + ', ' + str(self.stock)
     
+
+
+class StockOverview(models.Model):
+
+    stock = models.ForeignKey(Stock, on_delete=models.CASCADE,related_name="overview") 
+
+    PriceToBookRatio = models.DecimalField(max_digits=7,decimal_places=2)
+    PERatio = models.DecimalField(max_digits=7,decimal_places=2)
+    PEGRatio = models.DecimalField(max_digits=7,decimal_places=2)
+    PriceToSalesRatioTTM = models.DecimalField(max_digits=7,decimal_places=2)
+    ShortRatio = models.DecimalField(max_digits=7,decimal_places=2)
+
+    def __str__(self):
+        return str(self.stock)
+
+

@@ -11,5 +11,6 @@ admin.site.register(StockRSIData)
 admin.site.register(StockSMAData)
 admin.site.register(StockVWAPData)
 admin.site.register(FavStock)
+admin.site.register(StockOverview)
 
 
