@@ -29,5 +29,8 @@ urlpatterns = [
     path('stocks/daily_adjusted/<str:ticker>', views.get_daily_adjusted, name='get_daily_adjusted'),
     path('stocks/SMA/<str:ticker>', views.get_sma, name='get_sma'),
     path('stocks/VWAP/<str:ticker>', views.get_vwap, name='get_vwap'),
-    path('stocks/RSI/<str:ticker>', views.get_rsi, name='get_rsi')
+    path('stocks/RSI/<str:ticker>', views.get_rsi, name='get_rsi'),
+    path('get_all_tickers',views.get_all_tickers,name='get_all_tickers'),
+    path('get_stock_overview/',views.get_stock_overview,name='get_stock_overview')
+
 ]
