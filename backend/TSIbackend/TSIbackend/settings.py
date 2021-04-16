@@ -22,6 +22,27 @@ SELECTED_STOCK_TICKERS = [
     "AAPL",
     "WKHS",
     "ABR",
+    "XOM",
+    "CVX",
+    "SHW",
+    "DD",
+    "BA",
+    "UNP",
+    "DUK",
+    "ED",
+    "AEP",
+    "UNH",
+    "JNJ",
+    "JPM",
+    "AMZN",
+    "MCD",
+    "KO",
+    "PG",
+    "MSFT",
+    "FB",
+    "GOOGL",
+    "AMT",
+    "SPG"
 ]
 
 # Quick-start development settings - unsuitable for production
