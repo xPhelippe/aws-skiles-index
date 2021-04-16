@@ -60,7 +60,8 @@ ALLOWED_HOSTS = [
     'http://127.0.0.1:3000',
     '127.0.0.1',
     'localhost',
-    'api.joanneskiles.com'
+    'api.joanneskiles.com',
+    'backend.the-skiles-index.uc.r.appspot.com'
 ]
 
 # cors whitelist
@@ -177,5 +178,6 @@ CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
     'https://api.joanneskiles.com',
     'https://joanneskiles.com',
-    'https://www.joanneskiles.com'
+    'https://www.joanneskiles.com',
+    'https://backend.the-skiles-index.uc.r.appspot.com'
 ]
