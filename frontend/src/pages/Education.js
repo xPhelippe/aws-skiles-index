@@ -13,10 +13,11 @@ class Education extends Component {
         let UserData = localStorage.getItem("UserData")
     
         UserData = JSON.parse(UserData)
-    
+
         console.log(UserData)
     
         this.state = {
+            
             investmentType: UserData.investmentType
 /*           investmentType: UserData.investmentType,
  */    }
@@ -38,12 +39,6 @@ class Education extends Component {
                 </div>
 
                  {(this.state.investmentType) === 0 ? <LowRiskMaterial/> : <HighRiskMaterial />} 
-
-
-
-
-
-
                 <GeneralEducation />
             </div>
         );
