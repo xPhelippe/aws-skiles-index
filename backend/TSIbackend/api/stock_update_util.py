@@ -11,6 +11,7 @@ from alpha_vantage.techindicators import TechIndicators
 from alpha_vantage.fundamentaldata import FundamentalData
 
 from django.utils import timezone
+from django.core.exceptions import ObjectDoesNotExist
 
 import json
 
