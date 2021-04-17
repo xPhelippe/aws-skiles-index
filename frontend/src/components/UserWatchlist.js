@@ -25,6 +25,7 @@ class UserWatchlist extends Component {
     }
 
     getDataIndex(ticker) {
+        //this.fetchStockRatio();
         const stockTicker = {
             "TSLA": 0,
             "AAPL": 1,
@@ -87,6 +88,36 @@ class UserWatchlist extends Component {
         });
     }
 
+    fetchStockRatio = async () => {
+        /* const result = getGraphTest(); */
+        let data = "TSLA";
+
+        axios
+        .post(getAPIHost() + "/get_stock_overview", data)
+
+        .then(response => {
+        
+        //this.props.handleSuccessfulAuth(response.data);
+          
+          //console.log('in axios call - graph test');
+          //console.log(response.data.tickers);   
+          //console.log(response.data.RSI[4]);
+          console.log(response.data)
+
+          
+        })
+        .catch(error => {
+          console.log("stock api call error", error);
+        });
+
+
+        //console.log(result);
+
+        //console.log(result.data);
+        //setStockData(formatStockData(result['SMA']));
+        //console.log(stockData)
+    };
+
 
     render() {
         return (
@@ -95,7 +126,6 @@ class UserWatchlist extends Component {
             <div>
 {/*                 <div>{this.props.stockName.map((item, index) => (<h1>{item.stock.ticker}</h1>))}</div>
  */}
-
                 <table className="table table-striped text-white" >
                     <thead class="thead-dark">
                         <tr>

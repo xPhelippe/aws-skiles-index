@@ -5,7 +5,6 @@ import getAPIHost from './Environment'
 import React, { Component, useState, useEffect } from 'react';
 import { CanvasJSChart } from 'canvasjs-react-charts';
 import { getRSIForSymbol } from './ApiConnectorRSI';
-import { getGraphTest } from './GraphTestConnection';
 import LineChart from './LineChart';
 import CandleStickChart from './CandleStickChart';
 
