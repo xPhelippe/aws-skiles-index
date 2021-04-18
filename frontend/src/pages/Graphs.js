@@ -31,10 +31,7 @@ class Graphs extends Component {
           getAPIHost() + '/get_all_tickers'
         )
         .then(response => {
-          const answer = response.data.tickers;
-          console.log(answer);
-          this.setState({stock_list: answer});
-          return answer;
+          this.setState({stock_list: response.data.tickers});
           
         })
         .catch(error => {

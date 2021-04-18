@@ -2,36 +2,37 @@ import React, { Component } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import getAPIHost from "./Environment"
-import contacts from '../data/data.json';
 import axios from 'axios';
-
 class UserWatchlist extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            symbol: '',
-            priceToBook: '',
-            priceEarningsToGrowth: '',
-            priceToSales: '',
-            shortRatio: '',
-            count: 0,
+            stocks: [],
+            stock_list: []
         };
     }
 
-    getDataIndex(ticker) {
-        const stockTicker = {
-            "TSLA": 0,
-            "AAPL": 1,
-            "WKHS": 2,
-            "ABR": 3,
-            "GOOGL": 4
-        }
-
-        const index = Number(stockTicker[ticker]);
-        console.log(index);
-        return index;
+    componentDidMount() {
+        this.props.stockName.map(item => (
+            this.fetchStockRatio(item.stock.ticker)
+        ))
+        this.fetchStockTicker();
     }
+
     
+    fetchStockTicker = async () => {
+        axios
+        .get(
+          getAPIHost() + '/get_all_tickers'
+        )
+        .then(response => {
+          this.setState({stock_list: response.data.tickers});
+          
+        })
+        .catch(error => {
+          console.log("stock api call error", error);
+        });
+    };
 
     addtoWatchlist = (e) => {
         let ticker = e.currentTarget.textContent;
@@ -81,17 +82,23 @@ class UserWatchlist extends Component {
         });
     }
 
-    fetchStockRatio = async () => {
+    fetchStockRatio = async (ticker, index) => {
         let data = new FormData();
-        data.append('ticker', "TSLA")
+        data.append('ticker', ticker)
 
         axios
-        .post(getAPIHost() + "/get_stock_overview", data)
+        .post(getAPIHost() + "/get_stock_overview/", data)
 
         .then(response => {
-          console.log(response.data)
-
           
+          this.setState({stocks: [...this.state.stocks,{
+            ticker: response.data.ticker,
+            PriceToBookRatio: response.data.PriceToBookRatio,
+            PERatio: response.data.PERatio,
+            PEGRatio: response.data.PEGRatio,
+            PriceToSalesRatioTTM: response.data.PriceToSalesRatioTTM,
+            ShortRatio: response.data.ShortRatio
+          }]})
         })
         .catch(error => {
           console.log("stock api call error", error);
@@ -117,14 +124,14 @@ class UserWatchlist extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {this.props.stockName.map(item=> (
+                        {this.state.stocks.map(item=> (
                             <tr key={item.id}>
-                                <td>{contacts[this.getDataIndex(item.stock.ticker)].Symbol}</td>
-                                <td>{contacts[this.getDataIndex(item.stock.ticker)].PriceToBookRatio}</td>
-                                <td>{contacts[this.getDataIndex(item.stock.ticker)].PERatio}</td>
-                                <td>{contacts[this.getDataIndex(item.stock.ticker)].PEGRatio}</td>
-                                <td>{contacts[this.getDataIndex(item.stock.ticker)].PriceToSalesRatioTTM}</td>
-                                <td>{contacts[this.getDataIndex(item.stock.ticker)].ShortRatio}</td>
+                                <td>{item.ticker}</td>
+                                <td>{item.PriceToBookRatio}</td>
+                                <td>{item.PERatio}</td>
+                                <td>{item.PEGRatio}</td>
+                                <td>{item.PriceToSalesRatioTTM}</td>
+                                <td>{item.ShortRatio}</td>
                             </tr>
                         ))}
                     </tbody>
@@ -135,19 +142,19 @@ class UserWatchlist extends Component {
                     <div class="row ">
                         <div class="col">
                         <DropdownButton id="dropdown-basic-button" variant="secondary" title="Add Stock">
-                            <Dropdown.Item onClick={this.addtoWatchlist}>TSLA</Dropdown.Item>
-                            <Dropdown.Item onClick={this.addtoWatchlist}>AAPL</Dropdown.Item>
-                            <Dropdown.Item onClick={this.addtoWatchlist}>WKHS</Dropdown.Item>
-                            <Dropdown.Item onClick={this.addtoWatchlist}>ABR</Dropdown.Item>
+                            {this.state.stock_list.map(item => (
+                                <Dropdown.Item onClick={this.addtoWatchlist}>{item}</Dropdown.Item>
+
+                            ))}
+
                         </DropdownButton>
                         </div>
                         
                         <div class="col">
                         <DropdownButton id="dropdown-basic-button" variant="secondary" title="Remove Stock">
-                            <Dropdown.Item onClick={this.removeFromWatchlist}>TSLA</Dropdown.Item>
-                            <Dropdown.Item onClick={this.removeFromWatchlist}>AAPL</Dropdown.Item>
-                            <Dropdown.Item onClick={this.removeFromWatchlist}>WKHS</Dropdown.Item>
-                            <Dropdown.Item onClick={this.removeFromWatchlist}>ABR</Dropdown.Item>
+                            {this.state.stock_list.map(item => (
+                                <Dropdown.Item onClick={this.removeFromWatchlist}>{item}</Dropdown.Item>
+                            ))}
                         </DropdownButton>
                         </div>
                     </div>
@@ -156,39 +163,6 @@ class UserWatchlist extends Component {
             </div>
         );
     }
-
-    getPB() {
-        const{priceToBook} = this.state;
-        //this.fetchStockData('TSLA');
-        return priceToBook;
-    }
-
-    formatCount() {
-        const{count} = this.state;
-        const x = <h1>Zero</h1>;
-        return count === 0 ? x : count;
-    }
-
-    componentDidMount() {
-        // uncomment to get api data instead, i'm using the json data i saved 
-        //this.fetchStockData('TSLA');
-        
-    }
-/*     
-    fetchStockData = async (symbol) => {
-        //const result = await getOverviewForSymbol(symbol);
-        //console.log(result.data.FullTimeEmployees);
-        //console.log(result.data.ShortRatio);
-        this.setState({
-            priceToBook: 2,
-            priceEarningsToGrowth: result.data.PEGRatio,
-            priceToSales: result.data.PriceToSalesRatio,
-            shortRatio: result.data.ShortRatio,
-        });
-        
-    }; */
-
-
 };
 
 
