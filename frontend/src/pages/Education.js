@@ -14,27 +14,31 @@ class Education extends Component {
         }
     }
 
-    setInvestmentType() {
+    setInvestmentType = () => {
         let UserData = localStorage.getItem("UserData")
         UserData = JSON.parse(UserData)
         if(UserData != null) {
             this.setState({investmentType: UserData.investmentType})
-        } else {
+            console.log(UserData)
         }
-
     }
 
     getMaterial = () => {
         if(this.state.investmentType === '') {
             this.setInvestmentType();
         } 
+        /* Need to specify both integer and string types of investmentType since the UserData object changes the type to string after the user edits their investment type - Need to fix */
         switch(this.state.investmentType) {
-            case '0': return <LowRiskMaterial />
-            case '1': return <HighRiskMaterial />
+            case 0: return <LowRiskMaterial /> 
+            case '0': return <LowRiskMaterial /> 
+            case 1: return <HighRiskMaterial /> 
+            case '1': return <HighRiskMaterial /> 
             default: return;
         }
-/*         return this.state.investmentType
- */
+    }
+
+    componentDidMount() {
+        this.setState({investmentType: ''})
     }
 
 
