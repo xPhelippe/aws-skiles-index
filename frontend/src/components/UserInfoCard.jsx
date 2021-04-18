@@ -14,9 +14,8 @@ class UserInfoCard extends Component {
                 <h4 className="card-title">Hello, {this.props.firstName}</h4>
                 <p className="card-text">Name: {this.props.firstName} {this.props.lastName}</p>
                 <p className="card-text">Investment Type: {this.props.investmentType}</p>
-
-{/*                 <a href="/edit-user" className="mt-auto btn btn-warning">Edit Info</a>
- */}                <a href="/" className="mt-auto btn btn-warning">Log Out</a>
+                
+                <a href="/" className="mt-auto btn btn-warning">Log Out</a>
               </div>
             </div>
           </div>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import logo from '../../images/greyLogoCropped.png';
-
 import miniAang from '../../images/miniAang.png';
 import navBar from '../../images/navBar.png';
 import LandingPageHelp from './LandingPageHelp';
@@ -25,6 +24,7 @@ class Help extends Component {
                         <tr>
                             <th>Key Links</th>
                         </tr>
+
                         <tr>
                             <th>Image</th>
                             <th>Location</th>
@@ -41,6 +41,7 @@ class Help extends Component {
                             <td>Clicking the image</td>
                             <td>Redirection to landing page</td>
                         </tr>
+
                         <tr>
                             <td><img src={miniAang} className="Mini-aang" alt="mini-aang" /></td>
                             <td>Left-most icon on navigation bar</td>
@@ -50,7 +51,7 @@ class Help extends Component {
                         </tr>
 
                         <tr>
-                        <td><img src={navBar} className="Mini-aang" alt="navigation bar" /></td>
+                            <td><img src={navBar} className="Mini-aang" alt="navigation bar" /></td>
                             <td>Top left of every page</td>
                             <td>Contains links to main features, expounded below</td>
                             <td>Clicking desired link text</td>

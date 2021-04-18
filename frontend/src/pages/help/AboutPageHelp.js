@@ -1,6 +1,5 @@
 import React from 'react';
 import aboutPage from '../../images/aboutPageHelp.png';
-
 import text from '../../images/aboutUsText.png';
 
 

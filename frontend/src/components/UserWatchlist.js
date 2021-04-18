@@ -1,13 +1,7 @@
 import React, { Component } from 'react';
-//import { CanvasJSChart } from 'canvasjs-react-charts';
-import { getOverviewForSymbol } from './ApiConnectorOverview';
-import logo from '../images/greyLogoCropped.png';
 import Dropdown from 'react-bootstrap/Dropdown';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import Button from 'react-bootstrap/Button';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import getAPIHost from "./Environment"
-
 import contacts from '../data/data.json';
 import axios from 'axios';
 
@@ -25,7 +19,6 @@ class UserWatchlist extends Component {
     }
 
     getDataIndex(ticker) {
-        //this.fetchStockRatio();
         const stockTicker = {
             "TSLA": 0,
             "AAPL": 1,
@@ -89,19 +82,13 @@ class UserWatchlist extends Component {
     }
 
     fetchStockRatio = async () => {
-        /* const result = getGraphTest(); */
-        let data = "TSLA";
+        let data = new FormData();
+        data.append('ticker', "TSLA")
 
         axios
         .post(getAPIHost() + "/get_stock_overview", data)
 
         .then(response => {
-        
-        //this.props.handleSuccessfulAuth(response.data);
-          
-          //console.log('in axios call - graph test');
-          //console.log(response.data.tickers);   
-          //console.log(response.data.RSI[4]);
           console.log(response.data)
 
           
@@ -109,23 +96,12 @@ class UserWatchlist extends Component {
         .catch(error => {
           console.log("stock api call error", error);
         });
-
-
-        //console.log(result);
-
-        //console.log(result.data);
-        //setStockData(formatStockData(result['SMA']));
-        //console.log(stockData)
     };
 
 
     render() {
         return (
-            // uncomment to use the state set by data from the api call
-            //<span>PB: {this.getPB()}</span> 
             <div>
-{/*                 <div>{this.props.stockName.map((item, index) => (<h1>{item.stock.ticker}</h1>))}</div>
- */}
                 <table className="table table-striped text-white" >
                     <thead class="thead-dark">
                         <tr>
@@ -163,7 +139,6 @@ class UserWatchlist extends Component {
                             <Dropdown.Item onClick={this.addtoWatchlist}>AAPL</Dropdown.Item>
                             <Dropdown.Item onClick={this.addtoWatchlist}>WKHS</Dropdown.Item>
                             <Dropdown.Item onClick={this.addtoWatchlist}>ABR</Dropdown.Item>
-                            <Dropdown.Item onClick={this.addtoWatchlist}>GOOGL</Dropdown.Item>
                         </DropdownButton>
                         </div>
                         
@@ -173,7 +148,6 @@ class UserWatchlist extends Component {
                             <Dropdown.Item onClick={this.removeFromWatchlist}>AAPL</Dropdown.Item>
                             <Dropdown.Item onClick={this.removeFromWatchlist}>WKHS</Dropdown.Item>
                             <Dropdown.Item onClick={this.removeFromWatchlist}>ABR</Dropdown.Item>
-                            <Dropdown.Item onClick={this.removeFromWatchlist}>GOOGL</Dropdown.Item>
                         </DropdownButton>
                         </div>
                     </div>

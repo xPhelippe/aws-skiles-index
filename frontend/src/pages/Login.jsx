@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import logo from '../images/greyLogoCropped.png';
 import axios from "axios";
-import getAPIHost from '../components/Environment'
-import {withRouter} from 'react-router-dom';
-import { useHistory } from "react-router"
+import getAPIHost from '../components/Environment';
+
 
 export default class Login extends Component {
   constructor(props) {
@@ -36,10 +35,7 @@ export default class Login extends Component {
     
     axios
       .post(getAPIHost() + "/login/", data)
-      .then(response => {
-
-      //this.props.handleSuccessfulAuth(response.data);
-        
+      .then(response => {        
         
         console.log(response.data)
         localStorage.setItem("UserData", JSON.stringify(response.data))
@@ -50,19 +46,18 @@ export default class Login extends Component {
       .catch(error => {
         console.log("login error", error);
       });
-
-      //event.preventDefault();
-      
   }
 
 
   render() {
     return (
         <div className="Content">
-			<img className="App-logo" style={{'margin-bottom': '50px'}} src={logo} alt="Avatar"/>
-            <h2 class="text-center margin-40">Member Login</h2>
+            <a href="/" className="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+              <img className="App-logo" src={logo} alt="logo" />
+            </a>
+
+            <h2 class="text-center margin-40" style={{'margin-top': '25px'}}>Member Login</h2>
                 <div>
-                   {/* <form onSubmit={this.handleSubmit} method="POST"> */}
                     <div className="form-group" style={{'margin-top': '25px'}}>
                         <input
                             className="form-control"

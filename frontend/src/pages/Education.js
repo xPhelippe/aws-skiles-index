@@ -5,27 +5,37 @@ import LowRiskMaterial from '../components/educationalMaterial/LowRiskMaterial';
 import HighRiskMaterial from '../components/educationalMaterial/HighRiskMaterial';
 
 
-
 class Education extends Component {
     constructor(props) {
         super(props);
-        
-        let UserData = localStorage.getItem("UserData")
-    
-        UserData = JSON.parse(UserData)
 
-        console.log(UserData)
-    
         this.state = {
-            
-            investmentType: UserData.investmentType
-/*           investmentType: UserData.investmentType,
- */    }
+            investmentType: ''
+        }
+    }
+
+    setInvestmentType() {
+        let UserData = localStorage.getItem("UserData")
+        UserData = JSON.parse(UserData)
+        if(UserData != null) {
+            this.setState({investmentType: UserData.investmentType})
+        } else {
+        }
 
     }
 
-
-
+    getMaterial = () => {
+        if(this.state.investmentType === '') {
+            this.setInvestmentType();
+        } 
+        switch(this.state.investmentType) {
+            case '0': return <LowRiskMaterial />
+            case '1': return <HighRiskMaterial />
+            default: return;
+        }
+/*         return this.state.investmentType
+ */
+    }
 
 
     render() {
@@ -35,11 +45,12 @@ class Education extends Component {
                     <a href="/" className="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
                         <img className="App-logo" src={logo} alt="logo" />
                     </a>
-                    {/* {this.state.investmentType} */}
                 </div>
 
-                 {(this.state.investmentType) === 0 ? <LowRiskMaterial/> : <HighRiskMaterial />} 
-                <GeneralEducation />
+                {this.getMaterial()}
+{/*                 <LowRiskMaterial/>
+ */}{/*                 {(this.state.investmentType) === 0 && <LowRiskMaterial/>} 
+ */}                <GeneralEducation />
             </div>
         );
     }

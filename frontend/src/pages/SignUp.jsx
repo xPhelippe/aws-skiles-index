@@ -52,8 +52,10 @@ export default class SignUp extends Component {
   render() {
     return (
       <div className="Content">
-        <img className="App-logo" style={{'margin-bottom': '40px'}} src={logo} alt="Avatar"/>
-        <h2 class="text-center">Create an Account<br/></h2>
+        <a href="/" className="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+          <img className="App-logo" src={logo} alt="logo" />
+        </a>
+        <h2 class="text-center" style={{'margin-top': '25px'}}>Create an Account<br/></h2>
         <div className="form-group" style={{'margin-top': '25px'}}>
             <input
                 className="form-control"
@@ -66,7 +68,7 @@ export default class SignUp extends Component {
             />
         </div>
 
-        <div className="form-group" style={{'margin-top': '25px'}}>
+        <div className="form-group">
             <input
                 className="form-control"
                 type="username"
@@ -78,7 +80,7 @@ export default class SignUp extends Component {
             />
         </div>
 
-        <div className="form-group" style={{'margin-top': '25px'}}>
+        <div className="form-group">
             <input
                 className="form-control"
                 type="username"

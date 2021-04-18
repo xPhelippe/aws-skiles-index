@@ -26,19 +26,11 @@ class Graphs extends Component {
 
 
     fetchStockTicker = async () => {
-        /* const result = getGraphTest(); */
         axios
         .get(
-          /* getAPIHost() + '/stocks/SMA/TSLA?start_time=2021-01-1&end_time=2021-04-12' */   
           getAPIHost() + '/get_all_tickers'
         )
         .then(response => {
-        
-        //this.props.handleSuccessfulAuth(response.data);
-          
-          //console.log('in axios call - graph test');
-          //console.log(response.data.tickers);   
-          //console.log(response.data.RSI[4]);
           const answer = response.data.tickers;
           console.log(answer);
           this.setState({stock_list: answer});
@@ -48,27 +40,16 @@ class Graphs extends Component {
         .catch(error => {
           console.log("stock api call error", error);
         });
-
-
-        //console.log(result);
-
-        //console.log(result.data);
-        //setStockData(formatStockData(result['SMA']));
-        //console.log(stockData)
     };
 
 
 
     setStockTicker = (e) => {
-        //console.log(this.fetchStockTicker());
-        this.fetchStockTicker();
-        //console.log(this.fetchStockTicker());
         this.setState({stock_ticker: e.currentTarget.textContent});
         this.setState({is_updated: !this.state.is_updated})
     }
 
     setTechnicalIndicator = (e) => {
-        this.fetchStockTicker();
         if(e.currentTarget.textContent === 'Time Series') {
             this.setState({technical_indicator: 'daily_adjusted'});
         }
@@ -84,8 +65,6 @@ class Graphs extends Component {
                     <img className="App-logo" src={logo} alt="logo" />
                 </a>
 
-                {this.state.stock_list[0]}
-
                 <div className="p-2">
                     <GenerateGraphs key={this.state.is_updated} ticker={this.state.stock_ticker} data_type_name={this.state.technical_indicator}/>
                 </div>
@@ -96,11 +75,6 @@ class Graphs extends Component {
                                 {this.state.stock_list.map(item=> (
                                     <Dropdown.Item onClick={this.setStockTicker}>{item}</Dropdown.Item>
                                 ))}
-{/*                                 <Dropdown.Item onClick={this.setStockTicker}>TSLA</Dropdown.Item>
-                                <Dropdown.Item onClick={this.setStockTicker}>AAPL</Dropdown.Item>
-                                <Dropdown.Item onClick={this.setStockTicker}>WKHS</Dropdown.Item>
-                                <Dropdown.Item onClick={this.setStockTicker}>ABR</Dropdown.Item>
-                                <Dropdown.Item onClick={this.setStockTicker}>GOOGL</Dropdown.Item> */}
                             </DropdownButton>
                             </div>
                                 

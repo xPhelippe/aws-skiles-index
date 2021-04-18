@@ -3,7 +3,6 @@ import logo from '../images/greyLogoCropped.png';
 import book from '../images/book.png'
 import watch from '../images/watch.png'
 import stockGraph from '../images/stockGraph.png'
-//import axios from "axios"
 
 
 class Features extends Component {

@@ -1,21 +1,18 @@
 import React from 'react';
 import signupPage from '../../images/signupPageHelp.png';
-import loginIcon from '../../images/loginHelp.png';
-import signupIcon from '../../images/signupHelp.png';
-import featuresIcon from '../../images/featuresHelp.png';
 import signupField from '../../images/signupFields.png';
 import signupButton from '../../images/signupButton.png';
 
 
 function SignupPageHelp() {
-    
-        return (
-            <table className="table table-striped table-dark" style={{'margin-top': '25px'}} >
+    return (
+        <table className="table table-striped table-dark" style={{'margin-top': '25px'}} >
             <thead class="thead-dark">
                 <tr>
                     <th>Sign Up Page</th>
                 </tr>
             </thead>
+
             <tbody>
                 <tr>
                     <th rowspan="6"><img src={signupPage} className="Help-pages" alt="landing-page" /></th>
@@ -27,8 +24,6 @@ function SignupPageHelp() {
                     <td><img src={signupField} className="Midi-aang" alt="navigation bar" /></td>
                     <td>Text-fields for new users to enter their username, first and last name, and password</td>
                 </tr>
-                
-                
 
                 <tr>
                     <td><img src={signupButton} className="Mini-aang" alt="navigation bar" /></td>
@@ -36,7 +31,7 @@ function SignupPageHelp() {
                 </tr>
             </tbody>
         </table> 
-        );
+    );
     
 }
 

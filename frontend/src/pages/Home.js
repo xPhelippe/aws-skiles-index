@@ -1,17 +1,10 @@
-
 import React, { Component } from "react";
 import logo from '../images/greyLogoCropped.png';
-// eslint-disable-next-line
-import axios from "axios";
-
 import UserWatchlist from "../components/UserWatchlist";
 import UserInfoCard from "../components/UserInfoCard";
 import educationIcon from "../images/educationIcon.png";
 import graphIcon from "../images/graphIcon.png";
 import helpIcon from "../images/helpIcon.png";
-import EditUserInfo from "../components/EditUserInfo";
-
-
 
 
 class Home extends Component {
@@ -36,29 +29,13 @@ class Home extends Component {
     }
 
     this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this);
-    this.handleLogoutClick = this.handleLogoutClick.bind(this);
     this.editUserInfo = this.editUserInfo.bind(this);
-
   }
 
 
   handleSuccessfulAuth(data) {
     this.props.handleLogin(data);
   }
-
-  //TODO: Change this to the proper api call
-  handleLogoutClick() {
-      //TODO: Change this to the proper api call
-      /*
-      axios
-        .delete("back-end connection", { withCredentials: true })
-        .then(response => {
-          this.props.handleLogout();
-        })
-        .catch(error => {
-          console.log("logout error", error);
-        }); */
-    } 
 
   getInvesmentType(userType) {
     const types = {
@@ -70,7 +47,6 @@ class Home extends Component {
   }
 
   editUserInfo() {
-    /* this.setState({ viewEditUser: true }); */
     this.props.history.push('/edit-user');
   }
 
@@ -87,10 +63,6 @@ class Home extends Component {
                   <UserInfoCard firstName={this.state.firstName} lastName={this.state.lastName}
                   investmentType={this.getInvesmentType(this.state.investmentType)}/>
                   <button onClick={this.editUserInfo} class="ml-3 btn btn-outline-light me-2"> Edit Info </button>
-
-                  {/* {(this.state.viewEditUser) ? <EditUserInfo 
-                    history={this.props.history} username={this.state.username} firstName={this.state.firstName} lastName={this.state.lastName} investmentType={this.state.investmentType}
-                    /> : ''} */}
               </div>
 
 

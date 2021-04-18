@@ -1,8 +1,5 @@
 import React, { Component } from "react";
 import getAPIHost from './Environment';
-import logo from '../images/greyLogoCropped.png';
-
-
 import axios from "axios";
 
 export default class EditUserInfo extends Component {
@@ -75,17 +72,6 @@ export default class EditUserInfo extends Component {
       <div>
         <br/>
         <h3 class="text-center">Edit Info<br/></h3>
-        {/* <form onSubmit={this.handleSubmit}> */}
-{/*         <div className="form-group" style={{'margin-top': '25px'}}>
-            <input
-                className="form-control"
-                type="username"
-                name="username"
-                placeholder={this.props.username}
-                value={this.props.username}
-                onChange={this.handleChange}
-            />
-        </div> */}
 
         <div className="form-group" style={{'margin-top': '25px'}}>
             <input
@@ -126,7 +112,6 @@ export default class EditUserInfo extends Component {
           <div className="form-group">
             <button onClick={this.handleSubmit} class="btn btn-warning btn-lg btn-block">Update</button>
           </div>
-        {/* </form> */}
       </div>
     );
   }

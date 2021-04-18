@@ -1,6 +1,5 @@
 import React from 'react';
 import editUserPage from '../../images/editUserPageHelp.png';
-
 import editUserFields from '../../images/editUserFields.png';
 import updateButton from '../../images/updateButton.png';
 
