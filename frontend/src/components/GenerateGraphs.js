@@ -30,7 +30,6 @@ const GenerateGraphs = (props) => {
     });
 
 
-
     return (
         <div className="container" style={{'width':'950px'}}>
             {(props.data_type_name) === 'daily_adjusted' ? 'Time Series (Daily Adjusted)' : props.data_type_name} for {props.ticker} 
@@ -56,7 +55,6 @@ function formatStockData(stockData, dataType) {
     }
     return Object.entries(stockData).map(entries => {
         const [time, priceData] = entries;
-        console.log(dataType);
         return {
             date: priceData.timestamp,
             indicator_value: Number(priceData[dataType])
