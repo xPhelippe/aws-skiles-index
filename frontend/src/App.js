@@ -6,7 +6,7 @@ import logo from './images/greyLogoCropped.png';
 import './App.css';
 import Home from './pages/Home'
 import About from './pages/About'
-import Help from './pages/Help'
+import Help from './pages/help/Help'
 import Features from './pages/Features'
 import LandingPage from './pages/LandingPage'
 // eslint-disable-next-line

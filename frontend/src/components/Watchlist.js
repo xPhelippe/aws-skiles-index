@@ -1,6 +1,4 @@
-
 import React, { Component } from 'react';
-//import { CanvasJSChart } from 'canvasjs-react-charts';
 import { getOverviewForSymbol } from './ApiConnectorOverview';
 import logo from '../images/greyLogoCropped.png';
 
@@ -21,11 +19,16 @@ class Watchlist extends Component {
 
     render() {
         return (
-            // uncomment to use the state set by data from the api call
-            //<span>PB: {this.getPB()}</span> 
             <div className="Content">
+                <a href="/" className="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                    <img className="App-logo" src={logo} alt="logo" />
+                </a>
+
                 <table className="table table-striped table-dark" style={{'margin-top': '25px'}} >
-                    <thead>
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Watchlist</th>
+                        </tr>
                         <tr>
                             <th>Symbol</th>
                             <th>P/B Ratio</th>
@@ -49,13 +52,16 @@ class Watchlist extends Component {
                     </tbody>
 
                 </table> 
+
+                <div className="form-group">
+                    <a href="/features" className="btn btn-outline-light me-2 text-light">Back</a>            
+                </div>
             </div>
         );
     }
 
     getPB() {
         const{priceToBook} = this.state;
-        //this.fetchStockData('TSLA');
         return priceToBook;
     }
 
@@ -65,26 +71,16 @@ class Watchlist extends Component {
         return count === 0 ? x : count;
     }
 
-    componentDidMount() {
-        // uncomment to get api data instead, i'm using the json data i saved 
-        //this.fetchStockData('GOOGL');
-        
-    }
-    
     fetchStockData = async (symbol) => {
         const result = await getOverviewForSymbol(symbol);
         console.log(result.data);
-        //console.log(result.data.ShortRatio);
         this.setState({
             priceToBook: 2,
             priceEarningsToGrowth: result.data.PEGRatio,
             priceToSales: result.data.PriceToSalesRatio,
             shortRatio: result.data.ShortRatio,
         });
-        
     };
-
-
 };
 
 

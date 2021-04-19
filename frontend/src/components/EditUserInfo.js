@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import getAPIHost from './Environment';
-import logo from '../images/greyLogoCropped.png';
-
-
 import axios from "axios";
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 
 export default class EditUserInfo extends Component {
   constructor(props) {
@@ -24,6 +23,14 @@ export default class EditUserInfo extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  getInvestmentType(type) {
+    const risk = {
+      '0': "Risk Averse",
+      '1': "Risk Tolerant",
+    }
+    return risk[type]
+  }
+
   updateUsername() {
     this.setState = this.props.username;
   }
@@ -34,15 +41,28 @@ export default class EditUserInfo extends Component {
     });
   }
 
+  handleRiskChange = (event) => {
+    const risk = {
+      "Risk Averse": 0,
+      "Risk Tolerant": 1,
+    }
+
+    const newRisk = event.currentTarget.textContent;
+    console.log(risk[newRisk])
+    this.setState({
+      investment_type: risk[newRisk]
+    });
+  }
+
   handleSubmit = () => {
     const {username, first_name, last_name, investment_type} = this.state;
     
     let data = new FormData();
 
-    data.append('username',username)
-    data.append('first_name',first_name)
-    data.append('last_name',last_name)
-    data.append('investment_type',investment_type)
+    data.append('username', username)
+    data.append('first_name', first_name)
+    data.append('last_name', last_name)
+    data.append('investment_type', investment_type)
 
     axios
       .post(getAPIHost() + "/change_user_info/",data)
@@ -75,17 +95,6 @@ export default class EditUserInfo extends Component {
       <div>
         <br/>
         <h3 class="text-center">Edit Info<br/></h3>
-        {/* <form onSubmit={this.handleSubmit}> */}
-{/*         <div className="form-group" style={{'margin-top': '25px'}}>
-            <input
-                className="form-control"
-                type="username"
-                name="username"
-                placeholder={this.props.username}
-                value={this.props.username}
-                onChange={this.handleChange}
-            />
-        </div> */}
 
         <div className="form-group" style={{'margin-top': '25px'}}>
             <input
@@ -116,17 +125,21 @@ export default class EditUserInfo extends Component {
                 className="form-control"
                 type="investment_type"
                 name="investment_type"
-                placeholder={this.state.investment_type}
-                value={this.state.investment_type}
+                placeholder={this.getInvestmentType(this.state.investment_type)}
+                value={this.getInvestmentType(this.state.investment_type)}
                 onChange={this.handleChange}
                 
             />
+
+            <DropdownButton className="btn-lg" id="dropdown-basic-button" variant="secondary" title="Investment Type" type="investment_type" name="investment_type">
+              <Dropdown.Item onClick={this.handleRiskChange}>Risk Averse</Dropdown.Item>
+              <Dropdown.Item onClick={this.handleRiskChange}>Risk Tolerant</Dropdown.Item>
+            </DropdownButton>
         </div>
 
           <div className="form-group">
             <button onClick={this.handleSubmit} class="btn btn-warning btn-lg btn-block">Update</button>
           </div>
-        {/* </form> */}
       </div>
     );
   }

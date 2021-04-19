@@ -1,16 +1,10 @@
-
 import React, { Component } from "react";
 import logo from '../images/greyLogoCropped.png';
-// eslint-disable-next-line
-import axios from "axios";
-
 import UserWatchlist from "../components/UserWatchlist";
 import UserInfoCard from "../components/UserInfoCard";
 import educationIcon from "../images/educationIcon.png";
 import graphIcon from "../images/graphIcon.png";
 import helpIcon from "../images/helpIcon.png";
-import EditUserInfo from "../components/EditUserInfo";
-
 
 
 class Home extends Component {
@@ -35,29 +29,13 @@ class Home extends Component {
     }
 
     this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this);
-    this.handleLogoutClick = this.handleLogoutClick.bind(this);
     this.editUserInfo = this.editUserInfo.bind(this);
-
   }
 
 
   handleSuccessfulAuth(data) {
     this.props.handleLogin(data);
   }
-
-  //TODO: Change this to the proper api call
-  handleLogoutClick() {
-      //TODO: Change this to the proper api call
-      /*
-      axios
-        .delete("back-end connection", { withCredentials: true })
-        .then(response => {
-          this.props.handleLogout();
-        })
-        .catch(error => {
-          console.log("logout error", error);
-        }); */
-    } 
 
   getInvesmentType(userType) {
     const types = {
@@ -69,7 +47,6 @@ class Home extends Component {
   }
 
   editUserInfo() {
-    /* this.setState({ viewEditUser: true }); */
     this.props.history.push('/edit-user');
   }
 
@@ -77,17 +54,15 @@ class Home extends Component {
     return (
       <div>
         <div className="Content">
-            <img src={logo} className="App-logo" alt="logo" />
+            <a href="/" className="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+              <img className="App-logo" src={logo} alt="logo" />
+            </a>
 
         <div className="row mb-0 mt-5 justify-content-center">
               <div className="col mx-0">
                   <UserInfoCard firstName={this.state.firstName} lastName={this.state.lastName}
                   investmentType={this.getInvesmentType(this.state.investmentType)}/>
                   <button onClick={this.editUserInfo} class="ml-3 btn btn-outline-light me-2"> Edit Info </button>
-
-                  {/* {(this.state.viewEditUser) ? <EditUserInfo 
-                    history={this.props.history} username={this.state.username} firstName={this.state.firstName} lastName={this.state.lastName} investmentType={this.state.investmentType}
-                    /> : ''} */}
               </div>
 
 
@@ -100,7 +75,7 @@ class Home extends Component {
                 <ul class="nav flex-column">
                   <li class="nav-item row">
                     <img src={graphIcon} className="Mini-aang" alt="mini-aang" />
-                    <a class="nav-link text-light active" href="/graphs">Graphs</a>
+                    <a class="nav-link text-light active" href="/graphs">Technical Indicator Graphs</a>
                   </li>
 
                   <li class="nav-item row">
@@ -115,9 +90,6 @@ class Home extends Component {
 
                 </ul>
               </div>
-
-
-
           </div>
         </div>
       </div>

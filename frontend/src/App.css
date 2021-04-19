@@ -9,8 +9,27 @@
   margin: 0;
 }
 
+.Help-pages {
+  height: 50vmin;
+
+  pointer-events: none;
+  margin: 0;
+}
+
 .Mini-aang {
   height: 4vmin;
+  pointer-events: none;
+  margin: 5px;
+}
+
+.Midi-aang {
+  height: 8vmin;
+  pointer-events: none;
+  margin: 5px;
+}
+
+.Maxi-aang {
+  height: 20vmin;
   pointer-events: none;
   margin: 5px;
 }

@@ -5,35 +5,56 @@ import LowRiskMaterial from '../components/educationalMaterial/LowRiskMaterial';
 import HighRiskMaterial from '../components/educationalMaterial/HighRiskMaterial';
 
 
-
-//I cannot comment the code inside of the education function. Strange?
-//List of Blocks in the Education Page with photos, desciptions and hyperlinks about stocks and investing
 class Education extends Component {
     constructor(props) {
         super(props);
-        
-        let UserData = localStorage.getItem("UserData")
-    
-        UserData = JSON.parse(UserData)
-    
-        console.log(UserData)
-    
-        this.state = {
-          investmentType: UserData.investmentType,
-        }
 
-      }
+        this.state = {
+            investmentType: ''
+        }
+    }
+
+    setInvestmentType = () => {
+        let UserData = localStorage.getItem("UserData")
+        UserData = JSON.parse(UserData)
+        if(UserData != null) {
+            this.setState({investmentType: UserData.investmentType})
+            console.log(UserData)
+        }
+    }
+
+    getMaterial = () => {
+        if(this.state.investmentType === '') {
+            this.setInvestmentType();
+        } 
+        /* Need to specify both integer and string types of investmentType since the UserData object changes the type to string after the user edits their investment type - Need to fix */
+        switch(this.state.investmentType) {
+            case 0: return <LowRiskMaterial /> 
+            case '0': return <LowRiskMaterial /> 
+            case 1: return <HighRiskMaterial /> 
+            case '1': return <HighRiskMaterial /> 
+            default: return;
+        }
+    }
+
+    componentDidMount() {
+        this.setState({investmentType: ''})
+    }
+
+
     render() {
         return (
             <div>
                 <div className="Header">
-                    <img className="App-logo" src={logo} alt="Card" />
-                    {/* {this.state.investmentType} */}
+                    <a href="/" className="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                        <img className="App-logo" src={logo} alt="logo" />
+                    </a>
                 </div>
 
-                 {(this.state.investmentType) === 0 ? <LowRiskMaterial/> : <HighRiskMaterial />} 
-
-                <GeneralEducation />
+                {this.getMaterial()}
+{/*                 <LowRiskMaterial/>
+ */}{/*                 {(this.state.investmentType) === 0 && <LowRiskMaterial/>} 
+ */}                <GeneralEducation />
             </div>
         );
     }
