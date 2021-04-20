@@ -8,10 +8,10 @@ function NavBar() {
         <div className="container">
           <div className="d-flex flex-wrap align-items-center justify-content-flex-start justify-content-lg-start">
           <a href="/home">
-            <div class="hvrbox">
+            <div className="hvrbox">
               <img src={miniAang} alt="home button" class="Mini-aang mt-3"/>
-              <div class="hvrbox-layer_top">
-                <div class="hvrbox-text">Home</div>
+              <div className="hvrbox-layer_top">
+                <div className="hvrbox-text">Home</div>
               </div>
             </div>
          </a>
