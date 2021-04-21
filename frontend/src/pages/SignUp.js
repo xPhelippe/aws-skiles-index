@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import getAPIHost from '../components/Environment';
 import logo from '../images/greyLogoCropped.png';
 import axios from "axios";
+import NoHomeNavBar from '../components/NoHomeNavBar'
+
 
 
 /**
@@ -116,6 +118,7 @@ export default class SignUp extends Component {
 
   render() {
     return (
+      
       <div className="Content">
         <a href="/" className="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
           <img className="App-logo" src={logo} alt="logo" />

@@ -60,7 +60,7 @@ class Help extends Component {
 
                         <tr>
                             <td><img src={navBar} className="Mini-aang" alt="navigation bar" /></td>
-                            <td>Top left of every page</td>
+                            <td>Top right of every page</td>
                             <td>Contains links to main features, expounded below</td>
                             <td>Clicking desired link text</td>
                             <td>Redirection to page corresponding to link text</td>
