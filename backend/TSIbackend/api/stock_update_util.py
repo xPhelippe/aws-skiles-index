@@ -16,6 +16,21 @@ from django.core.exceptions import ObjectDoesNotExist
 import json
 
 
+def parse_timestamp(timestamp_str):
+    try:
+        timestamp = timezone.make_aware(datetime.strptime(
+            timestamp_str, '%Y-%m-%d'), timezone.get_default_timezone())
+    except ValueError:
+        try:
+            timestamp = timezone.make_aware(datetime.strptime(
+                timestamp_str, '%Y-%m-%d %H:%M:%S'), timezone.get_default_timezone())
+        except ValueError:
+            timestamp = timezone.make_aware(datetime.strptime(
+                timestamp_str, '%Y-%m-%d %H:%M'), timezone.get_default_timezone())
+
+    return timestamp
+
+
 def update_stock_data():
     # Iterate through every stock in settings.py
     for ticker in SELECTED_STOCK_TICKERS:
@@ -93,8 +108,7 @@ def update_stock_daily_data(stock):
     daily_data_set = []
     for day in daily_data:
         # Don't add existing data
-        timestamp = timezone.make_aware(datetime.strptime(
-            day, '%Y-%m-%d'), timezone.get_default_timezone())
+        timestamp = parse_timestamp(day)
         if latest_timestamp != None and timestamp < latest_timestamp:
             continue
 
@@ -133,8 +147,8 @@ def update_sma_data(stock):
     print(f"Updating stock SMA data ({len(sma_data)} entries to process)")
     sma_data_set = []
     for time in sma_data:
-        timestamp = timezone.make_aware(datetime.strptime(
-            time, '%Y-%m-%d'), timezone.get_default_timezone())
+        timestamp = parse_timestamp(time)
+
         # Don't add existing data
         if latest_timestamp != None and timestamp < latest_timestamp:
             continue
@@ -169,8 +183,7 @@ def update_vwap_data(stock):
     print(f"Updating stock VWAP data ({len(vwap_data)} entries to process)")
     vwap_data_set = []
     for time in vwap_data:
-        timestamp = timezone.make_aware(datetime.strptime(
-            time, '%Y-%m-%d %H:%M'), timezone.get_default_timezone())
+        timestamp = parse_timestamp(time)
         # Don't add existing data
         if latest_timestamp != None and timestamp < latest_timestamp:
             continue
@@ -206,8 +219,7 @@ def update_rsi_data(stock):
     print(f"Updating stock RSI data ({len(rsi_data)} entries to process)")
     rsi_data_set = []
     for time in rsi_data:
-        timestamp = timezone.make_aware(datetime.strptime(
-            time, '%Y-%m-%d'), timezone.get_default_timezone())
+        timestamp = parse_timestamp(time)
         # Don't add existing data
         if latest_timestamp != None and timestamp < latest_timestamp:
             continue
