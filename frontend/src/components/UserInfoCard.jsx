@@ -7,7 +7,7 @@ class UserInfoCard extends Component {
     }
     render() { 
         return (
-            <div className="col mx-0">
+            <div className="col ml-2">
             <div className="card" >
               <img className="card-img-top" style={{'width':'100%'}} src={profile} alt="Card" />
               <div className="card-body d-flex flex-column" >

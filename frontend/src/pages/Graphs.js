@@ -23,8 +23,6 @@ class Graphs extends Component {
         this.fetchStockTicker();
     }
 
-
-
     fetchStockTicker = async () => {
         axios
         .get(
@@ -39,11 +37,10 @@ class Graphs extends Component {
         });
     };
 
-
-
     setStockTicker = (e) => {
         this.setState({stock_ticker: e.currentTarget.textContent});
         this.setState({is_updated: !this.state.is_updated})
+
     }
 
     setTechnicalIndicator = (e) => {
@@ -52,6 +49,11 @@ class Graphs extends Component {
         }
         else this.setState({technical_indicator: e.currentTarget.textContent});
         this.setState({is_updated: !this.state.is_updated})
+    }
+
+    getTechnicalIndicator() {
+        if(this.state.stock_ticker === "SHW") return ["SMA","Time Series"]
+        return ["RSI", "SMA", "VWAP", "Time Series"];
     }
 
 
@@ -66,8 +68,8 @@ class Graphs extends Component {
                     <GenerateGraphs key={this.state.is_updated} ticker={this.state.stock_ticker} data_type_name={this.state.technical_indicator}/>
                 </div>
                     <div class="d-flex justify-content-between p-3">
-                        <div class="row ">
-                            <div class="col">
+                        <div className="row ">
+                            <div className="col">
                             <DropdownButton id="dropdown-basic-button" variant="secondary" title="Stock Ticker">
                                 {this.state.stock_list.map(item=> (
                                     <Dropdown.Item onClick={this.setStockTicker}>{item}</Dropdown.Item>
@@ -77,10 +79,9 @@ class Graphs extends Component {
                                 
                             <div class="col">
                             <DropdownButton id="dropdown-basic-button" variant="secondary" title="Technical Indicator">
-                                <Dropdown.Item onClick={this.setTechnicalIndicator}>RSI</Dropdown.Item>
-                                <Dropdown.Item onClick={this.setTechnicalIndicator}>SMA</Dropdown.Item>
-                                <Dropdown.Item onClick={this.setTechnicalIndicator}>VWAP</Dropdown.Item>
-                                <Dropdown.Item onClick={this.setTechnicalIndicator}>Time Series</Dropdown.Item>
+                                {this.getTechnicalIndicator().map(item=> (
+                                    <Dropdown.Item onClick={this.setTechnicalIndicator}>{item}</Dropdown.Item>
+                                ))}
                             </DropdownButton>
                             </div>
                         </div>

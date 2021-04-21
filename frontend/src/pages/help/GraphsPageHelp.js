@@ -24,7 +24,7 @@ function GraphsPageHelp() {
     
                 <tr>
                     <td><img src={graph} className="Maxi-aang" alt="navigation bar" /></td>
-                    <td>Redirect to Login page at /login</td>
+                    <td>Visualization of user's chosen stock for their selected technical indicator</td>
                 </tr>
 
                 <tr>

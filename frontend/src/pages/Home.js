@@ -54,24 +54,24 @@ class Home extends Component {
     return (
       <div>
         <div className="Content">
-            <a href="/" className="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+            <a href="/">
               <img className="App-logo" src={logo} alt="logo" />
             </a>
 
         <div className="row mb-0 mt-5 justify-content-center">
-              <div className="col mx-0">
+              <div className="col ml-5 container">
                   <UserInfoCard firstName={this.state.firstName} lastName={this.state.lastName}
                   investmentType={this.getInvesmentType(this.state.investmentType)}/>
-                  <button onClick={this.editUserInfo} class="ml-3 btn btn-outline-light me-2"> Edit Info </button>
+                  <button onClick={this.editUserInfo} class="ml-4 btn btn-outline-light me-2"> Edit Info </button>
               </div>
 
 
 
-              <div className="col mx-0">
+              <div className="col mr-4">
                 <UserWatchlist stockName={this.state.watchlist} user={this.state.username} history={this.props.history} />
               </div>
 
-              <div className="col mx-0">
+              <div className="col mx-0 ml-4">
                 <ul class="nav flex-column">
                   <li class="nav-item row">
                     <img src={graphIcon} className="Mini-aang" alt="mini-aang" />
