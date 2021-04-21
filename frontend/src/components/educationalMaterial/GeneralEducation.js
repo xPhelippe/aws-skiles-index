@@ -9,8 +9,12 @@ import taxes from './images/taxesImg.jpeg'
 import technicalAnalysis from './images/technicalAnalysisImg.png'
 import tradingStocks from './images/tradingStocksImg.png'
 
+/**
+ * GeneralEducation.js
+ * Purpose: Create list of blocks for the general education page with photos, desciptions and hyperlinks about stocks and investing
+ * @author Joseph Patullo
+ */
 
-//List of Blocks in the Education Page with photos, desciptions and hyperlinks about stocks and investing
 class GeneralEducation extends Component {
     render() {
         return (

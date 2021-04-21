@@ -7,6 +7,12 @@ import axios from "axios";
 import getAPIHost from '../components/Environment'
 
 
+/**
+ * Graphs.js
+ * Purpose: Create technical indicator graphs
+ * @author Elisa Rexinger
+*/
+
 class Graphs extends Component {
     constructor(props) {
         super(props);
@@ -19,10 +25,12 @@ class Graphs extends Component {
         };
     }
 
+    // On component mount, call fetchStockTicker()
     componentDidMount() {
         this.fetchStockTicker();
     }
 
+    // Provide list of available stocks in the database using the /get_all_tickers endpoint
     fetchStockTicker = async () => {
         axios
         .get(
@@ -37,12 +45,20 @@ class Graphs extends Component {
         });
     };
 
+    /**
+     * Update technical_indicator state to match user selection
+     * @param e event from user selecting a stock ticker to graph
+    */
     setStockTicker = (e) => {
         this.setState({stock_ticker: e.currentTarget.textContent});
         this.setState({is_updated: !this.state.is_updated})
 
     }
 
+    /**
+     * Update stock_ticker state to match user selection
+     * @param e event from user selecting a technical indicator to graph
+    */
     setTechnicalIndicator = (e) => {
         if(e.currentTarget.textContent === 'Time Series') {
             this.setState({technical_indicator: 'daily_adjusted'});
@@ -51,6 +67,10 @@ class Graphs extends Component {
         this.setState({is_updated: !this.state.is_updated})
     }
 
+    /**
+     * Decide the customized display of the educational material page
+     * @returns User the educational component corresponding to the user's risk type
+    */
     getTechnicalIndicator() {
         if(this.state.stock_ticker === "SHW") return ["SMA","Time Series"]
         return ["RSI", "SMA", "VWAP", "Time Series"];

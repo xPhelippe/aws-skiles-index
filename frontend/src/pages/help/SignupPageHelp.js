@@ -4,6 +4,12 @@ import signupField from '../../images/signupFields.png';
 import signupButton from '../../images/signupButton.png';
 
 
+/**
+ * SignupPageHelp.js
+ * Purpose: Display the Signup Page table on /help
+ * @author Elisa Rexinger
+*/
+
 function SignupPageHelp() {
     return (
         <table className="table table-striped table-dark" style={{'margin-top': '25px'}} >

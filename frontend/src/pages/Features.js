@@ -5,6 +5,12 @@ import watch from '../images/watch.png'
 import stockGraph from '../images/stockGraph.png'
 
 
+/**
+ * Features.js
+ * Purpose: Display cards for each of the main features: Stock Technical Indicator Graphing, Wathlist, and Educational Material
+ * @author Elisa Rexinger
+*/
+
 class Features extends Component {
     state = {  }
     render() { 

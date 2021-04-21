@@ -1,6 +1,12 @@
 import React from 'react';
 import miniAang from '../images/miniAang.png';
 
+/**
+ * NavBar.js
+ * Purpose: Display a navigation bar in the top right corner of every page
+ *          Contains links to /home, /features, /about, /help, /login, and /sign-up
+ * @author Elisa Rexinger
+ */
 
 function NavBar() {
     return (

@@ -4,10 +4,19 @@ import axios from "axios";
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 
+
+/**
+ * EditUserInfo.js
+ * Purpose: Component that allows users to edit their first name, last name, and/or investment type (risk tolerant or risk averse)
+ * @author Phelippe Souza-Herod
+ * @author Elisa Rexinger
+ */
+
 export default class EditUserInfo extends Component {
   constructor(props) {
     super(props);
 
+    // User data is persisted using local storage... not ideal, but acceptable for MVP
     let UserData = localStorage.getItem("UserData");
     UserData = JSON.parse(UserData);
 
@@ -23,6 +32,10 @@ export default class EditUserInfo extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  /**
+   * Function to convert number representation of risk type (as used to in backend) into string representation (end-user display)
+   * @return A String representing the user's risk type.
+   */
   getInvestmentType(type) {
     const risk = {
       '0': "Risk Averse",
@@ -30,17 +43,26 @@ export default class EditUserInfo extends Component {
     }
     return risk[type]
   }
-
+  
+  /**
+   * Set the state to the username prop
+   */
   updateUsername() {
     this.setState = this.props.username;
   }
 
+  /**
+   * Set applicable state variable to the user's field input
+   */
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value
     });
   }
 
+  /**
+   * Converting String representation of risk type into numerical (as used in backend) and updating the investment_type state
+   */
   handleRiskChange = (event) => {
     const risk = {
       "Risk Averse": 0,
@@ -54,6 +76,9 @@ export default class EditUserInfo extends Component {
     });
   }
 
+  /**
+   * Using /change_user_info/ endpoint to update a user's profile to match the current state
+   */
   handleSubmit = () => {
     const {username, first_name, last_name, investment_type} = this.state;
     
@@ -81,6 +106,7 @@ export default class EditUserInfo extends Component {
         UserData = JSON.stringify(UserData);
         localStorage.setItem("UserData",UserData)
 
+        // redirecting to home page
         this.props.history.push('/home');
 
       })
@@ -95,7 +121,6 @@ export default class EditUserInfo extends Component {
       <div>
         <br/>
         <h3 class="text-center">Edit Info<br/></h3>
-
         <div className="form-group" style={{'margin-top': '25px'}}>
             <input
                 className="form-control"

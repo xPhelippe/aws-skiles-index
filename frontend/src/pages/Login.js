@@ -4,6 +4,13 @@ import axios from "axios";
 import getAPIHost from '../components/Environment';
 
 
+/**
+ * Login.js
+ * Purpose: Component for user login
+ * @author Phelippe Souza-Herod
+ * @author Elisa Rexinger
+*/
+
 export default class Login extends Component {
   constructor(props) {
     super(props);
@@ -18,12 +25,18 @@ export default class Login extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  /**
+   * Update state to user input
+  */
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value
     });
   }
 
+  /**
+   * Check if user input is valid and communicate the login using /login/ endpoint
+  */
   handleSubmit = () => {
     const { username, password } = this.state;
 

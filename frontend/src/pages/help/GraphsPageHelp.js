@@ -5,6 +5,11 @@ import graphStockTicker from '../../images/graphStockTicker.png';
 import graphTI from '../../images/graphTI.png';
 
 
+/**
+ * GraphsPageHelp.js
+ * Purpose: Display the Graphs Page table on /help
+ * @author Elisa Rexinger
+*/
 
 function GraphsPageHelp() {
     

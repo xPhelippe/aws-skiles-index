@@ -2,6 +2,12 @@ import React from 'react';
 import logo from '../images/greyLogoCropped.png';
 
 
+/**
+ * About.js
+ * Purpose: Display text describing The Skiles Index Application
+ * @author Elisa Rexinger
+*/
+
 function About() {
     return (
         <div className="Content">

@@ -11,6 +11,14 @@ import HomePageHelp from './HomePageHelp';
 import EditUserPageHelp from './EditUserPageHelp';
 import GraphsPageHelp from './GraphsPageHelp';
 
+
+/**
+ * Help.js
+ * Purpose: Create the Help page content 
+ *          Contains guides for interacting with every features in the Skiles Index by showing each input and output on every page
+ * @author Elisa Rexinger
+*/
+
 class Help extends Component {
     render() { 
         return (

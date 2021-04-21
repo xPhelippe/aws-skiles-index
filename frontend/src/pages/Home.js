@@ -7,17 +7,20 @@ import graphIcon from "../images/graphIcon.png";
 import helpIcon from "../images/helpIcon.png";
 
 
+/**
+ * Home.js
+ * Purpose: Display user data including all user attributes, customizable watchlist, and links to program features
+ * @author Phelippe Souza-Herod
+ * @author Elisa Rexinger
+*/
+
 class Home extends Component {
   constructor(props) {
     super(props);
     
-    console.log('before user data in home')
     let UserData = localStorage.getItem("UserData")
 
     UserData = JSON.parse(UserData)
-
-    console.log("constructor home")
-    console.log(UserData)
 
     this.state = {
       firstName: UserData.first_name,
@@ -28,15 +31,13 @@ class Home extends Component {
       viewEditUser : false
     }
 
-    this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this);
     this.editUserInfo = this.editUserInfo.bind(this);
   }
 
-
-  handleSuccessfulAuth(data) {
-    this.props.handleLogin(data);
-  }
-
+  /**
+   * Represent user's investment type as a String
+   * @param userType User's invesment type - either 0 (risk averse) or 1 (risk tolerant)
+  */
   getInvesmentType(userType) {
     const types = {
       0: "Risk Averse",
@@ -46,6 +47,7 @@ class Home extends Component {
     return types[userType];
   }
 
+  // redirect to the Edit User page at /edit-use
   editUserInfo() {
     this.props.history.push('/edit-user');
   }

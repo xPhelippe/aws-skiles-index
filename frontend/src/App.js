@@ -2,7 +2,6 @@
 //import React, { useEffect } from 'react';
 import React, { Component } from 'react';
 // eslint-disable-next-line
-import logo from './images/greyLogoCropped.png';
 import './App.css';
 import Home from './pages/Home'
 import About from './pages/About'
@@ -39,8 +38,6 @@ class App extends Component {
           <Route exact path="/watchlist" component={Watchlist} />
           <Route exact path="/education" component={Education} />
           <Route exact path="/edit-user" component={EditUserInfo} />
-          {/* <Route exact path="/overview" component={OverviewData} /> */}
-
           </div>
         </div>
     );

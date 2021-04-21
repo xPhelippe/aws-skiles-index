@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 import profile from '../images/profile.png';
 
+
+/**
+ * UserInfoCard.js
+ * Purpose: User card for user home page. Displays a user's first and last name and investment type
+ * @author Elisa Rexinger
+ */
+
 class UserInfoCard extends Component {
     constructor(props) {
         super(props);

@@ -2,11 +2,17 @@ import React from 'react'
 import landingPage from '../images/landingPage.png';
 
 
+/**
+ * LandingPage.js
+ * Purpose: Landing page
+ * @author Elisa Rexinger
+*/
+
 function LandingPage() {
     return (
         <div className="Landing-page Content">
-            <img src={landingPage}  alt="logo" />
-            <p  style={{'font-family': '"Lucida Console", "Courier New", monospace'}}>
+            <img src={landingPage}  alt="logo" className="Landing-page"/>
+            <p>
                 <br/><br/>
                 Intuitive stock visualization of market trends <br/>
                 Accessible educational resources <br/>

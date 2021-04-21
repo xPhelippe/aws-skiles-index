@@ -3,7 +3,13 @@ import cryptoCurrency from './images/cryptoCurrencyImg.jpg'
 import optionsContracts from './images/optionsContractsImg.jpg'
 import futuresTrading from './images/futuresTradingImg.jpg'
 
-//List of Blocks in the Education Page with photos, desciptions and hyperlinks about stocks and investing
+/**
+ * HighRiskMaterial.js
+ * Purpose: Create list of blocks for the high risk user's education page with photos, desciptions and hyperlinks about stocks and investing
+ * @author Joseph Patullo
+ */
+
+
 class HighRiskMaterial extends Component {
     render() {
         return (
@@ -13,8 +19,6 @@ class HighRiskMaterial extends Component {
                 </div>
                 <div className="row mb-1 mt-4 justify-content-center">
 
-                    
-                    {/* High Risk */}
                      <div className="col mx-0  mb-4">
                         <div className="card" >
                         <img className="card-img-top" style={{'width':'100%'}} src={cryptoCurrency} alt="Card" />
