@@ -54,7 +54,10 @@ SECRET_KEY = skiles_secrets.SECRET_KEY
 ALPHA_VANTAGE_API_KEY = skiles_secrets.ALPHA_VANTAGE_API_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(os.environ.get('DEBUG', True))
+DEBUG = True
+if os.environ.get('DEBUG', '') == 'False':
+    DEBUG = False
+
 
 ALLOWED_HOSTS = [
     'http://127.0.0.1:3000',
