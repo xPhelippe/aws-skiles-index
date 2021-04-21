@@ -3,6 +3,12 @@ import aboutPage from '../../images/aboutPageHelp.png';
 import text from '../../images/aboutUsText.png';
 
 
+/**
+ * AboutPageHelp.js
+ * Purpose: Display the About Page table on /help
+ * @author Elisa Rexinger
+*/
+
 function AboutPageHelp() {
     
         return (

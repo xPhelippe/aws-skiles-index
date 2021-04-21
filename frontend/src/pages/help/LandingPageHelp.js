@@ -7,6 +7,12 @@ import aboutusIcon from '../../images/aboutusHelp.png';
 import helpIcon from '../../images/helpHelp.png';
 
 
+/**
+ * LandingPageHelp.js
+ * Purpose: Display the Landing Page table on /help
+ * @author Elisa Rexinger
+*/
+
 function LandingPageHelp() {
     
         return (
@@ -43,7 +49,7 @@ function LandingPageHelp() {
                     <td><img src={aboutusIcon} className="Mini-aang" alt="navigation bar" /></td>
                     <td>Redirect to About Us page at /about</td>
                 </tr>
-                
+
                 <tr>
                     <td><img src={helpIcon} className="Mini-aang" alt="navigation bar" /></td>
                     <td>Redirect to Help page at /help</td>

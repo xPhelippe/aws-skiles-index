@@ -3,6 +3,16 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import getAPIHost from "./Environment"
 import axios from 'axios';
+
+
+/**
+ * UserWatchlist.js
+ * Purpose: Create watchlist component to show popular stock market ratios for all of a user's selected stock list
+ * @author Phelippe Souza-Herod
+ * @author Elisa Rexinger
+ */
+
+
 class UserWatchlist extends Component {
     constructor(props) {
         super(props);
@@ -12,6 +22,7 @@ class UserWatchlist extends Component {
         };
     }
 
+    // On component mount, call fetchStockRatio for each stock in the state array stockName
     componentDidMount() {
         this.props.stockName.map(item => (
             this.fetchStockRatio(item.stock.ticker)
@@ -19,7 +30,7 @@ class UserWatchlist extends Component {
         this.fetchStockTicker();
     }
 
-    
+    // Use /get_all_tickers endpoint to update the available stocks offered in the "add/remove from watchlist menu" to reflect the stocks in the database
     fetchStockTicker = async () => {
         axios
         .get(
@@ -34,6 +45,11 @@ class UserWatchlist extends Component {
         });
     };
 
+
+    /**
+     * Add a stock to a user's favorite stock array using the /add_to_watchlist endpoint
+     * @param e event from selecting an item in the "add to watchlist" drop down menu
+     */
     addtoWatchlist = (e) => {
         let ticker = e.currentTarget.textContent;
         let user = this.props.user
@@ -59,6 +75,10 @@ class UserWatchlist extends Component {
         });
     }
 
+    /**
+     * Remove a stock from a user's favorite stock array using the /remove_from_watchlist endpoint
+     * @param e event from selecting an item in the "remove from watchlist" drop down menu
+     */
     removeFromWatchlist = (e) => {
         let ticker = e.currentTarget.textContent;
         let user = this.props.user;
@@ -82,7 +102,11 @@ class UserWatchlist extends Component {
         });
     }
 
-    fetchStockRatio = async (ticker, index) => {
+    /**
+     * Receive a stocks overview data using the /get_stock_overview endpoint
+     * @param ticker Name of stock ticker to receive overview information for
+     */
+    fetchStockRatio = async (ticker) => {
         let data = new FormData();
         data.append('ticker', ticker)
 

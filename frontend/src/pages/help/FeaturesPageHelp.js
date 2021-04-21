@@ -5,6 +5,12 @@ import watchlistCard from '../../images/watchlistCard.png';
 import educationCard from '../../images/educationCard.png';
 
 
+/**
+ * FeaturesPageHelp.js
+ * Purpose: Display the Features Page table on /help
+ * @author Elisa Rexinger
+*/
+
 function FeaturesPageHelp() {
     
         return (

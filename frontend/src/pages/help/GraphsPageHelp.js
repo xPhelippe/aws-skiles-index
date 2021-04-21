@@ -5,6 +5,11 @@ import graphStockTicker from '../../images/graphStockTicker.png';
 import graphTI from '../../images/graphTI.png';
 
 
+/**
+ * GraphsPageHelp.js
+ * Purpose: Display the Graphs Page table on /help
+ * @author Elisa Rexinger
+*/
 
 function GraphsPageHelp() {
     
@@ -24,7 +29,7 @@ function GraphsPageHelp() {
     
                 <tr>
                     <td><img src={graph} className="Maxi-aang" alt="navigation bar" /></td>
-                    <td>Redirect to Login page at /login</td>
+                    <td>Visualization of user's chosen stock for their selected technical indicator</td>
                 </tr>
 
                 <tr>

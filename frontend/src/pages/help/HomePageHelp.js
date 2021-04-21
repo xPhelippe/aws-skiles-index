@@ -8,6 +8,12 @@ import logout from '../../images/logout.png';
 import watchlist from '../../images/watchlistHelp.png';
 
 
+/**
+ * HelpPageHelp.js
+ * Purpose: Display the Help Page table on /help
+ * @author Elisa Rexinger
+*/
+
 function HomePageHelp() {
     return (
         <table className="table table-striped table-dark" style={{'margin-top': '25px'}} >
@@ -48,7 +54,7 @@ function HomePageHelp() {
                     <td><img src={helpHome} className="Mini-aang" alt="navigation bar" /></td>
                     <td>Redirects to Help page at /help</td>
                 </tr>
-                
+
                 <tr>
                     <td><img src={watchlist} className="Maxi-aang" alt="navigation bar" /></td>
                     <td>Watchlist features displays popular ratios for their favorite stocks list.

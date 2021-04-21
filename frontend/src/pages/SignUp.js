@@ -1,8 +1,15 @@
 import React, { Component } from "react";
 import getAPIHost from '../components/Environment';
 import logo from '../images/greyLogoCropped.png';
-
 import axios from "axios";
+
+
+/**
+ * SignUp.js
+ * Purpose: Component for user sign up
+ * @author Phelippe Souza-Herod
+ * @author Elisa Rexinger
+*/
 
 export default class SignUp extends Component {
   constructor(props) {
@@ -21,14 +28,72 @@ export default class SignUp extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  /**
+   * Update state to match user input
+  */
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value
     });
   }
 
+  /**
+   * Send new user's account information using the /create_user/ endpoint
+  */
   handleSubmit = () => {
     const { username, password, first_name, last_name } = this.state;
+
+    /* Testing input:
+    REQ-1: Username Input
+    Usernames can only contain alphanumeric characters (letters A-Z and
+    numbers 0-9) with a maximum of 15 letters.
+
+    REQ-2: Password Input
+    Passwords must be a minimum of 8 characters. The characters must be at
+    least 1 of each of the following categories: upper case letters (A-Z), lower case letters (a-z), numbers (0-9), and symbols (~`! @#$%^&*()_-+={[}]|\:;"'<,>.?/”)
+    */
+    var special_characters = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+    var capital_characters = /[ABCDEFGHIJKLMNOPQRSTUVWXYZ]/;
+    var lower_characters = /[abcdefghijklmnopqrstuvwxyz]/;
+    var number_characters = /[0123456789]/;
+    var username_invalid_prompt = "Usernames can only contain alphanumeric characters (letters A-Z and numbers 0-9) with a maximum of 15 letters.\n";
+    var password_invalid_prompt = "Passwords must be a minimum of 8 characters. The characters must be at least 1 of each of the following categories: upper case letters (A-Z), lower case letters (a-z), numbers (0-9), and a special character\n";
+
+
+    if(special_characters.test(username)){
+      alert(username_invalid_prompt + '\nInvalid Input: Username must only contain alphanumeric characters');
+      return;
+    }
+
+    if(username.length > 15) {
+      alert(username_invalid_prompt + '\nInvalid Input: Username cannot exceed 15 characters');
+      return;
+    }
+
+    if(password.length < 7) {
+      alert(password_invalid_prompt + '\nInvalid Input: Password must be at least 8 characters long');
+      return;
+    }
+
+    if(!special_characters.test(password)){
+      alert(password_invalid_prompt + '\nInvalid Input: Password must contain a special character');
+      return;
+    }
+
+    if(!capital_characters.test(password)){
+      alert(password_invalid_prompt + '\nInvalid Input: Password must contain an upper case character');
+      return;
+    }
+
+    if(!lower_characters.test(password)){
+      alert(password_invalid_prompt + '\nInvalid Input: Password must contain a lower case character');
+      return;
+    }
+
+    if(!number_characters.test(password)){
+      alert(password_invalid_prompt + '\nInvalid Input: Password must contain a number');
+      return;
+    }
 
     let data = new FormData();
     

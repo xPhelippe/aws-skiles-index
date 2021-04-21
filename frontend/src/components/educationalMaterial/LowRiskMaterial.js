@@ -3,8 +3,12 @@ import treasurySecurities from './images/treasurySecuritiesImg.jpg'
 import municipalBond from './images/municipalBond.jpg'
 import certificateOfDeposit from './images/certificateOfDeposit.png'
 
+/**
+ * LowRiskMaterial.js
+ * Purpose: Create list of blocks for the low risk user's education page with photos, desciptions and hyperlinks about stocks and investing
+ * @author Joseph Patullo
+ */
 
-//List of Blocks in the Education Page with photos, desciptions and hyperlinks about stocks and investing
 class LowRiskMaterial extends Component {
     render() {
         return (

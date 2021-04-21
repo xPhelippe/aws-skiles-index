@@ -1,3 +1,9 @@
+/**
+ * Environment.js
+ * Purpose: Make api calls using getAPIHost() + </endpoint_name/> 
+ * @author Mihir Lad
+ */
+
 const getAPIHost = () => {
   if (process.env.REACT_APP_API_HOST !== undefined)
     return process.env.REACT_APP_API_HOST;

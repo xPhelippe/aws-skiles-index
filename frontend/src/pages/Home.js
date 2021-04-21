@@ -7,17 +7,20 @@ import graphIcon from "../images/graphIcon.png";
 import helpIcon from "../images/helpIcon.png";
 
 
+/**
+ * Home.js
+ * Purpose: Display user data including all user attributes, customizable watchlist, and links to program features
+ * @author Phelippe Souza-Herod
+ * @author Elisa Rexinger
+*/
+
 class Home extends Component {
   constructor(props) {
     super(props);
     
-    console.log('before user data in home')
     let UserData = localStorage.getItem("UserData")
 
     UserData = JSON.parse(UserData)
-
-    console.log("constructor home")
-    console.log(UserData)
 
     this.state = {
       firstName: UserData.first_name,
@@ -28,15 +31,13 @@ class Home extends Component {
       viewEditUser : false
     }
 
-    this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this);
     this.editUserInfo = this.editUserInfo.bind(this);
   }
 
-
-  handleSuccessfulAuth(data) {
-    this.props.handleLogin(data);
-  }
-
+  /**
+   * Represent user's investment type as a String
+   * @param userType User's invesment type - either 0 (risk averse) or 1 (risk tolerant)
+  */
   getInvesmentType(userType) {
     const types = {
       0: "Risk Averse",
@@ -46,6 +47,7 @@ class Home extends Component {
     return types[userType];
   }
 
+  // redirect to the Edit User page at /edit-use
   editUserInfo() {
     this.props.history.push('/edit-user');
   }
@@ -54,24 +56,24 @@ class Home extends Component {
     return (
       <div>
         <div className="Content">
-            <a href="/" className="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+            <a href="/">
               <img className="App-logo" src={logo} alt="logo" />
             </a>
 
         <div className="row mb-0 mt-5 justify-content-center">
-              <div className="col mx-0">
+              <div className="col ml-5 container">
                   <UserInfoCard firstName={this.state.firstName} lastName={this.state.lastName}
                   investmentType={this.getInvesmentType(this.state.investmentType)}/>
-                  <button onClick={this.editUserInfo} class="ml-3 btn btn-outline-light me-2"> Edit Info </button>
+                  <button onClick={this.editUserInfo} class="ml-4 btn btn-outline-light me-2"> Edit Info </button>
               </div>
 
 
 
-              <div className="col mx-0">
+              <div className="col mr-4">
                 <UserWatchlist stockName={this.state.watchlist} user={this.state.username} history={this.props.history} />
               </div>
 
-              <div className="col mx-0">
+              <div className="col mx-0 ml-4">
                 <ul class="nav flex-column">
                   <li class="nav-item row">
                     <img src={graphIcon} className="Mini-aang" alt="mini-aang" />

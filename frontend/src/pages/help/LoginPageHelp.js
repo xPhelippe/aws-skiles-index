@@ -4,6 +4,12 @@ import loginFields from '../../images/loginFields.png';
 import loginSignin from '../../images/loginSignin.png';
 
 
+/**
+ * LoginPageHelp.js
+ * Purpose: Display the Login Page table on /help
+ * @author Elisa Rexinger
+*/
+
 function LoginPageHelp() {
     
         return (

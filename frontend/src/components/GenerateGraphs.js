@@ -5,10 +5,17 @@ import LineChart from './LineChart';
 import CandleStickChart from './CandleStickChart';
 
 
+/**
+ * GenerateGraphs.js
+ * Purpose: Use /stocks/ endpoint to receive the technical indicator data for a given stock
+ *          Format data to work with graphing functions in LineChart.js and CandleStickChart.js
+ * @author Elisa Rexinger
+ */
 
 const GenerateGraphs = (props) => {
     const [stockData, setStockData] = useState([]);
     const[ticker, setTicker] = useState([]);
+
     // Fetch daily stock chart for TSLA when the component mounts
     useEffect(() => {
         const fetchStockData = async () => {
@@ -30,7 +37,6 @@ const GenerateGraphs = (props) => {
     });
 
 
-
     return (
         <div className="container" style={{'width':'950px'}}>
             {(props.data_type_name) === 'daily_adjusted' ? 'Time Series (Daily Adjusted)' : props.data_type_name} for {props.ticker} 
@@ -39,8 +45,14 @@ const GenerateGraphs = (props) => {
     );
 };
 
+/**
+ * Format stock data from /stocks/ endpoint into datapoints used in graphing
+ * @param stockData Data received from /stocks/ endpoint for a given stock ticker and technical indicator
+ * @param dataType Name of technical indictor
+ * @return An array of data points used in graphing
+ */
 function formatStockData(stockData, dataType) {
-    // Convert stockData from an object to an array
+    // daily_adjusted gives data needed for a Time Series candlestick chart. Requires date, open, high, low, and close data points
     if (dataType === 'daily_adjusted') {
         return Object.entries(stockData).map(entries => {
             const [time, priceData] = entries;
@@ -54,9 +66,10 @@ function formatStockData(stockData, dataType) {
             }
         });
     }
+
+    // SMA, RSI, and VWAP graphs require date and value 
     return Object.entries(stockData).map(entries => {
         const [time, priceData] = entries;
-        console.log(dataType);
         return {
             date: priceData.timestamp,
             indicator_value: Number(priceData[dataType])

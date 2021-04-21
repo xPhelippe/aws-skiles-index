@@ -4,6 +4,12 @@ import editUserFields from '../../images/editUserFields.png';
 import updateButton from '../../images/updateButton.png';
 
 
+/**
+ * EditeUserPageHelp.js
+ * Purpose: Display the Edit User Page table on /help
+ * @author Elisa Rexinger
+*/
+
 function EditUserPageHelp() {
     
         return (

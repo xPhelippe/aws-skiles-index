@@ -1,5 +1,4 @@
 .App {
-  /* text-align: center; */
   background-color: #1c1c1c;
 }
 
@@ -11,7 +10,6 @@
 
 .Help-pages {
   height: 50vmin;
-
   pointer-events: none;
   margin: 0;
 }
@@ -19,7 +17,7 @@
 .Mini-aang {
   height: 4vmin;
   pointer-events: none;
-  margin: 5px;
+  margin: 8px;
 }
 
 .Midi-aang {
@@ -36,13 +34,12 @@
 
 .Landing-page {
   height: 50vmin;
-  /* pointer-events: none; */
-  font-family: "Lucida Console", "Courier New" /* , monospace */;
+  font-family: "Lucida Console", "Courier New";
   text-align: center;
 }
 
 .Lucida {
-  font-family: "Lucida Console", "Courier New" /* , monospace */;
+  font-family: "Lucida Console", "Courier New";
   text-align: center;
 }
 
@@ -51,7 +48,6 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   justify-content: flex-start;
   font-size: calc(10px + 2vmin);
   color: white;
@@ -62,14 +58,10 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  /* align-items: flex-start;
-  justify-content: flex-start;  */
   justify-content: flex-start;
   align-items: center;
-  /* justify-content: flex-start; */
-  /* font-size: calc(10px + 1vmin); */
   color: white;
-  font-family: "Lucida Console", "Courier New" /* , monospace */;
+  font-family: "Lucida Console", "Courier New";
   font-weight: bold;
 }
 
@@ -77,23 +69,16 @@
   background-color: #1c1c1c;
   display: flex;
   flex-direction: column;
-  /* align-items: flex-start;
-  justify-content: flex-start;  */
   justify-content: flex-start;
   align-items: center;
-  /* justify-content: flex-start; */
-  /* font-size: calc(10px + 1vmin); */
   color: white;
-  font-family: "Lucida Console", "Courier New" /* , monospace */;
+  font-family: "Lucida Console", "Courier New";
   font-weight: bold;
 }
 
 .User-logout {
   display: flex;
-
   flex-direction: column;
-  /* align-items: flex-start;
-  justify-content: flex-start;  */
   align-content: center;
   padding: 10px;
   background-color: #3e444a;
@@ -112,7 +97,7 @@
 }
 
 .h2 {
-  font-family: "Lucida Console", "Courier New" /* , monospace */;
+  font-family: "Lucida Console", "Courier New";
   font-weight: bold;
   animation: example2 2s ease-out;
   margin-top: 20px;
@@ -120,7 +105,7 @@
 }
 
 .button {
-  font-family: "Lucida Console", "Courier New" /* , monospace */;
+  font-family: "Lucida Console", "Courier New";
   font-weight: bold;
 }
 
@@ -137,21 +122,10 @@
   }
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 .example2 {
   display: flex;
   justify-items: flex-start;
   align-items: center;
-  /* width: 100%;
-  height: 100%; */
   margin: 0;
   line-height: 50px;
   text-align: left;
@@ -177,13 +151,7 @@
 }
 
 .card-body {
-  font-family: "Lucida Console", "Courier New" /* , monospace */;
-  font-weight: bold;
-  color: black;
-}
-
-.card-body-user {
-  font-family: "Lucida Console", "Courier New" /* , monospace */;
+  font-family: "Lucida Console", "Courier New";
   font-weight: bold;
   color: black;
 }
@@ -202,111 +170,55 @@
   align-items: flex-start;
 }
 
-.card-user {
-  /* height: 400px; */
-  display: flex;
-  align-items: flex-end;
-  font-family: "Lucida Console", "Courier New" /* , monospace */;
-  font-weight: bold;
-  color: white;
-
+.hvrbox,
+.hvrbox * {
+  box-sizing: border-box;
+}
+.hvrbox {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  /* min-width: 400px; */
-  background-color: #3e444a;
-  background-clip: border-box;
-  border: 0 solid rgba(0, 0, 0, 0.125);
-  /* border-radius: 0.25rem; */
+  display: inline-block;
+  overflow: hidden;
+  max-width: 100%;
+  height: auto;
 }
-
-/*888888888888888888888888888888888888888888888888888888888888888888888888*/
-.form-control {
-  min-height: 41px;
-  background: #fff;
-  box-shadow: none !important;
-  border-color: #e3e3e3;
+.hvrbox img {
+  max-width: 100%;
 }
-.form-control:focus {
-  border-color: #70c5c0;
+.hvrbox .hvrbox-layer_bottom {
+  display: block;
 }
-.form-control,
-.btn {
-  border-radius: 2px;
-}
-.login-form {
-  width: 350px;
-  margin: 0 auto;
-  padding: 100px 0 30px;
-}
-.login-form form {
-  color: #7a7a7a;
-  border-radius: 2px;
-  margin-bottom: 15px;
-  font-size: 13px;
-  background: #ececec;
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  padding: 30px;
-  position: relative;
-}
-.login-form h2 {
-  font-size: 22px;
-  margin: 35px 0 25px;
-}
-.login-form .avatar {
+.hvrbox .hvrbox-layer_top {
+  opacity: 0;
   position: absolute;
-  margin: 0 auto;
+  top: 0;
   left: 0;
   right: 0;
-  top: -50px;
-  width: 95px;
-  height: 95px;
-  border-radius: 50%;
-  z-index: 9;
-  background: #70c5c0;
-  padding: 15px;
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
-}
-.login-form .avatar img {
+  bottom: 0;
   width: 100%;
-}
-.login-form input[type="checkbox"] {
-  position: relative;
-  top: 1px;
-}
-.login-form .btn,
-.login-form .btn:active {
-  font-size: 16px;
-  font-weight: bold;
-  background: #70c5c0 !important;
-  border: none;
-  margin-bottom: 20px;
-}
-.login-form .btn:hover,
-.login-form .btn:focus {
-  background: #50b8b3 !important;
-}
-.login-form a {
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
   color: #fff;
-  text-decoration: underline;
+  padding: 15px;
+  -moz-transition: all 0.4s ease-in-out 0s;
+  -webkit-transition: all 0.4s ease-in-out 0s;
+  -ms-transition: all 0.4s ease-in-out 0s;
+  transition: all 0.4s ease-in-out 0s;
 }
-.login-form a:hover {
-  text-decoration: none;
+.hvrbox:hover .hvrbox-layer_top,
+.hvrbox.active .hvrbox-layer_top {
+  opacity: 1;
 }
-.login-form form a {
-  color: #7a7a7a;
-  text-decoration: none;
-}
-.login-form form a:hover {
-  text-decoration: underline;
-}
-.login-form .bottom-action {
-  font-size: 14px;
-}
-
-.no-gutters {
-  margin-right: 0;
-  margin-left: 0;
-  padding-right: 0;
-  padding-left: 0;
+.hvrbox .hvrbox-text {
+  text-align: center;
+  font-family: "Lucida Console", "Courier New";
+  font-weight: bold;
+  font-size: 16px;
+  display: inline-block;
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  -moz-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
