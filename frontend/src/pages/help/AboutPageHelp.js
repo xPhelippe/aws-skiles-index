@@ -12,7 +12,7 @@ import text from '../../images/aboutUsText.png';
 function AboutPageHelp() {
     
         return (
-            <table className="table table-striped table-dark" style={{'margin-top': '25px'}} >
+            <table className="table table-striped table-dark" style={{'margin-top': '25px'}}>
             <thead class="thead-dark">
                 <tr>
                     <th>About Page</th>
@@ -31,8 +31,7 @@ function AboutPageHelp() {
                 </tr>
             </tbody>
         </table> 
-        );
-    
+    );
 }
 
 export default AboutPageHelp;

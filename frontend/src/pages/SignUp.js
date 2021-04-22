@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import getAPIHost from '../components/Environment';
 import logo from '../images/greyLogoCropped.png';
 import axios from "axios";
-import NoHomeNavBar from '../components/NoHomeNavBar'
-
+import Form from 'react-bootstrap/Form'
 
 
 /**
@@ -22,8 +21,8 @@ export default class SignUp extends Component {
       last_name: "",
       username: "",
       password: "",
-      registrationErrors: "",
       investment_type: "",
+      not_accepted: true,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -43,7 +42,7 @@ export default class SignUp extends Component {
    * Send new user's account information using the /create_user/ endpoint
   */
   handleSubmit = () => {
-    const { username, password, first_name, last_name } = this.state;
+    const { username, password, first_name, last_name, not_accepted } = this.state;
 
     /* Testing input:
     REQ-1: Username Input
@@ -97,6 +96,12 @@ export default class SignUp extends Component {
       return;
     }
 
+    if(not_accepted) {
+      alert('Must Accept User Agreement');
+      return;      
+    }
+
+
     let data = new FormData();
     
     data.append('username',username)
@@ -116,15 +121,23 @@ export default class SignUp extends Component {
       }); 
   }
 
+  checked = () => {
+    this.setState({not_accepted: !this.state.not_accepted})
+   }
+
   render() {
     return (
-      
-      <div className="Content">
-        <a href="/" className="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-          <img className="App-logo" src={logo} alt="logo" />
-        </a>
-        <h2 class="text-center" style={{'margin-top': '25px'}}>Create an Account<br/></h2>
-        <div className="form-group" style={{'margin-top': '25px'}}>
+      <div className="container Content">
+      <a href="/" className="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+        <img className="App-logo" src={logo} alt="logo" />
+      </a>
+
+      <h2 class="text-center" style={{'margin-top': '25px'}}>Create an Account<br/></h2>
+
+
+      <div className="row mb-1 mt-4 justify-content-center">
+        <div className="col mx-0">
+          <div className="form-group" style={{'margin-top': '25px'}}>
             <input
                 className="form-control"
                 type="username"
@@ -159,7 +172,7 @@ export default class SignUp extends Component {
                 required
             />
         </div>
-        
+              
 
         <div className="form-group">
             <input
@@ -173,10 +186,22 @@ export default class SignUp extends Component {
             />
         </div>
 
-          <div className="form-group">
-            <button onClick={this.handleSubmit} class="btn btn-warning btn-lg btn-block">Sign Up</button>
-          </div>
+        <div className="form-group">
+          <button onClick={this.handleSubmit} class="btn btn-warning btn-lg btn-block">Sign Up</button>
+        </div>
       </div>
+
+        <div className="col">
+          <div className="form-group border px-3 pt-3" style={{'margin-top': '25px', 'width': '300px'}}>
+              <div>I understand and accept that The Skiles Index is not responsible for any and all personal loss, damage, or harm (including financial loss) that may result from using this application.</div>
+              <Form.Group controlId="formBasicCheckbox">
+                <Form.Check className="pt-3" type="checkbox" label="I Agree" onChange={this.checked.bind(this)}/>
+              </Form.Group>
+          </div>  
+        </div>
+
+      </div>
+    </div>
     );
   }
 }
