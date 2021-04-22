@@ -28,7 +28,7 @@ function EditUserPageHelp() {
     
                 <tr>
                     <td><img src={editUserFields} className="Maxi-aang" alt="navigation bar" /></td>
-                    <td>Text-fields for existing users to enter their updated first name, last name, and/or investment type information.</td>
+                    <td>Text-fields and dropdown menu for existing users to enter their updated first name, last name, and/or investment type information.</td>
                 </tr>
                 <tr>
                     <td><img src={updateButton} className="Mini-aang" alt="navigation bar" /></td>

@@ -55,7 +55,7 @@
 
 .Content {
   background-color: #1c1c1c;
-  min-height: 100vh;
+  min-height: 150vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
