@@ -22,7 +22,11 @@ jobs:
         working-directory: ${{ github.workspace }}/frontend
         run: npm ci
       - name: Build React project
-        run: CI=false REACT_APP_API_HOST="https://api.joanneskiles.com" npm run build --if-present
+        run: npm run build --if-present
+        env:
+          CI: false
+          DISABLE_ESLINT_PLUGIN: true
+          REACT_APP_API_HOST: https://api.joanneskiles.com
         working-directory: ${{ github.workspace }}/frontend
 #      - name: Test React project
 #        run: npm test
