@@ -46,6 +46,9 @@
     ]
   },
   "devDependencies": {
+    "eslint": "^7.25.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-react": "^7.23.2",
     "file-loader": "^6.2.0",
     "url-loader": "^4.1.1"
   }

@@ -1,13 +1,13 @@
 // eslint-disable-next-line
 //import React, { useEffect } from 'react';
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 // eslint-disable-next-line
 import './App.css';
-import Home from './pages/Home'
-import About from './pages/About'
-import Help from './pages/help/Help'
-import Features from './pages/Features'
-import LandingPage from './pages/LandingPage'
+import Home from './pages/Home';
+import About from './pages/About';
+import Help from './pages/help/Help';
+import Features from './pages/Features';
+import LandingPage from './pages/LandingPage';
 // eslint-disable-next-line
 import {Route} from 'react-router-dom';
 import NavBar from './components/NavBar';
@@ -17,16 +17,16 @@ import Graphs from './pages/Graphs';
 import Watchlist from './components/Watchlist';
 import Education from './pages/Education';
 import EditUserInfo from './components/EditUserInfo';
-//import OverviewData from './data/overviewData';
+// import OverviewData from './data/overviewData';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-      <div className="Nav-bar">
-        <NavBar />
-      </div>
-      <div className="Content">
+        <div className="Nav-bar">
+          <NavBar />
+        </div>
+        <div className="Content">
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/home" component={Home} />
           <Route exact path="/about" component={About} />
@@ -38,8 +38,8 @@ class App extends Component {
           <Route exact path="/watchlist" component={Watchlist} />
           <Route exact path="/education" component={Education} />
           <Route exact path="/edit-user" component={EditUserInfo} />
-          </div>
         </div>
+      </div>
     );
   }
 }

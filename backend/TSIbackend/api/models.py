@@ -3,8 +3,8 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-
 # Create your models here.
+
 
 # holds generic infomration about stock
 class Stock(models.Model):
@@ -14,6 +14,7 @@ class Stock(models.Model):
 
     def __str__(self):
         return self.ticker
+
 
 # holds time based data about stock
 
@@ -48,12 +49,14 @@ class StockRSIData(models.Model):
     interval = models.CharField(max_length=10)
     RSI = models.DecimalField(max_digits=7, decimal_places=2)
 
+
 # profile to hold user phone number and their investment type
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(
-        User, on_delete=models.CASCADE, related_name='profile')
+    user = models.OneToOneField(User,
+                                on_delete=models.CASCADE,
+                                related_name='profile')
     phoneNumber = models.CharField(max_length=12, blank=True)
 
     investmentType = (
@@ -65,6 +68,7 @@ class Profile(models.Model):
 
     def __str__(self):
         return str(self.user)
+
 
 # code to update the user profile whenerver the user is editted
 
@@ -81,8 +85,9 @@ def save_user_profile(sender, instance, **kwargs):
 
 
 class FavStock(models.Model):
-    user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='watchlist')
+    user = models.ForeignKey(User,
+                             on_delete=models.CASCADE,
+                             related_name='watchlist')
     stock = models.ForeignKey(Stock, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -91,8 +96,9 @@ class FavStock(models.Model):
 
 class StockOverview(models.Model):
 
-    stock = models.ForeignKey(
-        Stock, on_delete=models.CASCADE, related_name="overview")
+    stock = models.ForeignKey(Stock,
+                              on_delete=models.CASCADE,
+                              related_name="overview")
 
     PriceToBookRatio = models.DecimalField(max_digits=7, decimal_places=2)
     PERatio = models.DecimalField(max_digits=7, decimal_places=2)
