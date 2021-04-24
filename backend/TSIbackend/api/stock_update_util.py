@@ -18,15 +18,18 @@ import json
 
 def parse_timestamp(timestamp_str):
     try:
-        timestamp = timezone.make_aware(datetime.strptime(
-            timestamp_str, '%Y-%m-%d'), timezone.get_default_timezone())
+        timestamp = timezone.make_aware(
+            datetime.strptime(timestamp_str, '%Y-%m-%d'),
+            timezone.get_default_timezone())
     except ValueError:
         try:
-            timestamp = timezone.make_aware(datetime.strptime(
-                timestamp_str, '%Y-%m-%d %H:%M:%S'), timezone.get_default_timezone())
+            timestamp = timezone.make_aware(
+                datetime.strptime(timestamp_str, '%Y-%m-%d %H:%M:%S'),
+                timezone.get_default_timezone())
         except ValueError:
-            timestamp = timezone.make_aware(datetime.strptime(
-                timestamp_str, '%Y-%m-%d %H:%M'), timezone.get_default_timezone())
+            timestamp = timezone.make_aware(
+                datetime.strptime(timestamp_str, '%Y-%m-%d %H:%M'),
+                timezone.get_default_timezone())
 
     return timestamp
 
@@ -51,7 +54,8 @@ def update_stock_data():
 
 def update_stock_overview(ticker):
     fd = FundamentalData(key=ALPHA_VANTAGE_API_KEY,
-                         output_format='json', indexing_type='date')
+                         output_format='json',
+                         indexing_type='date')
 
     print("Getting company overview")
     company_data, metadata = fd.get_company_overview(ticker)
@@ -76,7 +80,7 @@ def update_stock_overview(ticker):
         print("Adding overview to database")
         stockOverview = StockOverview()
         stockOverview.stock = stock
-    
+
     stockOverview.PEGRatio = company_data['PEGRatio']
     stockOverview.PriceToBookRatio = company_data['PriceToBookRatio']
     stockOverview.PERatio = company_data['PERatio']
@@ -89,11 +93,12 @@ def update_stock_overview(ticker):
 
 def update_stock_daily_data(stock):
     ts = TimeSeries(key=ALPHA_VANTAGE_API_KEY,
-                    output_format='json', indexing_type='date')
+                    output_format='json',
+                    indexing_type='date')
 
     print("Getting ticker daily adjusted")
-    daily_data, metadata = ts.get_daily_adjusted(
-        symbol=stock.ticker, outputsize='compact')
+    daily_data, metadata = ts.get_daily_adjusted(symbol=stock.ticker,
+                                                 outputsize='compact')
 
     try:
         latest_data = StockDailyData.objects.filter(
@@ -129,10 +134,12 @@ def update_stock_daily_data(stock):
 
 def update_sma_data(stock):
     ti = TechIndicators(key=ALPHA_VANTAGE_API_KEY,
-                        output_format='json', indexing_type='date')
+                        output_format='json',
+                        indexing_type='date')
 
     print("Getting SMA data")
-    sma_data, metadata = ti.get_sma(symbol=stock.ticker, interval='daily',
+    sma_data, metadata = ti.get_sma(symbol=stock.ticker,
+                                    interval='daily',
                                     series_type='compact')
 
     try:
@@ -166,7 +173,8 @@ def update_sma_data(stock):
 
 def update_vwap_data(stock):
     ti = TechIndicators(key=ALPHA_VANTAGE_API_KEY,
-                        output_format='json', indexing_type='date')
+                        output_format='json',
+                        indexing_type='date')
 
     print("Getting VWAP data")
     vwap_data, metadata = ti.get_vwap(symbol=stock.ticker, interval='5min')
@@ -201,10 +209,12 @@ def update_vwap_data(stock):
 
 def update_rsi_data(stock):
     ti = TechIndicators(key=ALPHA_VANTAGE_API_KEY,
-                        output_format='json', indexing_type='date')
+                        output_format='json',
+                        indexing_type='date')
 
     print("Getting RSI data")
-    rsi_data, metadata = ti.get_rsi(symbol=stock.ticker, interval='daily',
+    rsi_data, metadata = ti.get_rsi(symbol=stock.ticker,
+                                    interval='daily',
                                     series_type='close')
 
     try:

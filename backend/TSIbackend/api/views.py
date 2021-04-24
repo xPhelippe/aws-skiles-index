@@ -22,7 +22,7 @@ def getUserDataJson(user):
 
     retData = dict()
     retData.update(userSerial.data)
-    retData.update({"investmentType":profile.investmentType})
+    retData.update({"investmentType": profile.investmentType})
 
     return retData
 
@@ -40,9 +40,9 @@ def getUserDataJson(user):
 # - status message
 # - user object of information
 @csrf_exempt
-@require_http_methods(['POST','OPTIONS']) 
+@require_http_methods(['POST', 'OPTIONS'])
 def create_user(request):
-    
+
     # grabbing relevant infromation from post
     username = request.POST.get('username')
     password = request.POST.get('password')
@@ -51,47 +51,40 @@ def create_user(request):
     email = request.POST.get('email')
     phonenumber = request.POST.get('phonenumber')
     risk_type = request.POST.get('risk_type')
-    
+
     print("user information received")
 
     # set empty values if fields are empty
     if not email:
         email = " "
 
-
     # checking for required fields
     missing = []
 
     if not first_name:
         missing.append("first_name")
-    
+
     if not last_name:
         missing.append("last_name")
 
     if not username:
         missing.append("username")
-    
+
     if not password:
         missing.append("password")
 
     if len(missing) > 0:
-        resp = {
-            "status":"missing required information",
-            "missing":missing
-        }
+        resp = {"status": "missing required information", "missing": missing}
 
-        return JsonResponse(resp,status=404)
-        
+        return JsonResponse(resp, status=404)
 
-    # see if user already exists 
+    # see if user already exists
     try:
         user = User.objects.get(username=username)
 
-        resp = {
-            "status":"User already exists"
-        }
+        resp = {"status": "User already exists"}
 
-        return JsonResponse(resp,status=404)
+        return JsonResponse(resp, status=404)
     except ObjectDoesNotExist:
         # create user
         user = User(
@@ -108,10 +101,7 @@ def create_user(request):
 
         # add TSLA to their watchlist by default
         stock = Stock.objects.get(ticker="TSLA")
-        FavStock.objects.create(
-        user = user,
-        stock = stock
-        )
+        FavStock.objects.create(user=user, stock=stock)
 
         # create serialzed user information
         userSerial = UserSerializer(user)
@@ -120,26 +110,20 @@ def create_user(request):
 
         retData = dict()
         retData.update(userSerial.data)
-        retData.update({"investmentType":profile.investmentType})
-
+        retData.update({"investmentType": profile.investmentType})
 
         resp = {
-            "status":"user " + user.username + " successfully created",
+            "status": "user " + user.username + " successfully created",
             "userData": retData
-        } 
-        
+        }
+
         return JsonResponse(resp, status=200)
     except Exception:
 
-        resp = {
-            "status": "Error Occured"
-        }
+        resp = {"status": "Error Occured"}
         print(str(Exception))
 
-        return JsonResponse(resp,status=500)
-
-    
-
+        return JsonResponse(resp, status=500)
 
 
 # modifying a user's data
@@ -151,10 +135,10 @@ def create_user(request):
 # - email [optional]
 # - Phone number [optional]
 # outputs:
-# - success message 
+# - success message
 # - new user information
 @csrf_exempt
-@require_http_methods(['POST','OPTIONS']) 
+@require_http_methods(['POST', 'OPTIONS'])
 def change_user_info(request):
 
     # get username from post request
@@ -163,7 +147,7 @@ def change_user_info(request):
     # response dictionary
     resp = dict()
 
-    resp.update({"status":""})
+    resp.update({"status": ""})
 
     # grab the relevant information from the database
     try:
@@ -171,77 +155,62 @@ def change_user_info(request):
         resp['status'] = "user updated successfully"
     except ObjectDoesNotExist:
         resp["status"] = "User does not exist"
-        return JsonResponse(resp,status=404)
+        return JsonResponse(resp, status=404)
     except Exception:
 
-        resp = {
-            "status": "Error Occured"
-        }
+        resp = {"status": "Error Occured"}
         print(str(Exception))
 
-        return JsonResponse(resp,status_code=500)
-    
+        return JsonResponse(resp, status_code=500)
+
     userchanges = dict()
-    
+
     # modify first_name
     first_name = request.POST.get('first_name')
     if first_name:
-        
+
         user.first_name = first_name
 
-        userchanges.update({
-            "first_name":first_name
-        })
-    
+        userchanges.update({"first_name": first_name})
+
     # modify last_name
     last_name = request.POST.get('last_name')
     if last_name:
-        
-        user.last_name = last_name 
 
-        userchanges.update({
-            "last_name":last_name
-        })
+        user.last_name = last_name
+
+        userchanges.update({"last_name": last_name})
 
     # modify phonenumber
     phonenumber = request.POST.get('phonenumber')
     if phonenumber:
-        
-        user.profile.phoneNumber = phonenumber 
 
-        userchanges.update({
-            "phonenumber":phonenumber
-        })
+        user.profile.phoneNumber = phonenumber
+
+        userchanges.update({"phonenumber": phonenumber})
 
     # modify email
     email = request.POST.get('email')
     if email:
-        
-        user.email = email 
 
-        userchanges.update({
-            "email":email
-        })
+        user.email = email
 
-     # modify risk type
+        userchanges.update({"email": email})
+
+    # modify risk type
     investment_type = request.POST.get('investment_type')
     if investment_type:
-        
+
         user.profile.investmentType = investment_type
 
-        userchanges.update({
-            "investment_type":investment_type
-        })
-    
+        userchanges.update({"investment_type": investment_type})
 
-    resp.update({
-        "changes":userchanges
-    })
+    resp.update({"changes": userchanges})
 
     user.save()
 
-    return JsonResponse(resp,status=200)
-    
+    return JsonResponse(resp, status=200)
+
 
 # removing a stock from the user's watchlist
 # inputs:
@@ -250,7 +219,7 @@ def change_user_info(request):
 # output:
 # - status message
 @csrf_exempt
-@require_http_methods(['POST','OPTIONS']) 
+@require_http_methods(['POST', 'OPTIONS'])
 def remove_from_watchlist(request):
     # grab info from request
     username = request.POST.get("username")
@@ -260,23 +229,18 @@ def remove_from_watchlist(request):
     try:
         user = User.objects.get(username=username)
     except:
-        res = {
-        "status":"User does not exist"
-        }
+        res = {"status": "User does not exist"}
 
         return JsonResponse(res)
-    
+
     try:
         stock = Stock.objects.get(ticker=ticker)
     except:
-        res = {
-        "status":"Invalid ticker"
-        }
+        res = {"status": "Invalid ticker"}
 
         return JsonResponse(res)
 
-
-    favStock = FavStock.objects.filter(user=user,stock=stock)
+    favStock = FavStock.objects.filter(user=user, stock=stock)
 
     if favStock:
         favStock.delete()
@@ -284,32 +248,25 @@ def remove_from_watchlist(request):
         userJson = getUserDataJson(user)
 
         res = {
-            "status": ticker + " was removed from " + username +"'s watchlist",
+            "status": ticker + " was removed from " + username + "'s watchlist",
             "userData": userJson
         }
 
-        return JsonResponse(res,status=200)
+        return JsonResponse(res, status=200)
     else:
-        res = {
-            "status": ticker + " is not on " + username +"'s watchlist"
-        }
+        res = {"status": ticker + " is not on " + username + "'s watchlist"}
 
-        return JsonResponse(res,status=404)
-    
-    
-
-    
-
+        return JsonResponse(res, status=404)
 
 
 # adding a stock to the user's watchlist
 # inputs:
-# - username 
+# - username
 # - ticker
 # outputs:
 # - success message
 @csrf_exempt
-@require_http_methods(['POST','OPTIONS']) 
+@require_http_methods(['POST', 'OPTIONS'])
 def add_to_watchlist(request):
 
     # grab info from request
@@ -320,48 +277,35 @@ def add_to_watchlist(request):
     try:
         user = User.objects.get(username=username)
     except ObjectDoesNotExist:
-        res = {
-        "status":"User does not exist"
-        }
+        res = {"status": "User does not exist"}
 
-        return JsonResponse(res,status=404)
+        return JsonResponse(res, status=404)
     except Exception:
 
-        resp = {
-            "status": "Error Occured"
-        }
+        resp = {"status": "Error Occured"}
         print(str(Exception))
 
-        return JsonResponse(resp,status_code=404)
+        return JsonResponse(resp, status_code=404)
 
-    
     try:
         stock = Stock.objects.get(ticker=ticker)
     except ObjectDoesNotExist:
-        res = {
-        "status":"Invalid ticker"
-        }
+        res = {"status": "Invalid ticker"}
 
-        return JsonResponse(res,status=404)
+        return JsonResponse(res, status=404)
     except Exception:
 
-        resp = {
-            "status": "Error Occured"
-        }
+        resp = {"status": "Error Occured"}
         print(str(Exception))
 
-        return JsonResponse(resp,status=500)
+        return JsonResponse(resp, status=500)
 
-        
-    favStock = FavStock.objects.filter(user=user,stock=stock)
+    favStock = FavStock.objects.filter(user=user, stock=stock)
 
     if len(favStock) == 0:
 
         # add stock to watchlist
-        FavStock.objects.create(
-        user = user,
-        stock = stock
-        )
+        FavStock.objects.create(user=user, stock=stock)
 
         # construct array of current watch list
         retStocks = []
@@ -373,22 +317,13 @@ def add_to_watchlist(request):
         userJson = getUserDataJson(user)
 
         # create return object
-        res = {
-        "status":"success",
-        "userData": userJson
-
-        }
-        return JsonResponse(res,status=200)
+        res = {"status": "success", "userData": userJson}
+        return JsonResponse(res, status=200)
     else:
 
-        res = {
-        "status":"User already has this on their watchlist"
-        }
+        res = {"status": "User already has this on their watchlist"}
 
-        return JsonResponse(res,status=404)
-
-        
-
+        return JsonResponse(res, status=404)
 
 
 # Logging in the user
@@ -402,8 +337,9 @@ def add_to_watchlist(request):
 # - watchlist
 # - risk type
 
+
 @csrf_exempt
-@require_http_methods(['POST','OPTIONS']) 
+@require_http_methods(['POST', 'OPTIONS'])
 def login_user(request):
 
     # get the username of the user
@@ -415,12 +351,10 @@ def login_user(request):
     # try to get the user
     try:
         user = User.objects.get(username=username)
-    except: 
+    except:
 
-        resp = {
-            "status":"User does not exist"
-        }
-        return JsonResponse(resp,status=404)
+        resp = {"status": "User does not exist"}
+        return JsonResponse(resp, status=404)
 
     print("got the correct user")
     # see if the password is correct
@@ -434,21 +368,20 @@ def login_user(request):
 
         retData = dict()
         retData.update(userSerial.data)
-        retData.update({"investmentType":profile.investmentType})
+        retData.update({"investmentType": profile.investmentType})
 
         # grab user information and send over
         return JsonResponse(retData)
-    else: 
+    else:
 
-        resp ={
-            "status":"password is not valid"
-        }
-        return JsonResponse(resp,status=404)
+        resp = {"status": "password is not valid"}
+        return JsonResponse(resp, status=404)
+
 
 def update_stock_data(request):
     stock_update_util.update_stock_data()
 
-    return JsonResponse({"status":"Done updating stock data"})
+    return JsonResponse({"status": "Done updating stock data"})
 
 
 """
@@ -472,8 +405,12 @@ def update_stock_data(request):
       ]
     }
 """
+
+
 def stock_data_get(stock_data_model, data_type_name, values):
+
     def decorator(func):
+
         @require_GET
         def inner(request, ticker):
             # Get start_time and end_time query paramaters
@@ -501,15 +438,17 @@ def stock_data_get(stock_data_model, data_type_name, values):
                 return JsonResponse(resp, status_code=500)
 
             # Get QuerySet of data between start_time and end_time
-            data_filter = stock_data_model.objects.filter(stock=stock,
-                    timestamp__gte=start_time, timestamp__lte=end_time)
+            data_filter = stock_data_model.objects.filter(
+                stock=stock, timestamp__gte=start_time, timestamp__lte=end_time)
             # Get values from QuerySet
             data = data_filter.values('timestamp', *values)
             # Create JSON response of values
             resp = {data_type_name: list(data)}
 
             return JsonResponse(resp)
+
         return inner
+
     return decorator
 
 
@@ -533,10 +472,13 @@ def stock_data_get(stock_data_model, data_type_name, values):
       ]
     }
 """
-@stock_data_get(StockDailyData, 'daily_adjusted', ['interval', 'open', 'high',
-    'low', 'close'])
+
+
+@stock_data_get(StockDailyData, 'daily_adjusted',
+                ['interval', 'open', 'high', 'low', 'close'])
 def get_daily_adjusted(request, ticker):
     pass
+
 
 """
     Get SMA data for a particular stock
@@ -554,6 +496,8 @@ def get_daily_adjusted(request, ticker):
       ]
     }
 """
+
+
 @stock_data_get(StockSMAData, 'SMA', ['SMA'])
 def get_sma(request, ticker):
     pass
@@ -575,6 +519,8 @@ def get_sma(request, ticker):
       ]
     }
 """
+
+
 @stock_data_get(StockVWAPData, 'VWAP', ['VWAP'])
 def get_vwap(request, ticker):
     pass
@@ -596,9 +542,12 @@ def get_vwap(request, ticker):
       ]
     }
 """
+
+
 @stock_data_get(StockRSIData, 'RSI', ['RSI'])
 def get_rsi(request, ticker):
     pass
+
 
 """ 
     Get all tickers stored in the database
@@ -611,6 +560,8 @@ def get_rsi(request, ticker):
     }
 
 """
+
+
 @require_GET
 def get_all_tickers(request):
     # grab all stock tickers
@@ -621,12 +572,9 @@ def get_all_tickers(request):
     for tickerObject in tickers:
         ret.append(tickerObject['ticker'])
 
-    retData = {
-        "tickers": ret
-    }
+    retData = {"tickers": ret}
 
     return JsonResponse(retData, status=200)
-
 
 
 """
@@ -646,6 +594,8 @@ def get_all_tickers(request):
         "ShortRatio":ShortRatio of the stock
     }
 """
+
+
 @csrf_exempt
 @require_POST
 def get_stock_overview(request):
@@ -653,32 +603,26 @@ def get_stock_overview(request):
     try:
         ticker = request.POST["ticker"]
     except ObjectDoesNotExist:
-        resp = {
-            "status": ticker + " Does not exist"
-        }
+        resp = {"status": ticker + " Does not exist"}
 
-        return JsonResponse(resp,status=404)
-    
+        return JsonResponse(resp, status=404)
+
     try:
         stock = Stock.objects.get(ticker=ticker)
     except ObjectDoesNotExist:
-        resp = {
-            "status": ticker + " is not a valid stock"
-        }
+        resp = {"status": ticker + " is not a valid stock"}
 
-        return JsonResponse(resp,status=404)
+        return JsonResponse(resp, status=404)
 
     stock_overview = StockOverview.objects.get(stock=stock)
 
     resp = {
         "ticker": str(stock_overview.stock),
-        "PriceToBookRatio":stock_overview.PriceToBookRatio,
-        "PERatio":stock_overview.PERatio,
-        "PEGRatio":stock_overview.PEGRatio,
-        "PriceToSalesRatioTTM":stock_overview.PriceToSalesRatioTTM,
-        "ShortRatio":stock_overview.ShortRatio,
-
+        "PriceToBookRatio": stock_overview.PriceToBookRatio,
+        "PERatio": stock_overview.PERatio,
+        "PEGRatio": stock_overview.PEGRatio,
+        "PriceToSalesRatioTTM": stock_overview.PriceToSalesRatioTTM,
+        "ShortRatio": stock_overview.ShortRatio,
     }
-
 
     return JsonResponse(resp, status=200)

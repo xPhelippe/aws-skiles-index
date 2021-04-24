@@ -18,31 +18,9 @@ from . import skiles_secrets
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SELECTED_STOCK_TICKERS = [
-    "TSLA",
-    "AAPL",
-    "WKHS",
-    "ABR",
-    "XOM",
-    "CVX",
-    "SHW",
-    "DD",
-    "BA",
-    "UNP",
-    "DUK",
-    "ED",
-    "AEP",
-    "UNH",
-    "JNJ",
-    "JPM",
-    "AMZN",
-    "MCD",
-    "KO",
-    "PG",
-    "MSFT",
-    "FB",
-    "GOOGL",
-    "AMT",
-    "SPG"
+    "TSLA", "AAPL", "WKHS", "ABR", "XOM", "CVX", "SHW", "DD", "BA", "UNP",
+    "DUK", "ED", "AEP", "UNH", "JNJ", "JPM", "AMZN", "MCD", "KO", "PG", "MSFT",
+    "FB", "GOOGL", "AMT", "SPG"
 ]
 
 # Quick-start development settings - unsuitable for production
@@ -58,19 +36,13 @@ DEBUG = True
 if os.environ.get('DEBUG', '') == 'False':
     DEBUG = False
 
-
 ALLOWED_HOSTS = [
-    'http://127.0.0.1:3000',
-    '127.0.0.1',
-    'localhost',
-    'api.joanneskiles.com',
+    'http://127.0.0.1:3000', '127.0.0.1', 'localhost', 'api.joanneskiles.com',
     'backend.the-skiles-index.uc.r.appspot.com'
 ]
 
 # cors whitelist
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000'
-]
+CORS_ORIGIN_WHITELIST = ['http://localhost:3000']
 
 # for dev only
 CORS_ALLOW_ALL_ORIGINS = True
@@ -121,7 +93,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'TSIbackend.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
@@ -136,25 +107,27 @@ DATABASES = {
     }
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME':
+            'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME':
+            'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME':
+            'django.contrib.auth.password_validation.CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME':
+            'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
@@ -169,7 +142,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
@@ -178,9 +150,7 @@ STATIC_URL = '/static/'
 # cors whitelist
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000',
-    'https://api.joanneskiles.com',
-    'https://joanneskiles.com',
-    'https://www.joanneskiles.com',
+    'http://localhost:3000', 'https://api.joanneskiles.com',
+    'https://joanneskiles.com', 'https://www.joanneskiles.com',
     'https://backend.the-skiles-index.uc.r.appspot.com'
 ]
