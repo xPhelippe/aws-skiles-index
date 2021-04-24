@@ -9,10 +9,10 @@ import miniAang from '../images/miniAang.png';
  */
 
 function NoHomeNavBar() {
-    return (
-      <header className="p-3 style={{'background-color': '#1c1c1c', 'margin':'10}} text-white" className={"button"}>
-        <div className="container">
-          <div className="d-flex flex-wrap align-items-center justify-content-flex-start justify-content-lg-start">
+  return (
+    <header className="p-3 style={{'background-color': '#1c1c1c', 'margin':'10}} text-white" className={'button'}>
+      <div className="container">
+        <div className="d-flex flex-wrap align-items-center justify-content-flex-start justify-content-lg-start">
           <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
             <li><a href="/features" className="nav-link px-2 text-light">Features</a></li>
             <li><a href="/about" className="nav-link px-2 text-light">About Us</a></li>
@@ -20,13 +20,14 @@ function NoHomeNavBar() {
           </ul>
 
           <div className="text-end"style={{'justify-content': 'flex-end'}}>
-            <a href="/login" className="btn btn-outline-light me-2" style={{'margin':'12px'}}>Login</a>
-            <a href="/sign-up" className="btn btn-warning text-white" style={{'margin':'12px'}}>Sign Up</a>
+            <a href="/login" className="btn btn-outline-light me-2" style={{'margin': '12px'}}>Login</a>
+            <a href="/sign-up" className="btn btn-warning text-white" style={{'margin': '12px'}}>Sign Up</a>
           </div>
         </div>
       </div>
     </header>
-  );    
+  );
 }
 
 export default NoHomeNavBar;
+
